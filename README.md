@@ -22,29 +22,29 @@ conda activate my-rdkit-env
 * 2. in your "my-rdkit-env" env, install molmap by:
 
 ```bash
-$ git clone https://github.com/shenwanxiang/bidd-molmap.git
-$ cd bidd-molmap
-$ pip install -r requirements.txt --user
+git clone https://github.com/shenwanxiang/bidd-molmap.git
+cd bidd-molmap
+pip install -r requirements.txt --user
 
 # add molmap to PYTHONPATH
-$ echo export PYTHONPATH="\$PYTHONPATH:`pwd`" >> ~/.bashrc
+echo export PYTHONPATH="\$PYTHONPATH:`pwd`" >> ~/.bashrc
 ```
 
 
 ## Usage
 
 ```python
->>> from molmap import MolMap, loadmap
->>> from molmap.feature.fingerprint import Extraction as fext
->>> from molmap.feature.descriptor import Extraction as dext
->>> from molmap.vismap import plot_scatter, plot_alignmap
+from molmap import MolMap, loadmap
+from molmap.feature.fingerprint import Extraction as fext
+from molmap.feature.descriptor import Extraction as dext
+from molmap.vismap import plot_scatter, plot_alignmap
                  
->>> f1 = dext().bitsinfo[dext().bitsinfo.Subtypes.isin(['Constitution', 'Property'])] #'MACCSFP', 'EstateFP'
->>> flist = f1.IDs.tolist()[:]
+f1 = dext().bitsinfo[dext().bitsinfo.Subtypes.isin(['Constitution', 'Property'])] #'MACCSFP', 'EstateFP'
+flist = f1.IDs.tolist()[:]
 
->>> mp = MolMap(ftype = 'descriptor' ,flist = flist)
->>> mp = mp.fit(method = 'umap', n_neighbors = 100, verbose = 0) 
+mp = MolMap(ftype = 'descriptor' ,flist = flist)
+mp = mp.fit(method = 'umap', n_neighbors = 100, verbose = 0) 
 
->>> df1 = plot_alignmap(mp,htmlpath='temp/')
+df1 = plot_alignmap(mp,htmlpath='temp/')
 ```
 

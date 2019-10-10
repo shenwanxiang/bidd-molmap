@@ -48,5 +48,3 @@ $ echo export PYTHONPATH="\$PYTHONPATH:`pwd`" >> ~/.bashrc
 >>> df1 = plot_alignmap(mp,htmlpath='temp/')
 ```
 
-
-for large precomputed distance matrix, please download via:https://drive.google.com/drive/folders/1a_gtpXwft8uN3ZLdKIekFxhD3ePMUKEf?usp=sharing

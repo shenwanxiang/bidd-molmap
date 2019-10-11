@@ -52,17 +52,16 @@ class Base:
 
 class MolMap(Base):
     
-    def __init__(self, flist = [], ftype = 'descriptor', metric = 'cosine', naive_map = False):
+    def __init__(self, ftype = 'descriptor', flist = [], metric = 'cosine', naive_map = False):
         """
         paramters
         -----------------
-        dist_matrix: precomputed distance matrix, if None, we'll load the precomputed matrix
         ftype: {'fingerprint', 'descriptor'}, feature type
         flist: feature list, if you want use some of the features instead of all features
         metric: {'cosine', 'correlation'}
         naive_map: bool, if True, will return a naive mol map without an assignment to a grid
-
         """
+        
         super().__init__()
         self.ftype = ftype
         self.metric = metric
@@ -98,7 +97,7 @@ class MolMap(Base):
                         dist_matrix,
                         method = 'tsne',  
                         n_components = 2,
-                        random_state = 42,  
+                        random_state = 32,  
                         verbose = 2,
                         n_neighbors = 15,
                         **kwargs):
@@ -175,7 +174,7 @@ class MolMap(Base):
     
 
     
-    def fit(self, method = 'mds', random_state = 42,  verbose = 2, **kwargs): 
+    def fit(self, method = 'mds', verbose = 2,   random_state = 32, **kwargs): 
         """
         parameters
         -----------------
@@ -186,7 +185,6 @@ class MolMap(Base):
             kwargs.pop('n_components')
             
         ## embedding  into a 2d 
-        
         assert method in ['tsne', 'umap', 'mds'], 'no support such method!'
         
         self.method = method
@@ -200,8 +198,11 @@ class MolMap(Base):
         
         if not self.naive_map:
             ## linear assignment algorithm 
+            
+            print_info('Applying linear assignment of features, this may take about 1-10 minutes')
             _ = self._fit_assignment(self.embedded.embedding_)
-        
+            print_info('Finished assignment')
+            
         ## fit flag
         self.isfit = True
         

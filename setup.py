@@ -12,7 +12,7 @@ def requirements():
     
 configuration = {
     'name' : 'bidd-molmap',
-    'version': '1.0',
+    'version': '1.2.0',
     'packages' : find_packages(where='molmap'),
     'package_data': {'molmap': ['config/*.cfg', 'config/*.ipynb',
                                 'example/*.html', 'example/*.pptx',]},

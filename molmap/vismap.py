@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import os
 
-
+from molmap.utils.logtools import print_info
 
 
 def plot_scatter(molmap, htmlpath = '.'):
@@ -18,7 +18,7 @@ def plot_scatter(molmap, htmlpath = '.'):
     name = '%s_%s_%s_%s_%s' % (molmap.ftype,len(molmap.flist), molmap.metric, molmap.method, 'scatter')
     
     filename = os.path.join(htmlpath, name)
-    print('generate file: %s' % filename)
+    print_info('generate file: %s' % filename)
         
     
     xy = molmap.embedded.embedding_
@@ -83,7 +83,7 @@ def plot_alignmap(molmap, htmlpath = '.'):
 
     name = '%s_%s_%s_%s_%s' % (molmap.ftype,len(molmap.flist), molmap.metric, molmap.method, 'molmap')
     filename = os.path.join(htmlpath, name)
-    print('generate file: %s' % filename)
+    print_info('generate file: %s' % filename)
     
     m,n = molmap.grid_size
     colormaps = molmap.extract.colormaps

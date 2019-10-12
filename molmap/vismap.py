@@ -68,6 +68,7 @@ def plot_scatter(molmap, htmlpath = '.'):
         data = dfi.to_dict('records')
         H.add_data_set(data, 'scatter', dfi.Subtypes.iloc[0], color=color)
     H.save_file(filename)
+    print_info('save html file to %s' % filename)
     return df
 
 
@@ -165,4 +166,6 @@ def plot_alignmap(molmap, htmlpath = '.'):
                        color = color,#dataLabels = {'enabled': True, 'color': '#000000'}
                       )
     H.save_file(filename)
+    print_info('save html file to %s' % filename)
+    
     return df

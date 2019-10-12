@@ -52,13 +52,14 @@ class Base:
 
 class MolMap(Base):
     
-    def __init__(self, ftype = 'descriptor', flist = [], metric = 'cosine', naive_map = False):
+    def __init__(self, ftype = 'descriptor',  metric = 'cosine',flist = None,  var_thr = 1e-4, naive_map = False):
         """
         paramters
         -----------------
         ftype: {'fingerprint', 'descriptor'}, feature type
-        flist: feature list, if you want use some of the features instead of all features
         metric: {'cosine', 'correlation'}
+        flist: feature list, if you want use some of the features instead of all features
+        var_thr: float, defalt is 1e-4, meaning that feature will be included only if the conresponding variance larger than this value. Since some of the feature has pretty low variance, we can remove it by increasing the threshold
         naive_map: bool, if True, will return a naive mol map without an assignment to a grid
         """
         
@@ -69,8 +70,14 @@ class MolMap(Base):
         self.isfit = False
         self.naive_map = naive_map
         #default we will load the  precomputed matrix
-        
         dist_matrix = load_config(ftype, metric)
+        
+        scale_info = load_config(ftype, 'scale')      
+        scale_info = scale_info[scale_info['var'] > var_thr]
+        
+        idx = s1.index.tolist()
+        dist_matrix = dist_matrix.loc[idx][idx]
+        
         
         if flist:
             self.dist_matrix = dist_matrix.loc[flist][flist]
@@ -78,18 +85,13 @@ class MolMap(Base):
             self.dist_matrix = dist_matrix
         
         self.flist = list(self.dist_matrix.columns)
+        self.scale_info = scale_info.loc[self.flist]
         
         #init the feature extract object
         if ftype == 'fingerprint':
             self.extract = fext()
-            sdf = load_config(ftype, 'scale')
-            self.scale_info = sdf.loc[self.flist]
-
         else:
-            self.extract = dext()
-            sdf = load_config(ftype, 'scale')            
-            self.scale_info = sdf.loc[self.flist]        
-            
+            self.extract = dext()           
         
         
 
@@ -174,7 +176,7 @@ class MolMap(Base):
     
 
     
-    def fit(self, method = 'mds', verbose = 2,   random_state = 32, **kwargs): 
+    def fit(self, method = 'umap', verbose = 2, random_state = 32, **kwargs): 
         """
         parameters
         -----------------
@@ -198,15 +200,14 @@ class MolMap(Base):
         
         if not self.naive_map:
             ## linear assignment algorithm 
-            
-            print_info('Applying linear assignment of features, this may take about 1-10 minutes')
+            print_info('Applying linear assignment of features, this may take about 1-30 minutes')
             _ = self._fit_assignment(self.embedded.embedding_)
             print_info('Finished assignment')
             
         ## fit flag
         self.isfit = True
-        
         return self
+    
     
     def _transform_naive(self, embedding_2d, target_size = None):
         

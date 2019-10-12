@@ -9,12 +9,13 @@ from .pharmPointfp import GetPharmacoPFPs
 from .pubchemfp import GetPubChemFPs
 from .torsions import GetTorsionFPs
 
+from molmap.config import load_config
+
 from rdkit import Chem
 import pandas as pd
 import numpy as np
 from joblib import Parallel, delayed
 from tqdm import tqdm
-
 
 
 mapfunc = {GetAtomPairFPs:'AtomPairFP', 
@@ -31,9 +32,21 @@ mapfunc = {GetAtomPairFPs:'AtomPairFP',
 
 
 mapkey = dict(map(reversed, mapfunc.items()))
+# colormaps = {'AtomPairFP': '#ff8800',
+#              'AvalonFP': '#eeff00',
+#              'DaylightFP': '#66ff00',
+#              'ECFP': '#00ff27',
+#              'EstateFP': '#00ffaf',
+#              'MACCSFP': '#00c7ff',
+#              'PharmacoErGFP': '#003fff',
+#              'PharmacoPFP': '#4f00ff',
+#              'PubChemFP': '#d600ff',
+#              'TorsionFP': '#ff00a0',
+#              'NaN': '#000000'}
+
 colormaps = {'AtomPairFP': '#ff8800',
-             'AvalonFP': '#eeff00',
-             'DaylightFP': '#66ff00',
+             'AvalonFP': '#d4dd80',
+             'DaylightFP': '#eeff00',
              'ECFP': '#00ff27',
              'EstateFP': '#00ffaf',
              'MACCSFP': '#00c7ff',
@@ -65,7 +78,7 @@ class Extraction:
         self.feature_dict = feature_dict
         _ = self._transform_mol(Chem.MolFromSmiles('C'))
         self.colormaps = colormaps        
-        
+        self.scaleinfo = load_config('fingerprint', 'scale')
         
     def _transform_mol(self, mol):
         """

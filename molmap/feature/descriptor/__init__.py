@@ -12,6 +12,7 @@ from .topology import GetTopology, _TopologyNames
 from .matrix import GetMatrix, _MatrixNames
 from .infocontent import GetInfoContent, _InfoContentNames
 
+from molmap.config import load_config
 
 import pandas as pd
 import numpy as np
@@ -110,7 +111,7 @@ class Extraction:
         bitsinfo['colors'] = bitsinfo.Subtypes.map(colormaps)
         self.bitsinfo = bitsinfo
         self.colormaps = colormaps
-
+        self.scaleinfo = load_config('descriptor','scale')
 
         
     def _transform_mol(self, mol):

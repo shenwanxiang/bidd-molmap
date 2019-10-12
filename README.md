@@ -28,6 +28,9 @@ pip install -r requirements.txt --user
 
 # add molmap to PYTHONPATH
 echo export PYTHONPATH="\$PYTHONPATH:`pwd`" >> ~/.bashrc
+
+# init bashrc
+source ~/.bashrc
 ```
 
 ## Usage

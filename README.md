@@ -47,7 +47,7 @@ mp.plot_scatter(htmlpath='./html', htmlname= 'test')
 mp.plot_grid(htmlpath='./html', htmlname= 'grid')
 ```
 
-<!DOCTYPE html>
+
 <html lang="en">
     <head>
         <meta charset="utf-8" />

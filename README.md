@@ -80,16 +80,16 @@ for i, smiles in enumerate(smiles_list):
 ```
 Three compunds' molmap representation by images:
 -----
-<p float="left">
-  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/mol_0.png?raw=true" width="300" height="300"/> 
-  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/0.png?raw=true" width="300" height="300" />
+<p float="center">
+  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/mol_0.png?raw=true" width="200" height="200"/> 
+  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/0.png?raw=true" width="200" height="200" />
 </p>
-<p float="left">
-  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/mol_1.png?raw=true" width="300" height="300"/> 
-  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/1.png?raw=true" width="300" height="300" />
+<p float="center">
+  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/mol_1.png?raw=true" width="200" height="200"/> 
+  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/1.png?raw=true" width="200" height="200" />
 </p>
-<p float="left">
-  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/mol_2.png?raw=true" width="300" height="300"/> 
-  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/2.png?raw=true" width="300" height="300" />
+<p float="center">
+  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/mol_2.png?raw=true" width="200" height="200"/> 
+  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/2.png?raw=true" width="200" height="200" />
 </p>
 

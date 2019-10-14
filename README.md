@@ -46,8 +46,8 @@ mp.fit(method = 'umap', min_dist = 0.1, n_neighbors = 50)
 mp.plot_scatter(htmlpath='./html', htmlname= 'test')
 mp.plot_grid(htmlpath='./html', htmlname= 'grid')
 ```
-<img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/html/scatter.png?raw=true" style="float: left; margin-right: 10px;" width="850" height="850" />
-<img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/html/grid.png?raw=true" style="float: left; margin-right: 10px;" width="850" height="850" />
+<img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/html/scatter.png?raw=true" style="float: left; margin-right: 10px;" width="850" height="800" />
+<img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/html/grid.png?raw=true" style="float: left; margin-right: 10px;" width="850" height="800" />
 
 
 

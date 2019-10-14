@@ -1,6 +1,149 @@
-from scipy.signal import convolve2d
-import numpy as np
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Aug 25 20:29:36 2019
 
+@author: wanxiang.shen@u.nus.edu
+
+matrix operation
+
+"""
+
+import numpy as np
+from lapjv import lapjv
+from scipy.signal import convolve2d
+from scipy.spatial.distance import cdist
+
+
+class Scatter2Grid:
+    
+    def __init__(self):  
+        """assign x,y coords to gird numpy array"""
+        self.fmap_shape = None
+        self.indices = None
+        
+    def fit(self, df):
+        """df: dataframe with x, y columns"""
+        
+        embedding_2d = df[['x','y']].values
+        N = len(df)
+
+        size1 = int(np.ceil(np.sqrt(N)))
+        size2 = int(np.ceil(N/size1))
+        grid_size = (size1, size2)
+        
+        grid = np.dstack(np.meshgrid(np.linspace(0, 1, size2), 
+                                     np.linspace(0, 1, size1))).reshape(-1, 2)
+        grid_map = grid[:N]
+        cost_matrix = cdist(grid_map, embedding_2d, "sqeuclidean").astype(np.float)
+        cost_matrix = cost_matrix * (100000 / cost_matrix.max())
+        row_asses, col_asses, _ = lapjv(cost_matrix)
+
+        self.row_asses = row_asses
+        self.col_asses = col_asses
+        self.fmap_shape = grid_size
+        self.indices = row_asses
+        
+        
+        
+        
+    def transform(self, vector_1d):
+        """vector_1d: extracted features
+        """             
+        ### linear assignment map ###
+        M, N = self.fmap_shape
+        arr = np.zeros(self.fmap_shape)
+        arr_1d = arr.reshape(M*N, )
+        arr_1d[self.indices] = vector_1d
+        arr = arr_1d.reshape(M, N)          
+        return arr
+    
+
+    
+class Scatter2Array:
+    
+    def __init__(self, fmap_shape = (128,128)):  
+        """convert x,y coords to numpy array"""
+        self.fmap_shape = fmap_shape
+        self.indices = None
+        
+    def _fit(self, df):
+        """df: dataframe with x, y columns"""
+        M, N = self.fmap_shape
+        self.X = np.linspace(df.x.min(), df.x.max(), M)
+        self.Y = np.linspace(df.y.min(), df.y.max(), N)
+
+    
+    def _transform(self, dfnew):
+        """dfnew: dataframe with x, y columns
+           in case we need to split channels
+        """             
+        x = dfnew.x.values
+        y = dfnew.y.values
+        M, N = self.fmap_shape
+        indices = []
+        for i in range(len(dfnew)):
+            #perform a l1 distance
+            idx = np.argmin(abs(self.X-x[i]))
+            idy = np.argmin(abs(self.Y-y[i]))     
+            indice = N*idy + idx
+            indices.append(indice)
+        return indices
+    
+    
+    def fit(self, df, split_channels = True, channel_col = 'Channels'):
+        """
+        parameters
+        ---------------
+        df: embedding_df, dataframe
+        split_channels: bool, if True, will apply split by group
+        channel_col: column in df.columns, split to groups by this col
+        """
+        df['idx'] = range(len(df))
+        self.df = df
+        self.channel_col = channel_col
+        self.split_channels = split_channels
+        _ = self._fit(df)
+        
+        if self.split_channels:
+            g = df.groupby(channel_col)
+            sidx = g.apply(self._transform)            
+            self.channels = sidx.index.tolist()
+            self.indices_list = sidx.tolist()
+        else:    
+            self.indices = self._transform(df)
+            
+            
+    def transform(self, vector_1d):
+        """vector_1d: feature values 1d array"""
+        
+        M, N = self.fmap_shape
+        arr = np.zeros(self.fmap_shape)
+        arr_1d = arr.reshape(M*N, )
+            
+        if not self.split_channels:
+            arr_1d_copy = arr_1d.copy()
+            arr_1d_copy[self.indices] = vector_1d
+            arr_res = arr_1d_copy.reshape(M, N) 
+            
+        else:
+            df = self.df
+            arr_res = []
+            for indices, channel in zip(self.indices_list, self.channels):
+                arr = np.zeros(self.fmap_shape)
+                df1 = df[df[self.channel_col] == channel]
+                idx = df1.idx.tolist()
+                arr_1d_copy = arr_1d.copy()
+                arr_1d_copy[indices] = vector_1d[idx]
+                arr_1d_copy = arr_1d_copy.reshape(M, N) 
+                arr_res.append(arr_1d_copy)
+            
+            arr_res = np.stack(arr_res, axis=-1)
+
+        return arr_res
+    
+    
+    
 
 def smartpadding(array, target_size, mode='constant', constant_values=0):
     """
@@ -29,7 +172,7 @@ def fspecial_gauss(size = 31, sigma = 10):
 
     x, y = np.mgrid[-size//2 + 1:size//2 + 1, -size//2 + 1:size//2 + 1]
     g = np.exp(-((x**2 + y**2)/(2.0*sigma**2)))
-    return g
+    return g/g.sum()
 
 
 def conv2(array, kernel_size = 31, sigma = 10,  mode='same', fillvalue = 0):
@@ -37,39 +180,3 @@ def conv2(array, kernel_size = 31, sigma = 10,  mode='same', fillvalue = 0):
     return np.rot90(convolve2d(np.rot90(array, 2), np.rot90(kernel, 2), 
                                mode=mode, 
                                fillvalue = fillvalue), 2)
-
-
-
-
-def sub2ind(array_shape, rows, cols):
-    ind = rows*array_shape[1] + cols
-    ind[ind < 0] = -1
-    ind[ind >= array_shape[0]*array_shape[1]] = -1
-    return ind.astype(np.int)
-
-
-
-def points2array(x_vals, y_vals, target_size = (256, 256)):
-    
-    min_x_vals = min(x_vals)
-    min_y_vals = min(y_vals)
-
-    img = np.zeros(shape = target_size)
-    M, N = target_size
-    
-    x_vals = x_vals - min_x_vals
-    mult_x = max(x_vals) / (N - 1)
-    x_vals = x_vals / mult_x + 1; # x_vals in [1, IMG_NUM_COLS]
-    
-    y_vals = y_vals - min_y_vals;
-    mult_y = max(y_vals) / (M - 1)
-    y_vals = y_vals / mult_y + 1 #y_vals in [1, img_num_rows]
-
-    indices = sub2ind(img.shape, y_vals.round(), x_vals.round())
-    
-    m, n = img.shape
-    img = img.reshape(m*n)
-    img[indices] = 1
-    img = img.reshape(m,n)
-
-    return img, indices

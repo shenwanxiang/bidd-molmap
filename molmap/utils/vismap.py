@@ -7,7 +7,7 @@ import os
 from molmap.utils.logtools import print_info
 
 
-def plot_scatter(molmap, htmlpath = '.'):
+def plot_scatter(molmap, htmlpath = './', htmlname = None):
     '''
     molmap: the object of molmap
     htmlpath: the figure path
@@ -17,6 +17,12 @@ def plot_scatter(molmap, htmlpath = '.'):
     subtitle = 'number of %s: %s, metric method: %s' % (molmap.ftype, len(molmap.flist), molmap.metric)
     name = '%s_%s_%s_%s_%s' % (molmap.ftype,len(molmap.flist), molmap.metric, molmap.method, 'scatter')
     
+    if not os.path.exists(htmlpath):
+        os.makedirs(htmlpath)
+    
+    if htmlname:
+        name = htmlname + '_' + name 
+        
     filename = os.path.join(htmlpath, name)
     print_info('generate file: %s' % filename)
         
@@ -69,27 +75,36 @@ def plot_scatter(molmap, htmlpath = '.'):
         H.add_data_set(data, 'scatter', dfi.Subtypes.iloc[0], color=color)
     H.save_file(filename)
     print_info('save html file to %s' % filename)
-    return df
+    return df, H
 
 
 
-def plot_alignmap(molmap, htmlpath = '.'):
+def plot_grid(molmap, htmlpath = './', htmlname = None):
     '''
     molmap: the object of molmap
     htmlpath: the figure path
     '''    
 
+    if not os.path.exists(htmlpath):
+        os.makedirs(htmlpath)    
+    
     title = 'Assignment of %s by %s emmbedding result' % (molmap.ftype, molmap.method)
     subtitle = 'number of %s: %s, metric method: %s' % (molmap.ftype, len(molmap.flist), molmap.metric)    
 
     name = '%s_%s_%s_%s_%s' % (molmap.ftype,len(molmap.flist), molmap.metric, molmap.method, 'molmap')
+    
+    if htmlname:
+        name = name = htmlname + '_' + name   
+    
     filename = os.path.join(htmlpath, name)
     print_info('generate file: %s' % filename)
     
-    m,n = molmap.grid_size
+    
+    
+    m,n = molmap.fmap_shape
     colormaps = molmap.extract.colormaps
-    position = np.zeros(molmap.grid_size, dtype='O').reshape(m*n,)
-    position[molmap.col_asses] = molmap.flist
+    position = np.zeros(molmap.fmap_shape, dtype='O').reshape(m*n,)
+    position[molmap._S.col_asses] = molmap.flist
     position = position.reshape(m, n)
     
 
@@ -117,18 +132,18 @@ def plot_alignmap(molmap, htmlpath = '.'):
     H.set_options('subtitle', {'text': subtitle})
 
 #     H.set_options('xAxis', {'title': '', 
-#                             'min': 0, 'max': molmap.grid_size[1]-1,
+#                             'min': 0, 'max': molmap.fmap_shape[1]-1,
 #                             'allowDecimals':False,
 #                             'labels':{'style':{'fontSize':20}}})
     
 #     H.set_options('yAxis', {'title': '', 'tickPosition': 'inside', 
-#                             'min': 0, 'max': molmap.grid_size[0]-1,
+#                             'min': 0, 'max': molmap.fmap_shape[0]-1,
 #                             'reversed': True,
 #                             'allowDecimals':False,
 #                             'labels':{'style':{'fontSize':20}}})
 
     H.set_options('xAxis', {'title': None,                         
-                            'min': 0, 'max': molmap.grid_size[1],
+                            'min': 0, 'max': molmap.fmap_shape[1],
                             'startOnTick': False,
                             'endOnTick': False,    
                             'allowDecimals':False,
@@ -140,7 +155,7 @@ def plot_alignmap(molmap, htmlpath = '.'):
                             'endOnTick': False,
                             'gridLineWidth': 0,
                             'reversed': True,
-                            'min': 0, 'max': molmap.grid_size[0],
+                            'min': 0, 'max': molmap.fmap_shape[0],
                             'allowDecimals':False,
                             'labels':{'style':{'fontSize':20}}})
     
@@ -168,4 +183,4 @@ def plot_alignmap(molmap, htmlpath = '.'):
     H.save_file(filename)
     print_info('save html file to %s' % filename)
     
-    return df
+    return df, H

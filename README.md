@@ -67,6 +67,7 @@ print(x.shape)
 ```python
 from rdkit import Chem
 from rdkit.Chem import Draw
+import matplotlib.pyplot as plt
 
 #save your molmap image:
 for i in range(len(smiles_list)):
@@ -79,6 +80,13 @@ for i, smiles in enumerate(smiles_list):
 ```
 Three compunds' molmap representation by images:
 -----
-<img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/0.png?raw=true" alt="Markdown Monster icon" style="float: left; margin-right: 10px;" width="100" height="100" />
+<img src="" alt="Markdown Monster icon" style="float: left; margin-right: 10px;" width="100" height="100" />
 <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/1.png?raw=true" alt="Markdown Monster icon" style="float: left; margin-right: 10px;" width="100" height="100" />
 <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/2.png?raw=true" alt="Markdown Monster icon" style="float: left; margin-right: 10px;" width="100" height="100" />
+
+
+<p float="left">
+  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/0.png?raw=true" width="100" height="100" />
+  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/mol_0.png?raw=true" width="100" height="100"/> 
+</p>
+

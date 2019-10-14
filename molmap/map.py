@@ -227,7 +227,6 @@ class MolMap(Base):
 
     
     def transform(self, smiles, 
-                  fmap_shape = None, 
                   scale = True, 
                   scale_method = 'minmax',
                   smoothing = False, 
@@ -277,12 +276,10 @@ class MolMap(Base):
             fmap = conv2(fmap, kernel_size, sigma, mode)                
         return np.nan_to_num(fmap)   
         
-        
-        
+
         
     def batch_transform(self, smiles_list, 
                         n_jobs=4, 
-                        fmap_shape = None, 
                         scale = True, 
                         scale_method = 'minmax',
                         smoothing = False,
@@ -295,7 +292,6 @@ class MolMap(Base):
         --------------------
         smiles_list: list of smiles strings
         n_jobs: number of parallel
-        fmap_shape: target shape of mol map, only work if naive_map is False
         scale: bool, if True, we will apply MinMax scaling by the precomputed values
         scale_method: {'minmax', 'standard'}
 
@@ -309,10 +305,9 @@ class MolMap(Base):
                     
         P = Parallel(n_jobs=n_jobs, )
         res = P(delayed(self.transform)(smiles, 
-                                        fmap_shape , 
                                         scale,
                                         scale_method, 
-                                        conv = False) for smiles in tqdm(smiles_list, ascii=True)) 
+                                        smoothing = False) for smiles in tqdm(smiles_list, ascii=True)) 
         
         ## not thread safe opt
         if smoothing & (~self.split_channels):
@@ -334,7 +329,7 @@ class MolMap(Base):
                                 htmlname=htmlname)
         
         self.df_scatter = df_scatter
-        self.H_scatter = H_scatter
+        return H_scatter   
         
         
     def plot_grid(self, htmlpath='./', htmlname=None):
@@ -342,12 +337,12 @@ class MolMap(Base):
         if self.fmap_type != 'grid':
             return
         
-        df_grid, H_gird = vismap.plot_grid(self,  
+        df_grid, H_grid = vismap.plot_grid(self,  
                                 htmlpath=htmlpath, 
                                 htmlname=htmlname)
         
         self.df_grid = df_grid
-        self.H_gird = H_gird        
+        return H_grid       
         
         
     def load(self, filename):

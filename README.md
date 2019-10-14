@@ -36,17 +36,21 @@ source ~/.bashrc
 ## Usage
 
 ```python
-from molmap import MolMap, loadmap
-from molmap.feature.fingerprint import Extraction as fext
-from molmap.feature.descriptor import Extraction as dext
-from molmap.vismap import plot_scatter, plot_alignmap
-                 
-f1 = dext().bitsinfo[dext().bitsinfo.Subtypes.isin(['Constitution', 'Property'])] #'MACCSFP', 'EstateFP'
-flist = f1.IDs.tolist()[:]
+import molmap
+mp = molmap.MolMap(ftype = 'descriptor', fmap_type = 'grid', split_channels=False)
+mp.fit(method = 'umap', min_dist = 0.1, n_neighbors = 50)
 
-mp = MolMap(ftype = 'descriptor' ,flist = flist)
-mp = mp.fit(method = 'umap', n_neighbors = 100, verbose = 0) 
+#visulization your molmap
+mp.plot_scatter(htmlpath='./html', htmlname= 'test')
+mp.plot_grid(htmlpath='./html', htmlname= 'grid')
 
-df1 = plot_alignmap(mp,htmlpath='temp/')
+
+#transform smiles
+
+smiles_list = ['CC(=O)OC1=CC=CC=C1C(O)=O', 'CC(=O)NC1=CC=CC=C1C(O)=O', 'CC(=O)CC1=CC=CC=C1C(O)=O']
+x = mp.batch_transform(smiles_list, scale = True, scale_method = 'standard', smoothing = True, kernel_size = 41, sigma=2)
+print(x.shape)
+#3,37,37
+                       
 ```
 

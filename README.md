@@ -62,14 +62,23 @@ x = mp.batch_transform(smiles_list, scale = True,
                        sigma=2)
 print(x.shape)
 #3,37,37
+```
+
+```python
+from rdkit import Chem
+from rdkit.Chem import Draw
 
 #save your molmap image:
 for i in range(len(smiles_list)):
     plt.imsave('./results/%s.png' % i, x[i], cmap = 'hsv')
+    
+for i, smiles in enumerate(smiles_list):
+    ax = Draw.MolToMPL(Chem.MolFromSmiles(smiles), size=(200, 200))
+    ax.savefig('./results/mol_%s.png' % i)
+    
 ```
-
-
+Three compunds' molmap representation by images:
+-----
 <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/0.png?raw=true" alt="Markdown Monster icon" style="float: left; margin-right: 10px;" width="100" height="100" />
 <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/1.png?raw=true" alt="Markdown Monster icon" style="float: left; margin-right: 10px;" width="100" height="100" />
 <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/2.png?raw=true" alt="Markdown Monster icon" style="float: left; margin-right: 10px;" width="100" height="100" />
- * Three compunds' molmap representation by images

@@ -74,22 +74,22 @@ for i in range(len(smiles_list)):
     plt.imsave('./results/%s.png' % i, x[i], cmap = 'hsv')
     
 for i, smiles in enumerate(smiles_list):
-    ax = Draw.MolToMPL(Chem.MolFromSmiles(smiles), size=(200, 200))
-    ax.savefig('./results/mol_%s.png' % i)
+    fig = Draw.MolToMPL(Chem.MolFromSmiles(smiles), fitImage = True)
+    fig.savefig('./results/mol_%s.png' % i, bbox_inches='tight')
     
 ```
 Three compunds' molmap representation by images:
 -----
 <p float="center">
-  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/mol_0.png?raw=true" width="200" height="200"/> 
-  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/0.png?raw=true" width="200" height="200" />
+  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/mol_0.png?raw=true" width="150" height="150"/> 
+  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/0.png?raw=true" width="150" height="150" />
 </p>
 <p float="center">
-  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/mol_1.png?raw=true" width="200" height="200"/> 
-  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/1.png?raw=true" width="200" height="200" />
+  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/mol_1.png?raw=true" width="150" height="150"/> 
+  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/1.png?raw=true" width="150" height="150" />
 </p>
 <p float="center">
-  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/mol_2.png?raw=true" width="200" height="200"/> 
-  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/2.png?raw=true" width="200" height="200" />
+  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/mol_2.png?raw=true" width="150" height="150"/> 
+  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/2.png?raw=true" width="150" height="150" />
 </p>
 

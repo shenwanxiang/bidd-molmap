@@ -5,21 +5,22 @@ Created on Sun Aug 25 20:29:36 2019
 
 @author: wanxiang.shen@u.nus.edu
 
-core molmap code
+main molmap code
 
 """
 
 from molmap.feature.fingerprint import Extraction as fext
 from molmap.feature.descriptor import Extraction as dext
 from molmap.utils.logtools import print_info, print_warn, print_error
-from molmap.utils.matrixopt import smartpadding, points2array, conv2
+from molmap.utils.matrixopt import smartpadding, conv2
+from molmap.utils.matrixopt import Scatter2Grid, Scatter2Array 
+
 from molmap.config import load_config
+from molmap.utils import vismap
 
 
-from scipy.spatial.distance import cdist
 from sklearn.manifold import TSNE, MDS
 from joblib import Parallel, delayed, load, dump
-from lapjv import lapjv
 from umap import UMAP
 from tqdm import tqdm
 import pandas as pd
@@ -52,32 +53,45 @@ class Base:
 
 class MolMap(Base):
     
-    def __init__(self, ftype = 'descriptor',  metric = 'cosine',flist = None,  var_thr = 1e-4, naive_map = False):
+    def __init__(self, 
+                 ftype = 'descriptor',
+                 flist = None, 
+                 metric = 'cosine', 
+                 fmap_type = 'grid', 
+                 fmap_shape = None, 
+                 split_channels = False,
+                 var_thr = 1e-4, ):
         """
         paramters
         -----------------
         ftype: {'fingerprint', 'descriptor'}, feature type
-        metric: {'cosine', 'correlation'}
         flist: feature list, if you want use some of the features instead of all features
-        var_thr: float, defalt is 1e-4, meaning that feature will be included only if the conresponding variance larger than this value. Since some of the feature has pretty low variance, we can remove it by increasing the threshold
-        naive_map: bool, if True, will return a naive mol map without an assignment to a grid
+        metric: {'cosine', 'correlation'}
+        fmap_shape: size of molmap, only works when fmap_type is 'scatter'
+        fmap_type:{'scatter', 'grid'}, default: 'gird', if 'scatter', will return a scatter mol map without an assignment to a grid
+        split_channels: bool, only works if fmap_type is 'scatter', if True, outputs will split into diff. channels using the types of feature
+        var_thr: float, defalt is 1e-4, meaning that feature will be included only if the conresponding variance larger than this value. Since some of the feature has pretty low variances, we can remove them by increasing this threshold
         """
         
         super().__init__()
+        assert ftype in ['descriptor', 'fingerprint'], 'no such feature type supported!'        
+        assert fmap_type in ['scatter', 'grid'], 'no such feature map type supported!'
+       
         self.ftype = ftype
         self.metric = metric
         self.method = None
         self.isfit = False
-        self.naive_map = naive_map
+
+        
         #default we will load the  precomputed matrix
         dist_matrix = load_config(ftype, metric)
         
         scale_info = load_config(ftype, 'scale')      
         scale_info = scale_info[scale_info['var'] > var_thr]
         
-        idx = s1.index.tolist()
+        idx = scale_info.index.tolist()
         dist_matrix = dist_matrix.loc[idx][idx]
-        
+
         
         if flist:
             self.dist_matrix = dist_matrix.loc[flist][flist]
@@ -91,17 +105,29 @@ class MolMap(Base):
         if ftype == 'fingerprint':
             self.extract = fext()
         else:
-            self.extract = dext()           
+            self.extract = dext() 
+
+        self.fmap_type = fmap_type
         
+        if fmap_type == 'grid':
+            S = Scatter2Grid()
+        else:
+            if fmap_shape == None:
+                N = len(self.flist)
+                l = np.int(np.sqrt(N))*2
+                fmap_shape = (l, l)                
+            S = Scatter2Array(fmap_shape)
         
+        self._S = S
+        self.split_channels = split_channels        
 
     def _fit_embedding(self, 
-                        dist_matrix,
                         method = 'tsne',  
                         n_components = 2,
                         random_state = 32,  
                         verbose = 2,
                         n_neighbors = 15,
+                        min_dist = 0.9, 
                         **kwargs):
         
         """
@@ -110,6 +136,7 @@ class MolMap(Base):
         method: {'tsne', 'umap', 'mds'}, algorithm to embedd high-D to 2D
         kwargs: the extra parameters for the conresponding algorithm
         """
+        dist_matrix = self.dist_matrix
         if 'metric' in kwargs.keys():
             metric = kwargs.get('metric')
             kwargs.pop('metric')
@@ -127,6 +154,7 @@ class MolMap(Base):
             embedded = UMAP(n_components = n_components, 
                             verbose = verbose,
                             n_neighbors = n_neighbors,
+                            min_dist = min_dist,
                             random_state=random_state, 
                             metric = metric, **kwargs)
             
@@ -147,36 +175,16 @@ class MolMap(Base):
         
         embedded = embedded.fit(dist_matrix)    
 
-        return embedded
+        df = pd.DataFrame(embedded.embedding_, index = self.flist,columns=['x', 'y'])
+        typemap = self.extract.bitsinfo.set_index('IDs')
+        df = df.join(typemap)
+        df['Channels'] = df['Subtypes']
+        self.df_embedding = df
+        self.embedded = embedded
         
-    
-    
-    def _fit_assignment(self, embedding_2d):
-        """
-        X_2d is a 2d embedding matrix by T-SNE or UMAP
-        """
-        N = len(embedding_2d)
-        assert embedding_2d.shape[1] == 2
 
-        size1 = int(np.ceil(np.sqrt(N)))
-        size2 = int(np.ceil(N/size1))
-        
-        grid_size = (size1, size2)
-        self.N = N
-        self.grid_size = grid_size
-        
-        grid = np.dstack(np.meshgrid(np.linspace(0, 1, size2), np.linspace(0, 1, size1))).reshape(-1, 2)
-        grid_map = grid[:N]
-        cost_matrix = cdist(grid_map, embedding_2d, "sqeuclidean").astype(np.float)
-        cost_matrix = cost_matrix * (100000 / cost_matrix.max())
-        row_asses, col_asses, _ = lapjv(cost_matrix)
-        self.row_asses = row_asses
-        self.col_asses = col_asses
-        return (row_asses, col_asses, grid_size, N)
-    
-
-    
-    def fit(self, method = 'umap', verbose = 2, random_state = 32, **kwargs): 
+    def fit(self, method = 'umap', min_dist = 0.1, n_neighbors = 50,
+            verbose = 2, random_state = 32, **kwargs): 
         """
         parameters
         -----------------
@@ -191,57 +199,55 @@ class MolMap(Base):
         
         self.method = method
         
-        self.embedded = self._fit_embedding(self.dist_matrix, 
-                                            method = method,
-                                            random_state = random_state,
-                                            verbose = verbose,
-                                            n_components = 2, **kwargs)
-    
+        ## 2d embedding first
+        self._fit_embedding(method = method,
+                            n_neighbors = n_neighbors,
+                            random_state = random_state,
+                            min_dist = min_dist, 
+                            verbose = verbose,
+                            n_components = 2, **kwargs)
+
         
-        if not self.naive_map:
-            ## linear assignment algorithm 
-            print_info('Applying linear assignment of features, this may take about 1-30 minutes')
-            _ = self._fit_assignment(self.embedded.embedding_)
-            print_info('Finished assignment')
+        if self.fmap_type == 'scatter':
+            ## naive scatter algorithm
+            print_info('Applying naive scatter feature map...')
+            self._S.fit(self.df_embedding, self.split_channels, channel_col = 'Channels')
+            print_info('Finished')
             
+        else:
+            ## linear assignment algorithm 
+            print_info('Applying grid feature map(assignment), this may take several minutes(1~30 min)')
+            self._S.fit(self.df_embedding)
+            print_info('Finished')
+        
         ## fit flag
         self.isfit = True
-        return self
+        self.fmap_shape = self._S.fmap_shape
     
+
     
-    def _transform_naive(self, embedding_2d, target_size = None):
-        
-        N = len(embedding_2d)
-        if target_size == None:
-            target_size = (N,N)
-        x = embedding_2d[:,0]
-        y = embedding_2d[:,1]
-        
-        _, indices = points2array(x, y, target_size = target_size)
-        self.naive_indices = indices
-        return target_size, indices
-        
-        
-        
     def transform(self, smiles, 
                   fmap_shape = None, 
                   scale = True, 
                   scale_method = 'minmax',
-                  conv = False, 
+                  smoothing = False, 
                   kernel_size = 31, 
-                  sigma = 3):
+                  sigma = 3, 
+                  mode = 'same'):
     
     
         """
         parameters
         --------------------
         smiles: compund smile string
-        fmap_shape: target shape of mol map, only work if naive_map is False
+        
         scale: bool, if True, we will apply MinMax scaling by the precomputed values
         scale_method: {'minmax', 'standard'}
-        conv_naive: bool, if True, we will apply a convolution by using a gaussian kernel
-        kernel_size: size of the gaussian kernel, default is a size of (31,31)
-        sigma: sigma of gaussian kernel
+
+        smoothing: bool, if True, it will apply a gaussian smoothing
+        kernel_size: size of the gaussian smoothing kernel, default is a size of (31,31)
+        sigma: sigma of gaussian smoothing kernel
+        mode: {'valid', 'same'}
         """
         
         if not self.isfit:
@@ -265,32 +271,10 @@ class MolMap(Base):
         
         df = df[self.flist]
         vector_1d = df.values[0] #shape = (N, )
+        fmap = self._S.transform(vector_1d)
         
-        if self.naive_map:
-            ### naive mol map ###
-            size, indices = self._transform_naive(self.embedded.embedding_, 
-                                                  fmap_shape)  
-            
-            M, N = size
-            fmap = np.zeros(shape = (M*N, ))
-            fmap[indices] = vector_1d
-            fmap = fmap.reshape(M,N)
-            self.fmap_shape = size
-        else:
-            ### linear assignment map ###
-            x2 = vector_1d[self.row_asses]
-            mend = self.grid_size[0]*self.grid_size[1] - self.N
-            if mend > 0:
-                x2 = np.append(x2, np.zeros(shape=(mend,)))
-            fmap = x2.reshape(self.grid_size)  
-            if fmap_shape != None:
-                fmap = smartpadding(fmap, fmap_shape)
-                self.fmap_shape = fmap_shape
-            else:
-                self.fmap_shape =  self.grid_size
-
-        if conv:
-            fmap = conv2(fmap, kernel_size, sigma)                
+        if smoothing & (~self.split_channels):
+            fmap = conv2(fmap, kernel_size, sigma, mode)                
         return np.nan_to_num(fmap)   
         
         
@@ -301,9 +285,10 @@ class MolMap(Base):
                         fmap_shape = None, 
                         scale = True, 
                         scale_method = 'minmax',
-                        conv = False,
+                        smoothing = False,
                         kernel_size = 31,  
-                        sigma = 3):
+                        sigma = 3, 
+                        mode = 'same'):
     
         """
         parameters
@@ -313,9 +298,12 @@ class MolMap(Base):
         fmap_shape: target shape of mol map, only work if naive_map is False
         scale: bool, if True, we will apply MinMax scaling by the precomputed values
         scale_method: {'minmax', 'standard'}
-        conv_naive: bool, if True, we will apply a convolution by using a gaussian kernel
-        kernel_size: size of the gaussian kernel, default is a size of (31,31)
-        sigma: sigma of gaussian kernel
+
+        smoothing: bool, if True, it will apply a gaussian smoothing
+        kernel_size: size of the gaussian smoothing kernel, default is a size of (31,31)
+        sigma: sigma of gaussian smoothing kernel
+        mode: {'valid', 'same'}
+        
         """
         
                     
@@ -327,10 +315,10 @@ class MolMap(Base):
                                         conv = False) for smiles in tqdm(smiles_list, ascii=True)) 
         
         ## not thread safe opt
-        if conv:
+        if smoothing & (~self.split_channels):
             res2 = []
             for fmap in tqdm(res,ascii=True):
-                fmap = conv2(fmap, kernel_size, sigma)   
+                fmap = conv2(fmap, kernel_size, sigma, mode)   
                 res2.append(fmap)
         else:
             res2 = res
@@ -338,10 +326,34 @@ class MolMap(Base):
         
         return X
     
-    
+
+    def plot_scatter(self, htmlpath='./', htmlname=None):
+        
+        df_scatter, H_scatter = vismap.plot_scatter(self,  
+                                htmlpath=htmlpath, 
+                                htmlname=htmlname)
+        
+        self.df_scatter = df_scatter
+        self.H_scatter = H_scatter
+        
+        
+    def plot_grid(self, htmlpath='./', htmlname=None):
+        
+        if self.fmap_type != 'grid':
+            return
+        
+        df_grid, H_gird = vismap.plot_grid(self,  
+                                htmlpath=htmlpath, 
+                                htmlname=htmlname)
+        
+        self.df_grid = df_grid
+        self.H_gird = H_gird        
+        
+        
     def load(self, filename):
         return self._load(filename)
     
     
     def save(self, filename):
         return self._save(filename)
+    

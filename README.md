@@ -55,6 +55,13 @@ x = mp.batch_transform(smiles_list, scale = True,
                        sigma=2)
 print(x.shape)
 #3,37,37
-                       
+
+#save your molmap image:
+for i in range(len(smiles_list)):
+    plt.imsave('./results/%s.png' % i, x[i], cmap = 'hsv')
 ```
 
+<img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/0.png?raw=true" alt="Markdown Monster icon" style="float: left; margin-right: 10px;" width="100" height="100" />
+<img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/1.png?raw=true" alt="Markdown Monster icon" style="float: left; margin-right: 10px;" width="100" height="100" />
+<img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/2.png?raw=true" alt="Markdown Monster icon" style="float: left; margin-right: 10px;" width="100" height="100" />
+ * Three compunds' molmap representation by images

@@ -37,7 +37,7 @@ source ~/.bashrc
 
 ```python
 import molmap
-mp = molmap.MolMap(ftype = 'descriptor', fmap_type = 'grid', split_channels=False)
+mp = molmap.MolMap(ftype = 'descriptor', fmap_type = 'grid')
 mp.fit(method = 'umap', min_dist = 0.1, n_neighbors = 50)
 
 #visulization your molmap
@@ -46,9 +46,13 @@ mp.plot_grid(htmlpath='./html', htmlname= 'grid')
 
 
 #transform smiles
-
-smiles_list = ['CC(=O)OC1=CC=CC=C1C(O)=O', 'CC(=O)NC1=CC=CC=C1C(O)=O', 'CC(=O)CC1=CC=CC=C1C(O)=O']
-x = mp.batch_transform(smiles_list, scale = True, scale_method = 'standard', smoothing = True, kernel_size = 41, sigma=2)
+smiles_list = ['CC(=O)OC1=CC=CC=C1C(O)=O', 
+               'CC(=O)NC1=CC=CC=C1C(O)=O',
+               'CC(=O)CC1=CC=CC=C1C(O)=O']
+x = mp.batch_transform(smiles_list, scale = True, 
+                       scale_method = 'standard', 
+                       smoothing = True, kernel_size = 41, 
+                       sigma=2)
 print(x.shape)
 #3,37,37
                        

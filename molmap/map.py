@@ -12,7 +12,6 @@ main molmap code
 from molmap.feature.fingerprint import Extraction as fext
 from molmap.feature.descriptor import Extraction as dext
 from molmap.utils.logtools import print_info, print_warn, print_error
-from molmap.utils.matrixopt import smartpadding, conv2
 from molmap.utils.matrixopt import Scatter2Grid, Scatter2Array 
 
 from molmap.config import load_config
@@ -56,20 +55,21 @@ class MolMap(Base):
     def __init__(self, 
                  ftype = 'descriptor',
                  flist = None, 
-                 metric = 'cosine', 
                  fmap_type = 'grid', 
                  fmap_shape = None, 
+                 
                  split_channels = False,
+                 metric = 'cosine', 
                  var_thr = 1e-4, ):
         """
         paramters
         -----------------
         ftype: {'fingerprint', 'descriptor'}, feature type
-        flist: feature list, if you want use some of the features instead of all features
-        metric: {'cosine', 'correlation'}
-        fmap_shape: size of molmap, only works when fmap_type is 'scatter'
+        flist: feature list, if you want use some of the features instead of all features, each element in flist should be the id of a feature
+        fmap_shape: None or tuple, size of molmap, only works when fmap_type is 'scatter', if None, the size of feature map will be calculated automatically
         fmap_type:{'scatter', 'grid'}, default: 'gird', if 'scatter', will return a scatter mol map without an assignment to a grid
-        split_channels: bool, only works if fmap_type is 'scatter', if True, outputs will split into diff. channels using the types of feature
+        split_channels: bool, if True, outputs will split into various channels using the types of feature
+        metric: {'cosine', 'correlation'}, default: 'cosine', measurement of feature distance
         var_thr: float, defalt is 1e-4, meaning that feature will be included only if the conresponding variance larger than this value. Since some of the feature has pretty low variances, we can remove them by increasing this threshold
         """
         
@@ -183,7 +183,8 @@ class MolMap(Base):
         self.embedded = embedded
         
 
-    def fit(self, method = 'umap', min_dist = 0.1, n_neighbors = 50,
+    def fit(self, 
+            method = 'umap', min_dist = 0.1, n_neighbors = 50,
             verbose = 2, random_state = 32, **kwargs): 
         """
         parameters
@@ -226,27 +227,18 @@ class MolMap(Base):
     
 
     
-    def transform(self, smiles, 
+    def transform(self, 
+                  smiles, 
                   scale = True, 
-                  scale_method = 'minmax',
-                  smoothing = False, 
-                  kernel_size = 31, 
-                  sigma = 3, 
-                  mode = 'same'):
+                  scale_method = 'minmax',):
     
     
         """
         parameters
         --------------------
         smiles: compund smile string
-        
         scale: bool, if True, we will apply MinMax scaling by the precomputed values
         scale_method: {'minmax', 'standard'}
-
-        smoothing: bool, if True, it will apply a gaussian smoothing
-        kernel_size: size of the gaussian smoothing kernel, default is a size of (31,31)
-        sigma: sigma of gaussian smoothing kernel
-        mode: {'valid', 'same'}
         """
         
         if not self.isfit:
@@ -270,54 +262,32 @@ class MolMap(Base):
         
         df = df[self.flist]
         vector_1d = df.values[0] #shape = (N, )
-        fmap = self._S.transform(vector_1d)
-        
-        if smoothing & (~self.split_channels):
-            fmap = conv2(fmap, kernel_size, sigma, mode)                
+        fmap = self._S.transform(vector_1d)       
         return np.nan_to_num(fmap)   
         
 
         
-    def batch_transform(self, smiles_list, 
-                        n_jobs=4, 
+    def batch_transform(self, 
+                        smiles_list, 
                         scale = True, 
                         scale_method = 'minmax',
-                        smoothing = False,
-                        kernel_size = 31,  
-                        sigma = 3, 
-                        mode = 'same'):
+                        n_jobs=4):
     
         """
         parameters
         --------------------
         smiles_list: list of smiles strings
-        n_jobs: number of parallel
         scale: bool, if True, we will apply MinMax scaling by the precomputed values
         scale_method: {'minmax', 'standard'}
-
-        smoothing: bool, if True, it will apply a gaussian smoothing
-        kernel_size: size of the gaussian smoothing kernel, default is a size of (31,31)
-        sigma: sigma of gaussian smoothing kernel
-        mode: {'valid', 'same'}
-        
+        n_jobs: number of parallel
         """
         
                     
-        P = Parallel(n_jobs=n_jobs, )
+        P = Parallel(n_jobs=n_jobs)
         res = P(delayed(self.transform)(smiles, 
                                         scale,
-                                        scale_method, 
-                                        smoothing = False) for smiles in tqdm(smiles_list, ascii=True)) 
-        
-        ## not thread safe opt
-        if smoothing & (~self.split_channels):
-            res2 = []
-            for fmap in tqdm(res,ascii=True):
-                fmap = conv2(fmap, kernel_size, sigma, mode)   
-                res2.append(fmap)
-        else:
-            res2 = res
-        X = np.stack(res2) 
+                                        scale_method) for smiles in tqdm(smiles_list, ascii=True)) 
+        X = np.stack(res) 
         
         return X
     

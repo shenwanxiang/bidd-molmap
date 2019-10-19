@@ -92,7 +92,7 @@ class Scatter2Grid:
             arr_res = np.zeros(self.fmap_shape)
             arr_1d = arr_res.reshape(M*N, )
             arr_1d[self.indices] = vector_1d
-            arr_res = arr_1d.reshape(M, N)          
+            arr_res = arr_1d.reshape(M, N, 1)          
         return arr_res
     
 
@@ -159,12 +159,7 @@ class Scatter2Array:
         arr = np.zeros(self.fmap_shape)
         arr_1d = arr.reshape(M*N, )
             
-        if not self.split_channels:
-            arr_1d_copy = arr_1d.copy()
-            arr_1d_copy[self.indices] = vector_1d
-            arr_res = arr_1d_copy.reshape(M, N) 
-            
-        else:
+        if self.split_channels:
             df = self.df
             arr_res = []
             for indices, channel in zip(self.indices_list, self.channels):
@@ -175,9 +170,11 @@ class Scatter2Array:
                 arr_1d_copy[indices] = vector_1d[idx]
                 arr_1d_copy = arr_1d_copy.reshape(M, N) 
                 arr_res.append(arr_1d_copy)
-            
             arr_res = np.stack(arr_res, axis=-1)
-
+        else:
+            arr_1d_copy = arr_1d.copy()
+            arr_1d_copy[self.indices] = vector_1d
+            arr_res = arr_1d_copy.reshape(M, N, 1) 
         return arr_res
 
 

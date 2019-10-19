@@ -217,7 +217,7 @@ class MolMap(Base):
         else:
             ## linear assignment algorithm 
             print_info('Applying grid feature map(assignment), this may take several minutes(1~30 min)')
-            self._S.fit(self.df_embedding)
+            self._S.fit(self.df_embedding, self.split_channels, channel_col = 'Channels')
             print_info('Finished')
         
         ## fit flag

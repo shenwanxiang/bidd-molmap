@@ -18,13 +18,15 @@ class data(object):
         
         
         self.data = df
-        self.x = df[smiles_col].tolist()        
+        self.x = df[smiles_col].values        
         self.y = df[target_cols].values.astype(float)
         self.y_cols = target_cols
         self.task_name = task_name
         self.task_type = task_type
         self.description = description
         self.n_samples = len(df)
+        
+        print('total samples: %s' % self.n_samples)
         
         
     def split(self, method = 'random', random_state = 32):

@@ -21,9 +21,19 @@ class Scatter2Grid:
         """assign x,y coords to gird numpy array"""
         self.fmap_shape = None
         self.indices = None
+        self.indices_list = None
+
         
-    def fit(self, df):
-        """df: dataframe with x, y columns"""
+    def fit(self, df, split_channels = True, channel_col = 'Channels'):
+        """
+        parameters
+        ------------------
+        df: dataframe with x, y columns
+        split_channels: bool, if True, will apply split by group
+        channel_col: column in df.columns, split to groups by this col        
+        
+        """
+        df['idx'] = range(len(df))
         
         embedding_2d = df[['x','y']].values
         N = len(df)
@@ -44,19 +54,46 @@ class Scatter2Grid:
         self.fmap_shape = grid_size
         self.indices = row_asses
         
+        self.channel_col = channel_col
+        self.split_channels = split_channels
+        df['indices'] = self.indices
+        self.df = df
         
-        
-        
+        if self.split_channels:
+            def _apply_split(x):
+                return x[['idx', 'indices']].to_dict('list')
+            sidx = df.groupby(channel_col).apply(_apply_split)      
+            channels = sidx.index.tolist()
+            indices_list = sidx.tolist()            
+            self.channels = channels
+            self.indices_list = indices_list
+
+            
     def transform(self, vector_1d):
         """vector_1d: extracted features
         """             
         ### linear assignment map ###
         M, N = self.fmap_shape
-        arr = np.zeros(self.fmap_shape)
-        arr_1d = arr.reshape(M*N, )
-        arr_1d[self.indices] = vector_1d
-        arr = arr_1d.reshape(M, N)          
-        return arr
+
+        if self.split_channels:
+            arr_res = []
+            for idict in self.indices_list:
+
+                indices = idict['indices']
+                idx = idict['idx']
+
+                arr = np.zeros(self.fmap_shape)
+                arr_1d = arr.reshape(M*N, )
+                arr_1d[indices] = vector_1d[idx]
+                arr = arr_1d.reshape(M, N)  
+                arr_res.append(arr) 
+            arr_res = np.stack(arr_res, axis=-1)
+        else:
+            arr_res = np.zeros(self.fmap_shape)
+            arr_1d = arr_res.reshape(M*N, )
+            arr_1d[self.indices] = vector_1d
+            arr_res = arr_1d.reshape(M, N)          
+        return arr_res
     
 
     
@@ -66,6 +103,7 @@ class Scatter2Array:
         """convert x,y coords to numpy array"""
         self.fmap_shape = fmap_shape
         self.indices = None
+        self.indices_list = None
         
     def _fit(self, df):
         """df: dataframe with x, y columns"""
@@ -141,9 +179,7 @@ class Scatter2Array:
             arr_res = np.stack(arr_res, axis=-1)
 
         return arr_res
-    
-    
-    
+
 
 def smartpadding(array, target_size, mode='constant', constant_values=0):
     """

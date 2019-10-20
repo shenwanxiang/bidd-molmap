@@ -292,11 +292,12 @@ class MolMap(Base):
         return X
     
 
-    def plot_scatter(self, htmlpath='./', htmlname=None):
+    def plot_scatter(self, htmlpath='./', htmlname=None, radius = 2.5):
         
         df_scatter, H_scatter = vismap.plot_scatter(self,  
                                 htmlpath=htmlpath, 
-                                htmlname=htmlname)
+                                htmlname=htmlname,
+                                radius = radius)
         
         self.df_scatter = df_scatter
         return H_scatter   

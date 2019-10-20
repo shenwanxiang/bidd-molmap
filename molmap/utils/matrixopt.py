@@ -52,7 +52,9 @@ class Scatter2Grid:
         self.row_asses = row_asses
         self.col_asses = col_asses
         self.fmap_shape = grid_size
-        self.indices = row_asses
+        self.indices = col_asses
+        
+        
         
         self.channel_col = channel_col
         self.split_channels = split_channels
@@ -197,18 +199,17 @@ def smartpadding(array, target_size, mode='constant', constant_values=0):
     return array_pad
 
 
-def fspecial_gauss(size = 31, sigma = 10):
+def fspecial_gauss(size = 31, sigma = 2):
 
     """Function to mimic the 'fspecial' gaussian MATLAB function
       size should be odd value
     """
-
     x, y = np.mgrid[-size//2 + 1:size//2 + 1, -size//2 + 1:size//2 + 1]
     g = np.exp(-((x**2 + y**2)/(2.0*sigma**2)))
     return g/g.sum()
 
 
-def conv2(array, kernel_size = 31, sigma = 10,  mode='same', fillvalue = 0):
+def conv2(array, kernel_size = 31, sigma = 2,  mode='same', fillvalue = 0):
     kernel = fspecial_gauss(kernel_size, sigma)
     return np.rot90(convolve2d(np.rot90(array, 2), np.rot90(kernel, 2), 
                                mode=mode, 

@@ -88,18 +88,16 @@ class MolMap(Base):
         
         scale_info = load_config(ftype, 'scale')      
         scale_info = scale_info[scale_info['var'] > var_thr]
+        slist = scale_info.index.tolist()
         
-        if flist:
-            self.dist_matrix = dist_matrix.loc[flist][flist]
-        else:
-            self.dist_matrix = dist_matrix
+        final_list = list(set(slist) & set(flist))
         
-        idx = scale_info.index.tolist()
-        dist_matrix = dist_matrix.loc[idx][idx]
-
         
-        self.flist = list(self.dist_matrix.columns)
-        self.scale_info = scale_info.loc[self.flist]
+        dist_matrix = dist_matrix.loc[final_list][final_list]
+        
+        self.dist_matrix = dist_matrix
+        self.flist = final_list
+        self.scale_info = scale_info.loc[final_list]
         
         #init the feature extract object
         if ftype == 'fingerprint':

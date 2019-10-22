@@ -31,6 +31,12 @@ echo export PYTHONPATH="\$PYTHONPATH:`pwd`" >> ~/.bashrc
 
 # init bashrc
 source ~/.bashrc
+
+3. other
+# In our paper, deepchem has been used as a dataset provider, so you may install deepchem for reaptable results:
+
+[deepchem]('')
+
 ```
 
 ## Usage

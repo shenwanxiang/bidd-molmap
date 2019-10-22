@@ -122,9 +122,9 @@ def load_SIDER():
 def load_CYP450():
     task_name = 'CYP450'
     task_type = 'classification'
-    description = """The CYP450 dataset contains 19093 compounds against of five main CYP450 isozymes: 1A2, 2C9, 2C19, 2D6, and 3A4. This data should split training and test set by aids"""
+    description = """The CYP450 dataset contains 16896 compounds against of five main CYP450 isozymes: 1A2, 2C9, 2C19, 2D6, and 3A4. This data should split training and test set by aids"""
     filename = os.path.join(os.path.dirname(__file__), 'cyp450-processed.csv')
     df = pd.read_csv(filename)
-    target_cols = ['cyp1a2', 'cyp2c9', 'cyp2c19', 'cyp2d6', 'cyp3a4']
+    target_cols = ['label_1a2', 'label_2c9', 'label_2c19', 'label_2d6', 'label_3a4']
     smiles_col = 'smiles'
     return data(df, smiles_col, target_cols, task_name, task_type, description)

@@ -89,14 +89,14 @@ class MolMap(Base):
         scale_info = load_config(ftype, 'scale')      
         scale_info = scale_info[scale_info['var'] > var_thr]
         
-        idx = scale_info.index.tolist()
-        dist_matrix = dist_matrix.loc[idx][idx]
-
-        
         if flist:
             self.dist_matrix = dist_matrix.loc[flist][flist]
         else:
             self.dist_matrix = dist_matrix
+        
+        idx = scale_info.index.tolist()
+        dist_matrix = dist_matrix.loc[idx][idx]
+
         
         self.flist = list(self.dist_matrix.columns)
         self.scale_info = scale_info.loc[self.flist]

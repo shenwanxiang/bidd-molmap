@@ -7,12 +7,12 @@ import os
 from molmap.utils.logtools import print_info
 
 
-def plot_scatter(molmap, htmlpath = './', htmlname = None, radius = 2.5):
+def plot_scatter(molmap, htmlpath = './', htmlname = None, radius = 3):
     '''
     molmap: the object of molmap
     htmlpath: the figure path, not include the prefix of 'html'
     htmlname: the name 
-    radius: the radius of scatter dot
+    radius: int, defaut:3, the radius of scatter dot
     '''
     
     title = '2D emmbedding of %s based on %s method' % (molmap.ftype, molmap.method)

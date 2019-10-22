@@ -57,8 +57,7 @@ class MolMap(Base):
                  flist = None, 
                  fmap_type = 'grid', 
                  fmap_shape = None, 
-                 
-                 split_channels = False,
+                 split_channels = True,
                  metric = 'cosine', 
                  var_thr = 1e-4, ):
         """
@@ -85,12 +84,20 @@ class MolMap(Base):
         
         #default we will load the  precomputed matrix
         dist_matrix = load_config(ftype, metric)
-        
+        feature_order = dist_matrix.index.tolist()
+        feat_seq_dict = dict(zip(feature_order, range(len(feature_order))))
+
+
         scale_info = load_config(ftype, 'scale')      
         scale_info = scale_info[scale_info['var'] > var_thr]
         slist = scale_info.index.tolist()
         
+        if not flist:
+            flist = list(dist_matrix.columns)
+        
+        #fix to original order
         final_list = list(set(slist) & set(flist))
+        final_list.sort(key = lambda x:feat_seq_dict.get(x))
         
         
         dist_matrix = dist_matrix.loc[final_list][final_list]
@@ -290,8 +297,8 @@ class MolMap(Base):
         return X
     
 
-    def plot_scatter(self, htmlpath='./', htmlname=None, radius = 2.5):
-        
+    def plot_scatter(self, htmlpath='./', htmlname=None, radius = 3):
+        """radius: the size of the scatter, must be int"""
         df_scatter, H_scatter = vismap.plot_scatter(self,  
                                 htmlpath=htmlpath, 
                                 htmlname=htmlname,

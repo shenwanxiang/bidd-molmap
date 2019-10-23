@@ -241,7 +241,7 @@ class MolMap(Base):
         """
         parameters
         --------------------
-        smiles: compund smile string
+        smiles:smiles string of compound
         scale: bool, if True, we will apply MinMax scaling by the precomputed values
         scale_method: {'minmax', 'standard'}
         """

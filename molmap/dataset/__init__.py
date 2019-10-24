@@ -14,9 +14,7 @@ class data(object):
     def __init__(self, df, smiles_col, target_cols, task_name, task_type, description):
                 
         assert type(target_cols) == list
-        
-        
-        
+
         self.data = df
         self.x = df[smiles_col].values        
         self.y = df[target_cols].values.astype(float)
@@ -28,15 +26,6 @@ class data(object):
         
         print('total samples: %s' % self.n_samples)
         
-        
-    def split(self, method = 'random', random_state = 32):
-        """
-        parameters
-        --------------------
-        method" {'random', 'sccafold'}
-        
-        """
-        pass
         
 
 
@@ -55,7 +44,47 @@ def load_malaria():
     return data(df, smiles_col,target_cols, task_name, task_type, description)    
 
     
+def load_ESOL():
     
+    description = """The ESOL dataset includes 1128 compounds and their experimental water solubility """
+    
+    task_name = 'ESOL'
+    task_type = 'regression'
+    filename = os.path.join(os.path.dirname(__file__), 'delaney-processed.csv')
+    df = pd.read_csv(filename)
+    target_cols = ['measured log solubility in mols per litre']
+    smiles_col = 'smiles'
+    return data(df, smiles_col,target_cols, task_name, task_type, description)        
+    
+    
+    
+def load_CEP():
+    
+    description = """The CEP (Clean Energy Project) has 29978 compounds and corresponding CEP values """
+    
+    task_name = 'CEP'
+    task_type = 'regression'
+    filename = os.path.join(os.path.dirname(__file__), 'cep-processed.csv')
+    df = pd.read_csv(filename)
+    target_cols = ['PCE']
+    smiles_col = 'smiles'
+    return data(df, smiles_col,target_cols, task_name, task_type, description)        
+    
+    
+def load_Lipop():
+    
+    description = """The Lipop (Lipophilicity) dataset has 4200 compounds and and their corresponding experimental lipophilicity values."""
+    
+    task_name = 'Lipop'
+    task_type = 'regression'
+    filename = os.path.join(os.path.dirname(__file__), 'Lipophilicity.csv')
+    df = pd.read_csv(filename)
+    target_cols = ['exp']
+    smiles_col = 'smiles'
+    return data(df, smiles_col,target_cols, task_name, task_type, description)        
+
+    
+
     
 def load_IVPK():
     task_name = 'IVPK'
@@ -65,14 +94,39 @@ def load_IVPK():
     
     filename = os.path.join(os.path.dirname(__file__), 'IVPK.csv')
     df = pd.read_csv(filename)
+    df = df.rename(columns={'SMILES':'smiles'})
     target_cols = ['human VDss (L/kg)', 'human CL (mL/min/kg)',
                    'fraction unbound \nin plasma (fu)', 'MRT (h)',
                    'terminal  t1/2 (h)']
-    smiles_col = 'SMILES'
+    smiles_col = 'smiles'
     return data(df, smiles_col,target_cols, task_name, task_type, description)
 
 
 ################################ classification task #####################################
+def load_BBBP():
+    task_name = 'BBBP'
+    task_type = 'classification'
+    description = """The BBBP dataset contains 2050 compounds with their binary permeability properties of Blood-brain barrier"""
+
+    filename = os.path.join(os.path.dirname(__file__), 'BBBP.csv')
+    df = pd.read_csv(filename)
+    target_cols = ['BBBP']
+    smiles_col = 'smiles'
+    return data(df, smiles_col, target_cols, task_name, task_type, description)
+
+
+def load_BACE():
+    task_name = 'BACE'
+    task_type = 'classification'
+    description = """The BACE dataset contains 1513 inhibitors with their binary inhibition labels for the target of BACE-1"""
+
+    filename = os.path.join(os.path.dirname(__file__), 'bace.csv')
+    df = pd.read_csv(filename)
+    df = df.rename(columns = {'mol': 'smiles'})
+    target_cols = ['Class']
+    smiles_col = 'smiles'
+    return data(df, smiles_col, target_cols, task_name, task_type, description)
+
 
 def load_HIV():
     task_name = 'HIV'
@@ -87,10 +141,40 @@ def load_HIV():
     return data(df, smiles_col, target_cols, task_name, task_type, description)    
 
 
+def load_MUV():
+    task_name = 'MUV'
+    task_type = 'classification'
+    description = """The MUV(Maximum Unbiased Validation) dataset contains 93087 compounds with 17 challenging tasks which is specifically designed for validation of virtual screening techniques."""
+
+    
+    filename = os.path.join(os.path.dirname(__file__), 'muv.csv')
+    df = pd.read_csv(filename)
+    target_cols =   ['MUV-466',
+                     'MUV-548',
+                     'MUV-600',
+                     'MUV-644',
+                     'MUV-652',
+                     'MUV-689',
+                     'MUV-692',
+                     'MUV-712',
+                     'MUV-713',
+                     'MUV-733',
+                     'MUV-737',
+                     'MUV-810',
+                     'MUV-832',
+                     'MUV-846',
+                     'MUV-852',
+                     'MUV-858',
+                     'MUV-859']
+    smiles_col = 'smiles'
+    return data(df, smiles_col, target_cols, task_name, task_type, description)    
+
+
+
 def load_Tox21():
     task_name = 'Tox21'
     task_type = 'classification'
-    description = """The Tox21 dataset contains 8014 compounds and corresponding toxicity data against 12 targets."""
+    description = """The Tox21 dataset contains 7831 compounds and corresponding toxicity data against 12 targets."""
 
     filename = os.path.join(os.path.dirname(__file__), 'tox21.csv')
     df = pd.read_csv(filename)
@@ -119,6 +203,9 @@ def load_SIDER():
     return data(df, smiles_col, target_cols, task_name, task_type, description)
 
 
+
+
+
 def load_CYP450():
     task_name = 'CYP450'
     task_type = 'classification'
@@ -128,3 +215,36 @@ def load_CYP450():
     target_cols = ['label_1a2', 'label_2c9', 'label_2c19', 'label_2d6', 'label_3a4']
     smiles_col = 'smiles'
     return data(df, smiles_col, target_cols, task_name, task_type, description)
+
+
+
+def load_ToxCast():
+    task_name = 'ToxCast'
+    task_type = 'classification'
+    description = """The ToxCast dataset contains 8597 compounds and corresponding binary toxicity levels over 600 experiments."""
+
+    filename = os.path.join(os.path.dirname(__file__), 'toxcast_data.csv')
+    df = pd.read_csv(filename)
+    target_cols = df.columns[1:].tolist()
+    smiles_col = 'smiles'
+    return data(df, smiles_col, target_cols, task_name, task_type, description)
+
+
+
+def load_ClinTox():
+    task_name = 'ClinTox'
+    task_type = 'classification'
+    description = """The ClinTox dataset contains 1484 drugs or compounds, the labels are FDA approval status and clinical traial toxicity results."""
+
+    filename = os.path.join(os.path.dirname(__file__), 'clintox.csv')
+    df = pd.read_csv(filename)
+    target_cols = ['FDA_APPROVED','CT_TOX']
+    smiles_col = 'smiles'
+    return data(df, smiles_col, target_cols, task_name, task_type, description)
+
+
+
+
+
+
+

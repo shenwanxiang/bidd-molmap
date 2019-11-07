@@ -56,6 +56,18 @@ def load_ESOL():
     smiles_col = 'smiles'
     return data(df, smiles_col,target_cols, task_name, task_type, description)        
     
+def load_FreeSolv():
+    
+    description = """The FreeSolv dataset contains 642 small molecules' experimental hydration free energy in water """
+    
+    task_name = 'FreeSolv'
+    task_type = 'regression'
+    filename = os.path.join(os.path.dirname(__file__), 'FreeSolv.csv')
+    df = pd.read_csv(filename)
+    target_cols = ['expt']
+    smiles_col = 'smiles'
+    return data(df, smiles_col,target_cols, task_name, task_type, description)        
+    
     
     
 def load_CEP():
@@ -96,8 +108,7 @@ def load_IVPK():
     df = pd.read_csv(filename)
     df = df.rename(columns={'SMILES':'smiles'})
     target_cols = ['human VDss (L/kg)', 'human CL (mL/min/kg)',
-                   'fraction unbound \nin plasma (fu)', 'MRT (h)',
-                   'terminal  t1/2 (h)']
+                   'fraction unbound \nin plasma (fu)', 'terminal  t1/2 (h)']
     smiles_col = 'smiles'
     return data(df, smiles_col,target_cols, task_name, task_type, description)
 

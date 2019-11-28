@@ -1,13 +1,13 @@
+./molmap/pkg/lapjv-1.3.1.tar.gz
 seaborn==0.9.0
 scikit-learn==0.19.2
 scipy==1.1.0
 joblib==0.13.2
-lapjv==1.3.1
 umap-learn==0.3.10
 python-highcharts==0.4.2
 tqdm==4.33.0
-numba==0.39.0
 numpy==1.17.2
+numba==0.39.0
 pandas==0.25.1
 colored==1.3.93
 colorlog==4.0.2

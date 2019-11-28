@@ -35,10 +35,15 @@ source ~/.bashrc
 
 3. other(optional)
 
-* In our paper, [deepchem]('https://github.com/deepchem/deepchem') has been used as a dataset provider, so you may install deepchem:
+### In our paper, [deepchem]('https://github.com/deepchem/deepchem') has been used as a dataset provider, so you may install deepchem:
 ```bash
 pip install deepchem==2.2.1.dev54
 ```
+### or if you have problem about gcc, pls installing g++
+```bash
+sudo apt-get install g++
+```
+
 
 ## Usage
 

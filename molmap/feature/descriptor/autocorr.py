@@ -7,6 +7,7 @@ Created on Sun Aug 25 20:29:36 2019
 
 @note: calculation of 606 molecular autocorrelation  descriptors, with three types: MoreauBroto, Moran, Geary, 
 
+ref 0: Moriwaki, Hirotomo, et al. "Mordred: a molecular descriptor calculator." Journal of cheminformatics 10.1 (2018): 4.
 ref 1: http://www.rguha.net/writing/notes/desc/node2.html
 ref 2: Todeschini and Consoni “Descriptors from Molecular Geometry” Handbook of Chemoinformatics http://dx.doi.org/10.1002/9783527618279.ch37
 

@@ -19,6 +19,7 @@ from molmap.utils import vismap
 
 
 from sklearn.manifold import TSNE, MDS
+from sklearn.utils import shuffle
 from joblib import Parallel, delayed, load, dump
 from umap import UMAP
 from tqdm import tqdm
@@ -95,11 +96,12 @@ class MolMap(Base):
         if not flist:
             flist = list(dist_matrix.columns)
         
-        #fix to original order
+        #fix input feature's order as random order
         final_list = list(set(slist) & set(flist))
         final_list.sort(key = lambda x:feat_seq_dict.get(x))
-        
-        
+        if ftype == 'fingerprint':
+            final_list = shuffle(final_list, random_state=90)
+
         dist_matrix = dist_matrix.loc[final_list][final_list]
         
         self.dist_matrix = dist_matrix
@@ -126,6 +128,8 @@ class MolMap(Base):
         self._S = S
         self.split_channels = split_channels        
 
+        
+        
     def _fit_embedding(self, 
                         method = 'tsne',  
                         n_components = 2,

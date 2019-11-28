@@ -1,0 +1,1 @@
+# this dataset are random splitted to train, valid and test set, then test on AttentiveFP, MPNN and MolMapNet

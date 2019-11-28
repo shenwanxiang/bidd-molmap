@@ -31,12 +31,13 @@ echo export PYTHONPATH="\$PYTHONPATH:`pwd`" >> ~/.bashrc
 
 # init bashrc
 source ~/.bashrc
+```
 
-3. other
-# In our paper, deepchem has been used as a dataset provider, so you may install deepchem for reaptable results:
+3. other(optional)
 
-[deepchem]('')
-
+* In our paper, [deepchem]('https://github.com/deepchem/deepchem') has been used as a dataset provider, so you may install deepchem:
+```bash
+pip install deepchem==2.2.1.dev54
 ```
 
 ## Usage
@@ -52,9 +53,6 @@ mp.fit(method = 'umap', min_dist = 0.1, n_neighbors = 50)
 mp.plot_scatter(htmlpath='./html', htmlname= 'test')
 mp.plot_grid(htmlpath='./html', htmlname= 'grid')
 ```
-<img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/html/scatter.png?raw=true" style="float: left; margin-right: 10px;" width="850" height="700" />
-<img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/html/grid.png?raw=true" style="float: left; margin-right: 10px;" width="850" height="700" />
-
 
 
 ```python
@@ -70,32 +68,5 @@ print(x.shape)
 #3,37,37
 ```
 
-```python
-from rdkit import Chem
-from rdkit.Chem import Draw
-import matplotlib.pyplot as plt
 
-#save your molmap image:
-for i in range(len(smiles_list)):
-    plt.imsave('./results/%s.png' % i, x[i], cmap = 'hsv')
-    
-for i, smiles in enumerate(smiles_list):
-    fig = Draw.MolToMPL(Chem.MolFromSmiles(smiles), fitImage = True)
-    fig.savefig('./results/mol_%s.png' % i, bbox_inches='tight')
-    
-```
-Three compunds' molmap representation by images:
------
-<p float="center">
-  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/mol_0.png?raw=true" width="150" height="150"/> 
-  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/0.png?raw=true" width="150" height="150" />
-</p>
-<p float="center">
-  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/mol_1.png?raw=true" width="150" height="150"/> 
-  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/1.png?raw=true" width="150" height="150" />
-</p>
-<p float="center">
-  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/mol_2.png?raw=true" width="150" height="150"/> 
-  <img src="https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/results/2.png?raw=true" width="150" height="150" />
-</p>
 

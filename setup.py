@@ -18,7 +18,7 @@ configuration = {
                                 'example/*.html', 'example/*.pptx',]},
     
     'install_requires': ["seaborn==0.9.0"],
-    'description' : 'MolMap: A Molecule Representation Method Based on High-level Features',
+    'description' : 'MolMapNet: An Efficient Convolutional Neural Network Based on High-level Features for Molecular Deep Learning',
     'long_description' : readme(),
     'classifiers' : [
         'License :: OSI Approved',

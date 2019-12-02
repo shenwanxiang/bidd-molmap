@@ -1,7 +1,7 @@
 from .atompairs import GetAtomPairFPs
 from .avalonfp import GetAvalonFPs
-from .daylightfp import GetDaylightFPs
-from .ecfp import GetECFPs
+from .rdkitfp import GetRDkitFPs
+from .morganfp import GetMorganFPs
 from .estatefp import GetEstateFPs
 from .maccskeys import GetMACCSFPs
 from .pharmErGfp import GetPharmacoErGFPs
@@ -20,8 +20,8 @@ from tqdm import tqdm
 
 mapfunc = {GetAtomPairFPs:'AtomPairFP', 
            GetAvalonFPs:'AvalonFP', 
-           GetDaylightFPs: 'DaylightFP', 
-           GetECFPs:'ECFP', 
+           GetRDkitFPs: 'RDkitFP', 
+           GetMorganFPs:'MorganFP', 
            GetEstateFPs:'EstateFP', 
            GetMACCSFPs:'MACCSFP', 
            GetPharmacoErGFPs:'PharmacoErGFP', 
@@ -32,22 +32,12 @@ mapfunc = {GetAtomPairFPs:'AtomPairFP',
 
 
 mapkey = dict(map(reversed, mapfunc.items()))
-# colormaps = {'AtomPairFP': '#ff8800',
-#              'AvalonFP': '#eeff00',
-#              'DaylightFP': '#66ff00',
-#              'ECFP': '#00ff27',
-#              'EstateFP': '#00ffaf',
-#              'MACCSFP': '#00c7ff',
-#              'PharmacoErGFP': '#003fff',
-#              'PharmacoPFP': '#4f00ff',
-#              'PubChemFP': '#d600ff',
-#              'TorsionFP': '#ff00a0',
-#              'NaN': '#000000'}
+
 
 colormaps = {'AtomPairFP': '#ff8800',
              'AvalonFP': '#d4dd80',
-             'DaylightFP': '#eeff00',
-             'ECFP': '#00ff27',
+             'RDkitFP': '#eeff00',
+             'MorganFP': '#00ff27',
              'EstateFP': '#00ffaf',
              'MACCSFP': '#00c7ff',
              'PharmacoErGFP': '#003fff',

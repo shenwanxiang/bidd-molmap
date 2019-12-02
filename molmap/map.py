@@ -99,8 +99,7 @@ class MolMap(Base):
         #fix input feature's order as random order
         final_list = list(set(slist) & set(flist))
         final_list.sort(key = lambda x:feat_seq_dict.get(x))
-        if ftype == 'fingerprint':
-            final_list = shuffle(final_list, random_state=90)
+        final_list = shuffle(final_list, random_state=90)
 
         dist_matrix = dist_matrix.loc[final_list][final_list]
         

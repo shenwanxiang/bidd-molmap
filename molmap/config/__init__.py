@@ -3,9 +3,10 @@ import gdown
 import pandas as pd
 import os
 
-fids = {'fingerprint_correlation.cfg.gzip': '1r-0F6ucqEoKfkpCinnRwIjREWU26KvEQ',
-        'fingerprint_cosine.cfg.gzip': '14IkgTXbzMj7KutctIDnasLL4QDGhCiRV', 
-        'fingerprint_jaccard.cfg.gzip': '1eBBrJDeCUlRX_FR6rMUXi4PLR956G9dO'}
+fids = {'fingerprint_correlation.cfg.gzip': '1E0QRu8e0_bqqnrC894GcbJHgfLR57QEo',
+        'fingerprint_cosine.cfg.gzip': '1dHgpol9K7Wo72rs7g0UrToGTUaouoT8a', 
+        'fingerprint_jaccard.cfg.gzip': '1EMYbw3wGguX-KSWjRGVhYZdwMdmisb2p'}
+
 
 
 def load_config(ftype = 'descriptor', metric = 'cosine'):

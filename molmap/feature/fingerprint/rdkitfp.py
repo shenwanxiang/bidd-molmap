@@ -12,7 +12,7 @@ _type = 'topological-based'
 
 
 
-def GetDaylightFPs(mol, nBits = 2048, return_bitInfo = False):
+def GetRDkitFPs(mol, nBits = 2048, return_bitInfo = False):
     """
     #################################################################
     Calculate Daylight-like fingerprint or topological fingerprint

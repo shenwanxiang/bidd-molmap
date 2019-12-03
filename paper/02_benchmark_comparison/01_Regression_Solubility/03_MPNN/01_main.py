@@ -72,7 +72,7 @@ if __name__ == '__main__':
 
     # Batch size of models
     batch_size = 64
-    lr = 0.0001
+    lr = 1e-5
     patience = 30
     epochs = 500
 

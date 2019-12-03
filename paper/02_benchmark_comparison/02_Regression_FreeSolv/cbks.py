@@ -1,9 +1,15 @@
 from sklearn.metrics import roc_auc_score
-from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.metrics import mean_squared_error
 import tensorflow as tf
 import os
 import numpy as np
 
+from scipy.stats.stats import pearsonr
+def r2_score(x,y):
+    pcc, _ = pearsonr(x,y)
+    return pcc**2
+  
+    
 class EarlyStoppingAtMinLoss(tf.keras.callbacks.Callback):
     """Stop training when the loss is at its min, i.e. the validate data loss stops decreasing.
 

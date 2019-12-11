@@ -9,7 +9,7 @@ import deepchem as dc
 from deepchem.molnet.preset_hyper_parameters import hps
 from copy import deepcopy
 import os
-os.environ["CUDA_VISIBLE_DEVICES"]="0"
+os.environ["CUDA_VISIBLE_DEVICES"]="7"
 
 
 
@@ -74,7 +74,7 @@ if __name__ == '__main__':
     batch_size = 64
     lr = 1e-5
     patience = 30
-    epochs = 500
+    epochs = 800
 
     results = []
     best_epochs = []
@@ -103,6 +103,9 @@ if __name__ == '__main__':
         best_epoch = 0
 
         for i in range(epochs):
+            
+            train_dataset.shuffle_each_shard()
+            
             model.fit(train_dataset, nb_epoch=1, verbos = 0)
             valid_scores = model.evaluate(valid_dataset, [metric], transformers)
             valid_rmse = valid_scores.get('mean-rms_score')

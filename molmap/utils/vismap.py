@@ -72,6 +72,9 @@ def plot_scatter(molmap, htmlpath = './', htmlname = None, radius = 3):
     
     for subtype, color in colormaps.items():
         dfi = df[df['Subtypes'] == subtype]
+        if len(dfi) == 0:
+            continue
+            
         data = dfi.to_dict('records')
         H.add_data_set(data, 'scatter', subtype, color=color)
     H.save_file(filename)
@@ -174,8 +177,10 @@ def plot_grid(molmap, htmlpath = './', htmlname = None):
     H.set_options('plotOptions', {'series': {'turboThreshold': 5000}})
     
     for subtype, color in colormaps.items():
-        data = df[df['Subtypes'] == subtype]
-        H.add_data_set(data.to_dict('records'), 'heatmap', 
+        dfi = df[df['Subtypes'] == subtype]
+        if len(dfi) == 0:
+            continue
+        H.add_data_set(dfi.to_dict('records'), 'heatmap', 
                        name = subtype,
                        color = color,#dataLabels = {'enabled': True, 'color': '#000000'}
                       )

@@ -1,3 +1,6 @@
+
+from scipy.cluster.hierarchy import dendrogram, linkage, to_tree
+from scipy.spatial.distance import squareform
 import seaborn as sns
 from highcharts import Highchart
 import pandas as pd
@@ -188,3 +191,40 @@ def plot_grid(molmap, htmlpath = './', htmlname = None):
     print_info('save html file to %s' % filename)
     
     return df, H
+
+
+
+
+
+
+def _getNewick(node, newick, parentdist, leaf_names):
+    if node.is_leaf():
+        return "%s:%.2f%s" % (leaf_names[node.id], parentdist - node.dist, newick)
+    else:
+        if len(newick) > 0:
+            newick = "):%.2f%s" % (parentdist - node.dist, newick)
+        else:
+            newick = ");"
+        newick = getNewick(node.get_left(), newick, node.dist, leaf_names)
+        newick = getNewick(node.get_right(), ",%s" % (newick), node.dist, leaf_names)
+        newick = "(%s" % (newick)
+        return newick
+    
+def _mp2newick(molmap, treefile = 'mytree')
+
+    dist_matrix = molmap.dist_matrix
+    leaf_names = molmap.flist
+    df = molmap.df_embedding[['colors','Subtypes']]
+    
+    dists = squareform(dist_matrix)
+    linkage_matrix = linkage(dists, 'complete')
+    tree = to_tree(linkage_matrix, rd=False)
+    newick = getNewick(tree, "", tree.dist, leaf_names = leaf_names)
+    
+    with open(treefile + '.nwk', 'w') as f:
+        f.write(newick)
+    df.to_excel(treefile + '.xlsx')
+    
+        
+def plot_tree(molmap, htmlpath = './', htmlname = None):
+    pass

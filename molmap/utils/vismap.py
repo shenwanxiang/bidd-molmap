@@ -210,7 +210,7 @@ def _getNewick(node, newick, parentdist, leaf_names):
         newick = "(%s" % (newick)
         return newick
     
-def _mp2newick(molmap, treefile = 'mytree')
+def _mp2newick(molmap, treefile = 'mytree'):
 
     dist_matrix = molmap.dist_matrix
     leaf_names = molmap.flist

@@ -1,7 +1,0 @@
-dataset,model,trainable_paras,best_epoch,lr,batch_size,random_seed,train_samples,valid_samples,test_samples,train_roc_auc,valid_roc_auc,test_roc_auc
-attentiveFP,DoublePath_both,803681,"[30, 27, 26]",0.0001,128,"[7, 77, 777]",1628,204,204,0.982 ± 0.004,0.942 ± 0.003,0.950 ± 0.002
-attentiveFP,SinglePath_descriptor,403457,"[109, 91, 122]",0.0001,128,"[7, 77, 777]",1628,204,204,0.957 ± 0.005,0.927 ± 0.002,0.933 ± 0.004
-attentiveFP,SinglePath_fingerprint,322337,"[32, 34, 30]",0.0001,128,"[7, 77, 777]",1628,204,204,0.978 ± 0.005,0.931 ± 0.006,0.949 ± 0.002
-deepchem,DoublePath_both,803681,"[21, 18, 29]",0.0001,128,"[7, 77, 777]",1631,204,204,0.978 ± 0.010,0.963 ± 0.002,0.735 ± 0.005
-deepchem,SinglePath_descriptor,403457,"[105, 119, 103]",0.0001,128,"[7, 77, 777]",1631,204,204,0.965 ± 0.003,0.965 ± 0.003,0.754 ± 0.002
-deepchem,SinglePath_fingerprint,322337,"[25, 33, 29]",0.0001,128,"[7, 77, 777]",1631,204,204,0.975 ± 0.008,0.962 ± 0.001,0.733 ± 0.010

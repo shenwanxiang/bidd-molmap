@@ -1,7 +1,0 @@
-dataset,model,trainable_paras,best_epoch,lr,batch_size,random_seed,train_samples,valid_samples,test_samples,train_rmse,valid_rmse,test_rmse
-attentiveFP,DoublePath_both,803681,"[385, 486, 367]",0.0001,128,"[7, 77, 777]",511,64,64,0.093 ± 0.024,0.786 ± 0.019,0.708 ± 0.024
-attentiveFP,SinglePath_descriptor,407617,"[475, 499, 490]",0.0001,128,"[7, 77, 777]",511,64,64,0.509 ± 0.045,1.284 ± 0.038,0.735 ± 0.020
-attentiveFP,SinglePath_fingerprint,326497,"[499, 485, 484]",0.0001,128,"[7, 77, 777]",511,64,64,0.093 ± 0.014,0.854 ± 0.039,0.750 ± 0.026
-deepchem,DoublePath_both,803681,"[366, 426, 270]",0.0001,128,"[7, 77, 777]",513,64,65,0.430 ± 0.049,0.789 ± 0.026,1.164 ± 0.068
-deepchem,SinglePath_descriptor,407617,"[430, 380, 390]",0.0001,128,"[7, 77, 777]",513,64,65,1.380 ± 0.074,1.233 ± 0.058,1.568 ± 0.062
-deepchem,SinglePath_fingerprint,326497,"[350, 395, 377]",0.0001,128,"[7, 77, 777]",513,64,65,0.424 ± 0.020,0.811 ± 0.028,1.255 ± 0.011

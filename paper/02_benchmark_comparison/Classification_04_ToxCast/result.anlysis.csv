@@ -1,4 +1,0 @@
-dataset,model,trainable_paras,best_epoch,lr,batch_size,random_seed,train_samples,valid_samples,test_samples,train_roc_auc,valid_roc_auc,test_roc_auc
-deepchem,DoublePath_both,1438217,"[67, 69, 89]",0.0001,128,"[17, 42, 777]",6860,858,858,0.872 ± 0.008,0.775 ± 0.001,0.746 ± 0.002
-deepchem,SinglePath_descriptor,997289,"[159, 258, 144]",0.0001,128,"[17, 42, 777]",6860,858,858,0.855 ± 0.023,0.760 ± 0.002,0.746 ± 0.003
-deepchem,SinglePath_fingerprint,916169,"[95, 82, 84]",0.0001,128,"[17, 42, 777]",6860,858,858,0.869 ± 0.004,0.760 ± 0.005,0.731 ± 0.003

@@ -1,4 +1,5 @@
-from sklearn.metrics import roc_auc_score
+from sklearn.metrics import roc_auc_score, precision_recall_curve
+from sklearn.metrics import auc as calculate_auc
 from sklearn.metrics import mean_squared_error
 import tensorflow as tf
 import os
@@ -10,6 +11,10 @@ def r2_score(x,y):
     pcc, _ = pearsonr(x,y)
     return pcc**2
 
+def prc_auc_score(y_true, y_score):
+    precision, recall, threshold  = precision_recall_curve(y_true, y_score) #PRC_AUC
+    auc = calculate_auc(recall, precision)
+    return auc
 
 '''
 for early-stopping techniques in regression and classification task
@@ -41,7 +46,7 @@ class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         # best_weights to store the weights at which the minimum loss occurs.
         self.best_weights = None
         self.criteria = criteria
-        
+        self.best_epoch = 0
 
         
     def rmse(self, y_true, y_pred):
@@ -81,7 +86,7 @@ class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         else:
             self.best = -np.Inf
             
-        self.best_epoch = 0
+        
         
  
         
@@ -186,7 +191,7 @@ class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
 
 class CLA_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
 
-    def __init__(self, train_data, valid_data, MASK = -1, patience=5, criteria = 'val_loss'):
+    def __init__(self, train_data, valid_data, MASK = -1, patience=5, criteria = 'val_loss', metric = 'ROC'):
         super(CLA_EarlyStoppingAndPerformance, self).__init__()
         
         assert criteria in ['val_loss', 'val_auc'], 'not support %s ! only %s' % (criteria, ['val_loss', 'val_auc'])
@@ -204,8 +209,8 @@ class CLA_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         # best_weights to store the weights at which the minimum loss occurs.
         self.best_weights = None
         self.criteria = criteria
-        
-
+        self.metric = metric
+        self.best_epoch = 0
         
     def sigmoid(self, x):
         s = 1/(1+np.exp(-x))
@@ -223,7 +228,10 @@ class CLA_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
             y_true_one_class = y_true[:, i]
             mask = ~(y_true_one_class == self.MASK)
             try:
-                auc = roc_auc_score(y_true_one_class[mask], y_pred_one_class[mask])
+                if self.metric == 'ROC':
+                    auc = roc_auc_score(y_true_one_class[mask], y_pred_one_class[mask]) #ROC_AUC
+                else: 
+                    auc = prc_auc_score(y_true_one_class[mask], y_pred_one_class[mask]) #PRC_AUC
             except:
                 auc = np.nan
             aucs.append(auc)
@@ -242,7 +250,7 @@ class CLA_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         else:
             self.best = -np.Inf
             
-        self.best_epoch = 0
+
         
  
         

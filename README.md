@@ -44,7 +44,7 @@ sudo apt-get install g++
 ```
 
 
-## Usage
+## Out-of-the-Box Usage
 
 ```python
 import molmap
@@ -77,7 +77,7 @@ print(X.shape)
 
 
 ## To cite us:
-```
-{Shen et al. MolMapNet: An Efficient Convolutional Neural Network Based on High-level Features for Molecular Deep Learning}
-```
+
+* MolMapNet: An Efficient Convolutional Neural Network Based on Contructed Feature Maps for Molecular Deep Learning
+
 

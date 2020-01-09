@@ -99,7 +99,7 @@ class MolMap(Base):
         #fix input feature's order as random order
         final_list = list(set(slist) & set(flist))
         final_list.sort(key = lambda x:feat_seq_dict.get(x))
-        final_list = shuffle(final_list, random_state=90)
+        #final_list = shuffle(final_list, random_state=123)
 
         dist_matrix = dist_matrix.loc[final_list][final_list]
         
@@ -132,10 +132,8 @@ class MolMap(Base):
     def _fit_embedding(self, 
                         method = 'tsne',  
                         n_components = 2,
-                        random_state = 32,  
+                        random_state = 1,  
                         verbose = 2,
-                        n_neighbors = 15,
-                        min_dist = 0.9, 
                         **kwargs):
         
         """
@@ -161,8 +159,6 @@ class MolMap(Base):
         elif method == 'umap':
             embedded = UMAP(n_components = n_components, 
                             verbose = verbose,
-                            n_neighbors = n_neighbors,
-                            min_dist = min_dist,
                             random_state=random_state, 
                             metric = metric, **kwargs)
             
@@ -192,8 +188,8 @@ class MolMap(Base):
         
 
     def fit(self, 
-            method = 'umap', min_dist = 0.1, n_neighbors = 50,
-            verbose = 2, random_state = 32, **kwargs): 
+            method = 'umap', min_dist = 0.1, n_neighbors = 30,
+            verbose = 2, random_state = 1, **kwargs): 
         """
         parameters
         -----------------

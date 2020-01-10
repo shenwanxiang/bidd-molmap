@@ -134,6 +134,8 @@ class MolMap(Base):
                         n_components = 2,
                         random_state = 1,  
                         verbose = 2,
+                        n_neighbors = 30,
+                        min_dist = 0.1,
                         **kwargs):
         
         """
@@ -158,6 +160,8 @@ class MolMap(Base):
                             **kwargs)
         elif method == 'umap':
             embedded = UMAP(n_components = n_components, 
+                            n_neighbors = n_neighbors,
+                            min_dist = min_dist,
                             verbose = verbose,
                             random_state=random_state, 
                             metric = metric, **kwargs)
@@ -294,8 +298,42 @@ class MolMap(Base):
         X = np.stack(res) 
         
         return X
-    
 
+    
+    def rearrangement(self, orignal_X, target_mp):
+
+        """
+        Re-Arragement feature maps X from orignal_mp's to target_mp's style, in case that feature already extracted but the position need to be refit and rearrangement.
+
+        parameters
+        -------------------
+        orignal_X: the feature values transformed from orignal_mp(object self)
+        target_mp: the target feature map object
+
+        return
+        -------------
+        target_X, shape is (N, W, H, C)
+        """
+        assert self.flist == target_mp.flist, print_error('Input features list is different, can not re-arrangement, check your flist by mp.flist method' )
+        assert len(orignal_X.shape) == 4, print_error('Input X has error shape, please reshape to (samples, w, h, channels)')
+        
+        idx = self._S.df.sort_values('indices').idx.tolist()
+        idx = np.argsort(idx)
+
+        N = len(orignal_X) #number of sample
+        M = len(self.flist) # number of features
+        res = []
+        for i in tqdm(range(N), ascii=True):
+            x = orignal_X[i].sum(axis=-1)
+            vector_1d_ordered = x.reshape(-1,)
+            vector_1d_ordered = vector_1d_ordered[:M]
+            vector_1d = vector_1d_ordered[idx]
+            fmap = target_mp._S.transform(vector_1d)
+            res.append(fmap)
+        return np.stack(res)
+
+    
+    
     def plot_scatter(self, htmlpath='./', htmlname=None, radius = 3):
         """radius: the size of the scatter, must be int"""
         df_scatter, H_scatter = vismap.plot_scatter(self,  

@@ -1,6 +1,7 @@
 from sklearn.metrics import roc_auc_score, precision_recall_curve
 from sklearn.metrics import auc as calculate_auc
 from sklearn.metrics import mean_squared_error
+from sklearn.metrics import accuracy_score
 import tensorflow as tf
 import os
 import numpy as np
@@ -194,7 +195,8 @@ class CLA_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
     def __init__(self, train_data, valid_data, MASK = -1, patience=5, criteria = 'val_loss', metric = 'ROC'):
         super(CLA_EarlyStoppingAndPerformance, self).__init__()
         
-        assert criteria in ['val_loss', 'val_auc'], 'not support %s ! only %s' % (criteria, ['val_loss', 'val_auc'])
+        sp = ['val_loss', 'val_auc']
+        assert criteria in sp, 'not support %s ! only %s' % (criteria, sp)
         self.x, self.y  = train_data
         self.x_val, self.y_val = valid_data
         
@@ -230,8 +232,10 @@ class CLA_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
             try:
                 if self.metric == 'ROC':
                     auc = roc_auc_score(y_true_one_class[mask], y_pred_one_class[mask]) #ROC_AUC
-                else: 
+                elif self.metric == 'PRC': 
                     auc = prc_auc_score(y_true_one_class[mask], y_pred_one_class[mask]) #PRC_AUC
+                elif self.metric == 'ACC':
+                    auc = accuracy_score(y_true_one_class[mask], np.round(y_pred_one_class[mask])) #ACC
             except:
                 auc = np.nan
             aucs.append(auc)
@@ -275,8 +279,17 @@ class CLA_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         loss = '{0:.4f}'.format((logs.get('loss')))
         val_loss = '{0:.4f}'.format((logs.get('val_loss')))
         auc = '{0:.4f}'.format(roc_mean)
-        auc_val = '{0:.4f}'.format(roc_val_mean)                 
-        print('\repoch: %s, loss: %s - val_loss: %s; auc: %s - val_auc: %s' % (eph,
+        auc_val = '{0:.4f}'.format(roc_val_mean)    
+        
+        if self.metric == 'ACC':
+            print('\repoch: %s, loss: %s - val_loss: %s; acc: %s - val_acc: %s' % (eph,
+                                                                               loss, 
+                                                                               val_loss, 
+                                                                               auc,
+                                                                               auc_val), end=100*' '+'\n')
+            
+        else:
+            print('\repoch: %s, loss: %s - val_loss: %s; auc: %s - val_auc: %s' % (eph,
                                                                                loss, 
                                                                                val_loss, 
                                                                                auc,

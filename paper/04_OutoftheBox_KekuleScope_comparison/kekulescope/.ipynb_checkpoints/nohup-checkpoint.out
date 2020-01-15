@@ -1,8 +1,0 @@
-1578 337 337
-SVGs ready
-SVGs ready
-SVGs ready
-Epoch 0/799 0
-----------
-/home/sxh/anaconda3/envs/kekulescope2/lib/python3.6/site-packages/sklearn/externals/joblib/externals/cloudpickle/cloudpickle.py:47: DeprecationWarning: the imp module is deprecated in favour of importlib; see the module's documentation for alternative uses
-  import imp

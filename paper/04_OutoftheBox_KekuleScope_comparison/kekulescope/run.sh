@@ -1,0 +1,1 @@
+/home/sxh/anaconda3/envs/kekulescope2/bin/python run.py

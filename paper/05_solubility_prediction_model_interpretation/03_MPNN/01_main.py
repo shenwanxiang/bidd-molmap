@@ -66,13 +66,15 @@ etc_dataset, _ =  featurize_data(tasks = ['Exp_LogS'], smiles_col = smiles_col,
 
 if __name__ == '__main__':
 
-    # Fit trained model use the parameters as the example in deepchem
+    
+    
+    batch_size = 32
+    lr = 0.003183415042748088
     n_atom_feat = 75
     n_pair_feat = 14
+    T = 1
+    M = 2
 
-    # Batch size of models
-    batch_size = 64
-    lr = 1e-5
     patience = 30
     epochs = 800
 
@@ -81,12 +83,13 @@ if __name__ == '__main__':
     for seed in [7,77,777]:
         np.random.seed(seed)
         tf.set_random_seed(seed)
+
         model = dc.models.MPNNModel(
                                     len(tasks),
                                     n_atom_feat=n_atom_feat,
-                                    n_pair_feat=n_pair_feat,       
-                                    T=3,
-                                    M=5,
+                                    n_pair_feat=n_pair_feat,
+                                    T=T,
+                                    M=M,
                                     batch_size=batch_size,
                                     learning_rate=lr,
                                     use_queue=False,

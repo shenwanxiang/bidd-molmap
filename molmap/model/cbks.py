@@ -172,6 +172,7 @@ class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
                     self.model.set_weights(self.best_weights)              
     
     def on_train_end(self, logs=None):
+        self.model.set_weights(self.best_weights)
         if self.stopped_epoch > 0:
             print('\nEpoch %05d: early stopping' % (self.stopped_epoch + 1))
 
@@ -331,6 +332,7 @@ class CLA_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
                     self.model.set_weights(self.best_weights)              
     
     def on_train_end(self, logs=None):
+        self.model.set_weights(self.best_weights)
         if self.stopped_epoch > 0:
             print('\nEpoch %05d: early stopping' % (self.stopped_epoch + 1))
 

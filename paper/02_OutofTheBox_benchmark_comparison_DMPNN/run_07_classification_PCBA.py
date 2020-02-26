@@ -42,8 +42,6 @@ mp2 = molmap.loadmap('../fingerprint.mp')
 task_name = 'PCBA'
 from chembench import load_data
 df, induces = load_data(task_name)
-
-
 print(len(induces[0][0]), len(induces[0][1]), len(induces[0][2]), df.shape)
 
 
@@ -60,13 +58,8 @@ if Y.shape[1] == 0:
     Y = Y.astype('float32')
 
 
-
-
 batch = 30
 xs = np.array_split(df.smiles.to_list(), batch)
-
-
-# In[9]:
 
 
 

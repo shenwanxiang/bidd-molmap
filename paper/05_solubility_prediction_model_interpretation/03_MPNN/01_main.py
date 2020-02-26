@@ -98,13 +98,10 @@ if __name__ == '__main__':
 
         ## perform an early stopping strategy
         best_rmse = np.inf
-
         model_performace = {}
         wait = 0
         best_model = None
-        
         best_epoch = 0
-
         for i in range(epochs):
             
             train_dataset.shuffle_each_shard()

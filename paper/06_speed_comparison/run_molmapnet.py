@@ -12,7 +12,7 @@ import molmap
 
 #use GPU, if negative value, CPUs will be used
 import tensorflow as tf
-import tensorflow_addons as tfa
+
 import os
 os.environ["CUDA_VISIBLE_DEVICES"]="6"
 
@@ -37,7 +37,7 @@ for epochs in [1, 10, 50, 100, 150, 300, 500]:
 
     start = time.time()
 
-    mp = loadmap('../descriptor_grid_split.mp')
+    mp = loadmap('../descriptor.mp')
     X = mp.batch_transform(data.x, n_jobs = 10)
 
     trainX = X[train_idx]                

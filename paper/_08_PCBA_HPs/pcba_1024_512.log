@@ -1,100 +1,0 @@
-loading dataset: PCBA number of split times: 3
-350343 43793 43793 (437929, 129)
-350343 43793 43793
-epoch: 0001, loss: 0.3038 - val_loss: 0.2999; auc: 0.1229 - val_auc: 0.1290                                                                                                    
-epoch: 0002, loss: 0.3002 - val_loss: 0.2990; auc: 0.1646 - val_auc: 0.1593                                                                                                    
-epoch: 0003, loss: 0.2988 - val_loss: 0.2969; auc: 0.2079 - val_auc: 0.1880                                                                                                    
-epoch: 0004, loss: 0.2978 - val_loss: 0.2967; auc: 0.2370 - val_auc: 0.2032                                                                                                    
-epoch: 0005, loss: 0.2970 - val_loss: 0.2960; auc: 0.2670 - val_auc: 0.2144                                                                                                    
-epoch: 0006, loss: 0.2963 - val_loss: 0.2957; auc: 0.2932 - val_auc: 0.2298                                                                                                    
-epoch: 0007, loss: 0.2957 - val_loss: 0.2955; auc: 0.3126 - val_auc: 0.2412                                                                                                    
-epoch: 0008, loss: 0.2952 - val_loss: 0.2953; auc: 0.3372 - val_auc: 0.2431                                                                                                    
-epoch: 0009, loss: 0.2947 - val_loss: 0.2954; auc: 0.3508 - val_auc: 0.2459                                                                                                    
-epoch: 0010, loss: 0.2943 - val_loss: 0.2953; auc: 0.3668 - val_auc: 0.2508                                                                                                    
-epoch: 0011, loss: 0.2939 - val_loss: 0.2953; auc: 0.3819 - val_auc: 0.2592                                                                                                    
-epoch: 0012, loss: 0.2935 - val_loss: 0.2952; auc: 0.4069 - val_auc: 0.2567                                                                                                    
-epoch: 0013, loss: 0.2932 - val_loss: 0.2954; auc: 0.4105 - val_auc: 0.2597                                                                                                    
-epoch: 0014, loss: 0.2929 - val_loss: 0.2953; auc: 0.4277 - val_auc: 0.2548                                                                                                    
-epoch: 0015, loss: 0.2926 - val_loss: 0.2954; auc: 0.4363 - val_auc: 0.2653                                                                                                    
-epoch: 0016, loss: 0.2924 - val_loss: 0.2954; auc: 0.4510 - val_auc: 0.2659                                                                                                    
-epoch: 0017, loss: 0.2921 - val_loss: 0.2956; auc: 0.4537 - val_auc: 0.2560                                                                                                    
-epoch: 0018, loss: 0.2919 - val_loss: 0.2955; auc: 0.4690 - val_auc: 0.2585                                                                                                    
-epoch: 0019, loss: 0.2917 - val_loss: 0.2957; auc: 0.4806 - val_auc: 0.2668                                                                                                    
-epoch: 0020, loss: 0.2915 - val_loss: 0.2955; auc: 0.4845 - val_auc: 0.2594                                                                                                    
-epoch: 0021, loss: 0.2913 - val_loss: 0.2958; auc: 0.4909 - val_auc: 0.2657                                                                                                    
-epoch: 0022, loss: 0.2911 - val_loss: 0.2958; auc: 0.5014 - val_auc: 0.2635                                                                                                    
-epoch: 0023, loss: 0.2910 - val_loss: 0.2960; auc: 0.5076 - val_auc: 0.2639                                                                                                    
-epoch: 0024, loss: 0.2908 - val_loss: 0.2962; auc: 0.5124 - val_auc: 0.2610                                                                                                    
-epoch: 0025, loss: 0.2906 - val_loss: 0.2965; auc: 0.5218 - val_auc: 0.2572                                                                                                    
-epoch: 0026, loss: 0.2905 - val_loss: 0.2963; auc: 0.5274 - val_auc: 0.2601                                                                                                    
-epoch: 0027, loss: 0.2904 - val_loss: 0.2965; auc: 0.5272 - val_auc: 0.2561                                                                                                    
-epoch: 0028, loss: 0.2902 - val_loss: 0.2968; auc: 0.5316 - val_auc: 0.2482                                                                                                    
-epoch: 0029, loss: 0.2901 - val_loss: 0.2968; auc: 0.5369 - val_auc: 0.2513                                                                                                    
-
-Restoring model weights from the end of the best epoch.
-
-Epoch 00029: early stopping
-{'task_name': 'PCBA', 'train_auc': 0.48062820136651996, 'valid_auc': 0.2668128763344505, 'test_auc': 0.2660505056694402, 'metric': 'PRC', '# trainable params': 1652768, 'best_epoch': 18, 'batch_size': 128, 'lr': 0.001, 'weight_decay': 0}
-350343 43793 43793
-epoch: 0001, loss: 0.3037 - val_loss: 0.3011; auc: 0.1222 - val_auc: 0.1177                                                                                                    
-epoch: 0002, loss: 0.3001 - val_loss: 0.2997; auc: 0.1700 - val_auc: 0.1562                                                                                                    
-epoch: 0003, loss: 0.2986 - val_loss: 0.2988; auc: 0.2125 - val_auc: 0.1863                                                                                                    
-epoch: 0004, loss: 0.2976 - val_loss: 0.2983; auc: 0.2399 - val_auc: 0.2047                                                                                                    
-epoch: 0005, loss: 0.2968 - val_loss: 0.2977; auc: 0.2668 - val_auc: 0.2171                                                                                                    
-epoch: 0006, loss: 0.2962 - val_loss: 0.2978; auc: 0.2901 - val_auc: 0.2306                                                                                                    
-epoch: 0007, loss: 0.2956 - val_loss: 0.2974; auc: 0.3078 - val_auc: 0.2309                                                                                                    
-epoch: 0008, loss: 0.2950 - val_loss: 0.2971; auc: 0.3336 - val_auc: 0.2428                                                                                                    
-epoch: 0009, loss: 0.2946 - val_loss: 0.2970; auc: 0.3428 - val_auc: 0.2409                                                                                                    
-epoch: 0010, loss: 0.2941 - val_loss: 0.2970; auc: 0.3690 - val_auc: 0.2462                                                                                                    
-epoch: 0011, loss: 0.2938 - val_loss: 0.2970; auc: 0.3848 - val_auc: 0.2544                                                                                                    
-epoch: 0012, loss: 0.2934 - val_loss: 0.2971; auc: 0.3860 - val_auc: 0.2506                                                                                                    
-epoch: 0013, loss: 0.2931 - val_loss: 0.2970; auc: 0.4143 - val_auc: 0.2524                                                                                                    
-epoch: 0014, loss: 0.2928 - val_loss: 0.2969; auc: 0.4268 - val_auc: 0.2570                                                                                                    
-epoch: 0015, loss: 0.2925 - val_loss: 0.2970; auc: 0.4291 - val_auc: 0.2587                                                                                                    
-epoch: 0016, loss: 0.2922 - val_loss: 0.2971; auc: 0.4494 - val_auc: 0.2626                                                                                                    
-epoch: 0017, loss: 0.2920 - val_loss: 0.2972; auc: 0.4595 - val_auc: 0.2593                                                                                                    
-epoch: 0018, loss: 0.2918 - val_loss: 0.2972; auc: 0.4667 - val_auc: 0.2598                                                                                                    
-epoch: 0019, loss: 0.2916 - val_loss: 0.2975; auc: 0.4756 - val_auc: 0.2562                                                                                                    
-epoch: 0020, loss: 0.2913 - val_loss: 0.2977; auc: 0.4811 - val_auc: 0.2534                                                                                                    
-epoch: 0021, loss: 0.2912 - val_loss: 0.2974; auc: 0.5002 - val_auc: 0.2554                                                                                                    
-epoch: 0022, loss: 0.2910 - val_loss: 0.2975; auc: 0.5039 - val_auc: 0.2569                                                                                                    
-epoch: 0023, loss: 0.2908 - val_loss: 0.2977; auc: 0.5119 - val_auc: 0.2578                                                                                                    
-epoch: 0024, loss: 0.2906 - val_loss: 0.2980; auc: 0.5163 - val_auc: 0.2498                                                                                                    
-epoch: 0025, loss: 0.2905 - val_loss: 0.2980; auc: 0.5249 - val_auc: 0.2522                                                                                                    
-epoch: 0026, loss: 0.2903 - val_loss: 0.2982; auc: 0.5341 - val_auc: 0.2515                                                                                                    
-
-Restoring model weights from the end of the best epoch.
-
-Epoch 00026: early stopping
-{'task_name': 'PCBA', 'train_auc': 0.44941239976003844, 'valid_auc': 0.26263443413072085, 'test_auc': 0.25873646534076394, 'metric': 'PRC', '# trainable params': 1652768, 'best_epoch': 15, 'batch_size': 128, 'lr': 0.001, 'weight_decay': 0}
-350343 43793 43793
-epoch: 0001, loss: 0.3037 - val_loss: 0.3012; auc: 0.1236 - val_auc: 0.1294                                                                                                    
-epoch: 0002, loss: 0.3001 - val_loss: 0.3001; auc: 0.1675 - val_auc: 0.1697                                                                                                    
-epoch: 0003, loss: 0.2987 - val_loss: 0.2980; auc: 0.2123 - val_auc: 0.2029                                                                                                    
-epoch: 0004, loss: 0.2977 - val_loss: 0.2973; auc: 0.2398 - val_auc: 0.2217                                                                                                    
-epoch: 0005, loss: 0.2969 - val_loss: 0.2970; auc: 0.2645 - val_auc: 0.2308                                                                                                    
-epoch: 0006, loss: 0.2962 - val_loss: 0.2968; auc: 0.2902 - val_auc: 0.2465                                                                                                    
-epoch: 0007, loss: 0.2956 - val_loss: 0.2965; auc: 0.3080 - val_auc: 0.2510                                                                                                    
-epoch: 0008, loss: 0.2951 - val_loss: 0.2964; auc: 0.3327 - val_auc: 0.2569                                                                                                    
-epoch: 0009, loss: 0.2946 - val_loss: 0.2963; auc: 0.3560 - val_auc: 0.2654                                                                                                    
-epoch: 0010, loss: 0.2942 - val_loss: 0.2963; auc: 0.3717 - val_auc: 0.2769                                                                                                    
-epoch: 0011, loss: 0.2938 - val_loss: 0.2961; auc: 0.3862 - val_auc: 0.2722                                                                                                    
-epoch: 0012, loss: 0.2934 - val_loss: 0.2960; auc: 0.4056 - val_auc: 0.2814                                                                                                    
-epoch: 0013, loss: 0.2931 - val_loss: 0.2960; auc: 0.4186 - val_auc: 0.2792                                                                                                    
-epoch: 0014, loss: 0.2928 - val_loss: 0.2962; auc: 0.4289 - val_auc: 0.2826                                                                                                    
-epoch: 0015, loss: 0.2925 - val_loss: 0.2961; auc: 0.4431 - val_auc: 0.2848                                                                                                    
-epoch: 0016, loss: 0.2922 - val_loss: 0.2961; auc: 0.4511 - val_auc: 0.2791                                                                                                    
-epoch: 0017, loss: 0.2920 - val_loss: 0.2964; auc: 0.4552 - val_auc: 0.2796                                                                                                    
-epoch: 0018, loss: 0.2917 - val_loss: 0.2966; auc: 0.4756 - val_auc: 0.2794                                                                                                    
-epoch: 0019, loss: 0.2915 - val_loss: 0.2965; auc: 0.4821 - val_auc: 0.2843                                                                                                    
-epoch: 0020, loss: 0.2913 - val_loss: 0.2964; auc: 0.4937 - val_auc: 0.2772                                                                                                    
-epoch: 0021, loss: 0.2911 - val_loss: 0.2968; auc: 0.5040 - val_auc: 0.2816                                                                                                    
-epoch: 0022, loss: 0.2909 - val_loss: 0.2969; auc: 0.4913 - val_auc: 0.2756                                                                                                    
-epoch: 0023, loss: 0.2908 - val_loss: 0.2970; auc: 0.5138 - val_auc: 0.2809                                                                                                    
-epoch: 0024, loss: 0.2906 - val_loss: 0.2972; auc: 0.5211 - val_auc: 0.2781                                                                                                    
-epoch: 0025, loss: 0.2904 - val_loss: 0.2973; auc: 0.5299 - val_auc: 0.2809                                                                                                    
-
-Restoring model weights from the end of the best epoch.
-
-Epoch 00025: early stopping
-{'task_name': 'PCBA', 'train_auc': 0.4431326401087266, 'valid_auc': 0.284802556303534, 'test_auc': 0.25325335467385324, 'metric': 'PRC', '# trainable params': 1652768, 'best_epoch': 14, 'batch_size': 128, 'lr': 0.001, 'weight_decay': 0}

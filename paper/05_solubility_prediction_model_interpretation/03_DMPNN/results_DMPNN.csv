@@ -1,0 +1,2 @@
+,train_rmse,valid_rmse,test_rmse,etc_rmse,train_pcc,valid_pcc,test_pcc,etc_pcc,train_p,valid_p,test_p,etc_p,# trainable params,model
+1,0.322 ± 0.005,0.512 ± 0.009,0.405 ± 0.012,1.009 ± 0.070,0.982 ± 0.001,0.952 ± 0.001,0.965 ± 0.001,0.454 ± 0.011,0.000 ± 0.000,0.000 ± 0.000,0.000 ± 0.000,0.000 ± 0.000,3283001,DMPNN

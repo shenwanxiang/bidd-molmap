@@ -82,7 +82,9 @@ X = mp.batch_transform(smiles_list,  scale = True,
 print(X.shape)
 ```
 
+
 #### [more example to use]('https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/05_solubility_prediction_model_interpretation/03_build_model_by_optimized_hyper_params.ipynb')
+
 
 ![code](https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/images/code_example.png)
 

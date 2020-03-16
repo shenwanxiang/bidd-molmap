@@ -54,7 +54,7 @@ sudo apt-get install g++
 
 ## Out-of-the-Box Usage
 
- [More Example](https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/05_solubility_prediction_model_interpretation/05_MolMapNet/03_build_model_by_optimized_hyper_params.ipynb)
+![code](https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/images/code_example.png)
 
 
 ```python
@@ -85,7 +85,11 @@ X = mp.batch_transform(smiles_list,  scale = True,
 print(X.shape)
 ```
 
-![code](https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/images/code_example.png)
+* [Click for More Example](https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/05_solubility_prediction_model_interpretation/05_MolMapNet/03_build_model_by_optimized_hyper_params.ipynb)
+
+
+
+
 
 
 

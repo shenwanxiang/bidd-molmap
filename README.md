@@ -53,8 +53,6 @@ sudo apt-get install g++
 
 
 ## Out-of-the-Box Usage
-![code](https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/images/code_example.png)
-
 
 ```python
 import molmap
@@ -84,16 +82,29 @@ X = mp.batch_transform(smiles_list,  scale = True,
 print(X.shape)
 ```
 
+[more example to use]('https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/05_solubility_prediction_model_interpretation/03_build_model_by_optimized_hyper_params.ipynb')
+
+![code](https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/images/code_example.png)
+
+
+
 
 ## Out-of-the-Box Performances
 
-
-
-
-
-
-## To cite us:
-
-* MolMapNet: An Efficient Convolutional Neural Network Based on Contructed Feature Maps for Molecular Deep Learning
-
-
+| Dataset   | Task Metric | MoleculeNet(GCN Best Model) | Chemprop(D-MPNN model) | MolMapNet(MMNB model) |
+|-----------|-------------|-----------------------------|------------------------|-----------------------|
+| ESOL      | RMSE        | 0.580 (MPNN)                | 0.555                  | 0.575                 |
+| FreeSolv  | RMSE        | 1.150 (MPNN)                | 1.075                  | 1.155                 |
+| Lipop     | RMSE        | 0.655 (GC)                  | 0.555                  | 0.625                 |
+| PDBbind-F | RMSE        | 1.440 (GC)                  | 1.391                  | 0.721                 |
+| PDBbind-C | RMSE        | 1.920 (GC)                  | 2.173                  | 0.931                 |
+| PDBbind-R | RMSE        | 1.650 (GC)                  | 1.486                  | 0.889                 |
+| BACE      | ROC_AUC     | 0.806 (Weave)               | N.A.                   | 0.849                 |
+| HIV       | ROC_AUC     | 0.763 (GC)                  | 0.776                  | 0.777                 |
+| PCBA      | PRC_AUC     | 0.136 (GC)                  | 0.335                  | 0.276                 |
+| MUV       | PRC_AUC     | 0.109 (Weave)               | 0.041                  | 0.096                 |
+| ChEMBL    | ROC_AUC     | N.A.                        | 0.739                  | 0.750                 |
+| Tox21     | ROC_AUC     | 0.829 (GC)                  | 0.851                  | 0.845                 |
+| SIDER     | ROC_AUC     | 0.638 (GC)                  | 0.676                  | 0.68                  |
+| ClinTox   | ROC_AUC     | 0.832 (GC)                  | 0.864                  | 0.888                 |
+| BBBP      | ROC_AUC     | 0.690 (Weave)               | 0.738                  | 0.739                 |

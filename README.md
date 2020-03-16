@@ -54,7 +54,7 @@ sudo apt-get install g++
 
 ## Out-of-the-Box Usage
 
-#### [more-example]('https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/05_solubility_prediction_model_interpretation/03_build_model_by_optimized_hyper_params.ipynb')
+### [More Example]('https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/05_solubility_prediction_model_interpretation/05_MolMapNet/03_build_model_by_optimized_hyper_params.ipynb')
 
 
 ```python

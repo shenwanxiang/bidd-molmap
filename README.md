@@ -98,7 +98,7 @@ print(X.shape)
 
 ## Out-of-the-Box Performances
 
-| Dataset   | Task Metric | MoleculeNet(GCN Best Model) | Chemprop(D-MPNN model) | MolMapNet(MMNB model) |
+| Dataset   | Task Metric | MoleculeNet (GCN Best Model) | Chemprop (D-MPNN model) | MolMapNet (MMNB model) |
 |-----------|-------------|-----------------------------|------------------------|-----------------------|
 | ESOL      | RMSE        | 0.580 (MPNN)                | 0.555                  | 0.575                 |
 | FreeSolv  | RMSE        | 1.150 (MPNN)                | 1.075                  | 1.155                 |

@@ -41,7 +41,7 @@ echo export PYTHONPATH="\$PYTHONPATH:`pwd`" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-3. [deepchem]('https://github.com/deepchem/deepchem') (optional). In our paper, deepchem has been used as a dataset provider, so you may install it by:
+3. [deepchem](https://github.com/deepchem/deepchem) (optional). In our paper, deepchem has been used as a dataset provider, so you may install it by:
 ```bash
 pip install deepchem==2.2.1.dev54
 ```
@@ -54,7 +54,7 @@ sudo apt-get install g++
 
 ## Out-of-the-Box Usage
 
- ### [More Example]('https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/05_solubility_prediction_model_interpretation/05_MolMapNet/03_build_model_by_optimized_hyper_params.ipynb')
+ [More Example](https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/05_solubility_prediction_model_interpretation/05_MolMapNet/03_build_model_by_optimized_hyper_params.ipynb)
 
 
 ```python
@@ -84,9 +84,6 @@ X = mp.batch_transform(smiles_list,  scale = True,
                        scale_method = 'minmax', n_jobs=4)
 print(X.shape)
 ```
-
-
-
 
 ![code](https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/images/code_example.png)
 

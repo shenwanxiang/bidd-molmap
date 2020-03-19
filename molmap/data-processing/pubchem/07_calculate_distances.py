@@ -22,19 +22,7 @@ def caldis(data, idx, tag, methods = ['correlation', 'cosine', 'jaccard']):
     
     
     ##############################################################
-    Nf = len(feature.fingerprint.Extraction().bitsinfo)
-    data0 = loadnpy('./data/fingerprint_8206960.npy', N = Nf, dtype = np.bool)
-    groups = data0.sum(axis=1)
-    from sklearn.model_selection import GroupKFold
-    G  = GroupKFold(n_splits=40)
-    sp = G.split(X = data0, groups=groups)
-    spl = list(sp)
-    sidx = spl[0][1]
-    del data0
-    print(len(sidx))
-    
-    data = data[sidx]
-    data = data.astype(np.float32,copy=False)
+    ## to test one can use smaller number of compounds ##
     #############################################################
     
     

@@ -39,7 +39,7 @@ class Summary:
         s = pd.Series(onefeat)
 
         
-        if s.any():
+        if len(s) != 0:
             maxv = s.max()
             minv = s.min()
             # using 0.8*(1-0.8) as a threshold to exclude feature
@@ -87,4 +87,6 @@ def Summary2(data, n_jobs):
     global DATA, _func
     DATA = data
     res = MultiProcessUnorderedBarRun(_func, list(range(data.shape[1])), n_jobs)
-    return pd.DataFrame(res)
+    df = pd.DataFrame(res)
+    dfres = df.sort_values('index').set_index('index')
+    return dfres

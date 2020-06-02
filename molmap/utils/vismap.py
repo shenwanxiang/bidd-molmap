@@ -205,8 +205,8 @@ def _getNewick(node, newick, parentdist, leaf_names):
             newick = "):%.2f%s" % (parentdist - node.dist, newick)
         else:
             newick = ");"
-        newick = getNewick(node.get_left(), newick, node.dist, leaf_names)
-        newick = getNewick(node.get_right(), ",%s" % (newick), node.dist, leaf_names)
+        newick = _getNewick(node.get_left(), newick, node.dist, leaf_names)
+        newick = _getNewick(node.get_right(), ",%s" % (newick), node.dist, leaf_names)
         newick = "(%s" % (newick)
         return newick
     

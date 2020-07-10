@@ -4,26 +4,16 @@ from mega import Mega
 import pandas as pd
 import os
 
-#!pip install mega.py==1.0.8
-
 # download from google drive
 googleids = {'fingerprint_correlation.cfg.gzip': 'https://drive.google.com/uc?id=1E0QRu8e0_bqqnrC894GcbJHgfLR57QEo',
              'fingerprint_cosine.cfg.gzip': 'https://drive.google.com/uc?id=1dHgpol9K7Wo72rs7g0UrToGTUaouoT8a', 
              'fingerprint_jaccard.cfg.gzip': 'https://drive.google.com/uc?id=1EMYbw3wGguX-KSWjRGVhYZdwMdmisb2p'}
 
 
-
-
-# download from mega drive
-megaids = {'fingerprint_correlation.cfg.gzip': 'https://mega.nz/file/3uBziIzQ#QfvdlG1CRbuO-rADH6eqlJ361caqkvzq1_gyDDtLYmc',
-           'fingerprint_cosine.cfg.gzip': 'https://mega.nz/file/S6IR0I4K#nk-vn3wm8makWoqg0VoNCcPSKpPxx_oq14JhW1hJHwg', 
-           'fingerprint_jaccard.cfg.gzip': 'https://mega.nz/file/L7QTFIyQ#bnlWIcuAUBUB0EUmb8Y29vY3ExGNGTJTZeU-nl3OeM0'}
-
-
-
-
-
-
+# download from bidd
+biddids =  {'fingerprint_correlation.cfg.gzip': 'http://bidd.group/download/fingerprint_correlation.cfg.gzip',
+           'fingerprint_cosine.cfg.gzip': 'http://bidd.group/download/fingerprint_cosine.cfg.gzip',
+           'fingerprint_jaccard.cfg.gzip': 'http://bidd.group/download/fingerprint_jaccard.cfg.gzip'}
 
 def load_config(ftype = 'descriptor', metric = 'cosine'):
     
@@ -44,13 +34,12 @@ def load_config(ftype = 'descriptor', metric = 'cosine'):
             print_info('downloading config file from google drive: %s' % url)
             filename = gdown.download(url, filename, quiet = False)
             print_info('finished...')
-            
+
         except:
-            url = megaids.get(name) 
-            print_info('downloading config file from Mega drive: %s' % url)
-            
-            mega  = Mega()
-            mega.download_url(url, dest_filename = filename)
+            print('Max retries exceeded for Google Drive, will try down it from BIDD ...')
+            url = biddids.get(name) 
+            print_info('downloading config file from bidd website: %s' % url)
+            filename = gdown.download(url, filename, quiet = False)
             print_info('finished...')
 
         df = pd.read_pickle(filename,compression = 'gzip')

@@ -123,6 +123,35 @@ def FilterItLogS(mol):
     return calc(mol).asdict().get('FilterItLogS')
     
 
+############################################################
+def nAcidicGroup(mol):
+    calc = Calculator(descriptors.AcidBase.AcidicGroupCount)
+    return calc(mol).asdict().get('nAcid')
+
+def nBasicGroup(mol):
+    calc = Calculator(descriptors.AcidBase.BasicGroupCount)
+    return calc(mol).asdict().get('nBase')
+
+def isAcidic(mol):
+    if nAcidicGroup(mol) > nBasicGroup(mol):
+        return 1
+    else:
+        return 0
+
+def isBaisc(mol):
+    if nAcidicGroup(mol) < nBasicGroup(mol):
+        return 1
+    else:
+        return 0
+    
+def isNeutral(mol):
+    if nAcidicGroup(mol) == nBasicGroup(mol):
+        return 1
+    else:
+        return 0    
+    
+############################################################
+
 
 def CalculateAverageMolWeight(mol):
     N = mol.GetNumAtoms()
@@ -156,7 +185,14 @@ _properties = { #weight
     
                 #two ekectrions
                 'NumRadicalElectrons':Descriptors.NumRadicalElectrons,
-                'NumValenceElectrons':Descriptors.NumValenceElectrons   
+                'NumValenceElectrons':Descriptors.NumValenceElectrons,
+    
+                #acidic, basic
+#                 'NumAcidicGroup': nAcidicGroup,
+#                 'NumBasicGroup': nBasicGroup,
+#                 'MolisAcidicType': isAcidic,
+#                 'MolisBasicType': isBasic,
+#                 'MolisNeutralType': isNeutral,
             }
     
     

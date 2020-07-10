@@ -1,6 +1,8 @@
 .ipynb_checkpoints
 __pycache__
 tmpignore
+fingerprint_cosine.cfg.gzip
+
 
 */.ipynb_checkpoints/*
 */__pycache__/*

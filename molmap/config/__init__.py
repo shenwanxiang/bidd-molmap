@@ -1,6 +1,5 @@
 from molmap.utils.logtools import print_info
 import gdown
-from mega import Mega
 import pandas as pd
 import os
 

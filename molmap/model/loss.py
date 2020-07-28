@@ -20,3 +20,7 @@ def weighted_cross_entropy(y_true, y_pred, pos_weight, MASK = -1):
     cost = tf.nn.weighted_cross_entropy_with_logits(labels=labels, logits=logits, 
                                                     pos_weight = pos_weight)
     return cost
+
+
+def MALE(y_obs, y_pred):
+    return tf.keras.backend.log(0.5 + tf.keras.backend.abs(y_pred - y_obs))

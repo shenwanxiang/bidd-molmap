@@ -3,6 +3,7 @@ __pycache__
 tmpignore
 fingerprint_cosine.cfg.gzip
 *.gzip
+/build
 
 */.ipynb_checkpoints/*
 */__pycache__/*

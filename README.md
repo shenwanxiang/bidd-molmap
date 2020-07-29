@@ -1,4 +1,4 @@
-[![Documentation Status](https://readthedocs.org/projects/molmap/badge/?version=latest)](https://molmap.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/molmap/badge/?version=latest)](https://molmap.readthedocs.io/en/latest/?badge=latest)[![Build Status](https://travis-ci.com/shenwanxiang/bidd-molmap.svg?branch=master)](https://travis-ci.com/shenwanxiang/bidd-molmap)
 
 # Out-of-the-Box Deep Learning Prediction of Pharmaceutical Properties by Broadly Learned Knowledge-Based Molecular Representations 
 

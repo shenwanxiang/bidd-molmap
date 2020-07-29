@@ -1,3 +1,5 @@
+[![Documentation Status](https://readthedocs.org/projects/molmap/badge/?version=latest)](https://molmap.readthedocs.io/en/latest/?badge=latest)
+
 # Out-of-the-Box Deep Learning Prediction of Pharmaceutical Properties by Broadly Learned Knowledge-Based Molecular Representations 
 
 ## MolMap

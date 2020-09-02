@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://www.highcharts.com/highslide/highslide.css" rel="stylesheet" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/highcharts-more.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/heatmap.js"></script>
+        <script type="text/javascript" src="https://code.highcharts.com/6/modules/exporting.js"></script>
+    </head>
+    <body style="margin:0;padding:0">
+                <div id="container" style="width:1000px;height:850px;">Loading....</div>
+
+
+    <script>
+        $(function(){
+
+
+
+
+
+            Highcharts.setOptions({"global": {}, "lang": {}});
+            var option = {"chart": {"renderTo": "container", "width": 1000, "height": 850, "type": "scatter", "zoomType": "xy"}, "colors": {}, "credits": {"enabled": false}, "drilldown": {}, "exporting": {}, "labels": {}, "legend": {"align": "right", "layout": "vertical", "margin": 1, "verticalAlign": "top", "y": 40, "symbolHeight": 12, "floating": false}, "loading": {}, "navigation": {}, "pane": {}, "plotOptions": {"scatter": {"marker": {"radius": 3, "states": {"hover": {"enabled": true, "lineColor": "rgb(100,100,100)"}}}, "states": {"hover": {"marker": {"enabled": false}}}, "tooltip": {"headerFormat": "<b>{series.name}</b><br>", "pointFormat": "{point.IDs}"}}, "series": {"turboThreshold": 5000}}, "series": {}, "subtitle": {"text": "number of fingerprint: 52, metric method: cosine"}, "title": {"text": "2D emmbedding of fingerprint based on umap method"}, "tooltip": {}, "xAxis": {"title": {"enabled": true, "text": "X", "style": {"fontSize": 20}}, "labels": {"style": {"fontSize": 20}}, "gridLineWidth": 1, "startOnTick": true, "endOnTick": true, "showLastLabel": true}, "yAxis": {"title": {"text": "Y", "style": {"fontSize": 20}}, "labels": {"style": {"fontSize": 20}}, "gridLineWidth": 1}};
+
+
+ 
+
+            var chart = new Highcharts.Chart(option);
+
+            var data = [{"data": [{"x": -18.999710083007812, "y": 8.210293769836426, "IDs": "EstateFP4", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -17.55613136291504, "y": 6.729266166687012, "IDs": "EstateFP5", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.20049285888672, "y": 7.2927069664001465, "IDs": "EstateFP6", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -20.860549926757812, "y": 7.943014144897461, "IDs": "EstateFP7", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -18.871856689453125, "y": 6.830930233001709, "IDs": "EstateFP8", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.675443649291992, "y": 4.806789875030518, "IDs": "EstateFP9", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -20.460065841674805, "y": 7.708990097045898, "IDs": "EstateFP10", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -18.19178009033203, "y": 5.473067283630371, "IDs": "EstateFP11", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -18.29811668395996, "y": 6.90334939956665, "IDs": "EstateFP12", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -20.807010650634766, "y": 7.289739608764648, "IDs": "EstateFP13", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.942066192626953, "y": 5.056851387023926, "IDs": "EstateFP14", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -20.167165756225586, "y": 7.206314563751221, "IDs": "EstateFP15", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -20.006072998046875, "y": 6.418178081512451, "IDs": "EstateFP16", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -20.705562591552734, "y": 5.8251495361328125, "IDs": "EstateFP17", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -18.82560920715332, "y": 7.745975017547607, "IDs": "EstateFP18", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -18.172035217285156, "y": 7.187208652496338, "IDs": "EstateFP19", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -17.842798233032227, "y": 5.743395805358887, "IDs": "EstateFP20", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -18.341163635253906, "y": 6.500670433044434, "IDs": "EstateFP21", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -18.005842208862305, "y": 6.43524694442749, "IDs": "EstateFP22", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -20.025283813476562, "y": 6.083067417144775, "IDs": "EstateFP23", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -18.943193435668945, "y": 5.092190265655518, "IDs": "EstateFP24", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -20.18711280822754, "y": 5.17928409576416, "IDs": "EstateFP25", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -18.705795288085938, "y": 6.457801342010498, "IDs": "EstateFP26", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -20.545717239379883, "y": 7.039364814758301, "IDs": "EstateFP27", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.487375259399414, "y": 5.26850700378418, "IDs": "EstateFP28", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.26581573486328, "y": 6.870540618896484, "IDs": "EstateFP29", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -20.061052322387695, "y": 5.650399208068848, "IDs": "EstateFP30", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.390121459960938, "y": 6.158233642578125, "IDs": "EstateFP31", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -18.736366271972656, "y": 7.199576377868652, "IDs": "EstateFP32", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -18.80634880065918, "y": 7.1612019538879395, "IDs": "EstateFP33", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.017690658569336, "y": 5.885767459869385, "IDs": "EstateFP34", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.881553649902344, "y": 7.993363380432129, "IDs": "EstateFP35", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.20864486694336, "y": 5.561187744140625, "IDs": "EstateFP36", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -17.588769912719727, "y": 6.4199018478393555, "IDs": "EstateFP37", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.611555099487305, "y": 8.425727844238281, "IDs": "EstateFP40", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.41536521911621, "y": 8.272298812866211, "IDs": "EstateFP41", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -17.989212036132812, "y": 8.227859497070312, "IDs": "EstateFP42", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -18.336177825927734, "y": 8.208610534667969, "IDs": "EstateFP43", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -18.09971046447754, "y": 8.031644821166992, "IDs": "EstateFP44", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.448965072631836, "y": 7.575564861297607, "IDs": "EstateFP45", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.07271957397461, "y": 6.527407169342041, "IDs": "EstateFP47", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.85360336303711, "y": 6.917934894561768, "IDs": "EstateFP48", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.61203956604004, "y": 6.446255207061768, "IDs": "EstateFP49", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -20.268798828125, "y": 6.298699855804443, "IDs": "EstateFP50", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -18.90576171875, "y": 6.071002006530762, "IDs": "EstateFP51", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.759090423583984, "y": 5.780938148498535, "IDs": "EstateFP52", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -18.658447265625, "y": 5.56540060043335, "IDs": "EstateFP53", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.863155364990234, "y": 6.981666564941406, "IDs": "EstateFP65", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -20.67558479309082, "y": 6.430794715881348, "IDs": "EstateFP66", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -18.469438552856445, "y": 5.987583160400391, "IDs": "EstateFP69", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.45380401611328, "y": 7.769411563873291, "IDs": "EstateFP73", "Subtypes": "EstateFP", "colors": "#00ffbb"}, {"x": -19.564741134643555, "y": 6.760642051696777, "IDs": "EstateFP74", "Subtypes": "EstateFP", "colors": "#00ffbb"}], "type": "scatter", "color": "#00ffbb", "name": "EstateFP"}];
+            var dataLen = data.length;
+            for (var ix = 0; ix < dataLen; ix++) {
+                chart.addSeries(data[ix]);
+            }
+ 
+
+
+
+
+
+
+
+        
+    });
+        </script>
+
+    </body>
+</html>

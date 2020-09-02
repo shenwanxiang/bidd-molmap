@@ -38,16 +38,18 @@ if __name__ == '__main__':
     F = fext()
     D = dext()
     
-    M = 8206960
+    M = 8506205
+    
+    
     Nd = len(D.bitsinfo)
     Nf = len(F.bitsinfo)
 
-    chunksize = 10000
-    n_jobs = 4
+    chunksize = 50000
+    n_jobs = 16
     
     print('calculating descriptors... ')
-    calculate('./data/descriptors_8206960.npy', D.batch_transform, M, Nd, chunksize,n_jobs, dtype=np.float)
+    calculate('/raid/shenwanxiang/descriptors_8506205.npy', D.batch_transform, M, Nd, chunksize,n_jobs, dtype=np.float)
     
     print('calculating fingerprint... ')
-    calculate('./data/fingerprint_8206960.npy', F.batch_transform, M, Nf, chunksize, n_jobs, dtype = np.bool)
+    calculate('/raid/shenwanxiang/fingerprint_8506205.npy', F.batch_transform, M, Nf, chunksize, n_jobs, dtype = np.bool)
     

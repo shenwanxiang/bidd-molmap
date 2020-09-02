@@ -8,7 +8,8 @@ from itertools import chain
 import seaborn as sns
 sns.set()
 tqdm.pandas(ascii=True)
-
+import matplotlib
+matplotlib.use('Agg')
 
 def _sample_in_group(df):
     '''
@@ -56,10 +57,10 @@ if __name__ == '__main__':
     
     
 
-    bitsize = 2048
-    total_sample = 96117900
+    bitsize = 1024
+    total_sample = 110913349
     bins_2_smaple = 100
-    tsn_all = pd.read_pickle('./data/96117900_2048_NumOnBits.pkl')
+    tsn_all = pd.read_pickle('./data/%s_%s_NumOnBits.pkl' % (total_sample, bitsize))
 
     ## sample
     df_sample = sample(tsn_all, tag = 'sample')
@@ -97,7 +98,7 @@ if __name__ == '__main__':
 
     # save sampled cid & smiles
     sidx = sampled.index
-    dfsmiles = pd.read_csv('./data/cid.smiles.nodupstring.96117900.csv', index_col = 0)
+    dfsmiles = pd.read_csv('./data/cid.smiles.nodupstring.110913349.csv', index_col = 0)
 
     s = dfsmiles.iloc[sidx]
     s.index.name = 'index'

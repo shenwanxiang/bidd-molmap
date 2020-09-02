@@ -3,6 +3,15 @@ import numpy as np
 from tqdm import tqdm
 tqdm.pandas(ascii=True)
 import os
+from rdkit import Chem
+
+def to_smiles(mol):
+    return Chem.MolToSmiles(mol, canonical=True, isomericSmiles=False)
+
+def to_mol(smiles):
+    return Chem.MolFromSmiles(smiles)
+
+
 
 
 #import deepchem as dc
@@ -30,7 +39,7 @@ class data(object):
 
 
 ################################ regression task  #####################################
-def load_malaria():
+def load_malaria(check_smiles = False):
     
     description = """the Malaria dataset includes 9998 compounds that experimentally measured EC50 values of a sulfide-resistant strain of Plasmodium falciparum, which is the
                     source of malaria"""
@@ -41,10 +50,39 @@ def load_malaria():
     df = pd.read_csv(filename)
     target_cols = ['activity']
     smiles_col = 'smiles'
-    return data(df, smiles_col,target_cols, task_name, task_type, description)    
+    N = len(df)
+    if check_smiles:
+        mols = df[smiles_col].apply(to_mol)
+        df = df.iloc[mols[~mols.isna()].index]
+        df = df.reset_index(drop=True)
+        M = len(df)
+        if N != M:
+            print("%s invalid smiles are removed" % (N-M))
+    return data(df, smiles_col, target_cols, task_name, task_type, description)
 
     
-def load_ESOL():
+def load_Lipop(check_smiles = False):
+    
+    description = """The Lipop (Lipophilicity) dataset has 4200 compounds and and their corresponding experimental lipophilicity values."""
+    
+    task_name = 'Lipop'
+    task_type = 'regression'
+    filename = os.path.join(os.path.dirname(__file__), 'Lipophilicity.csv')
+    df = pd.read_csv(filename)
+    target_cols = ['exp']
+    smiles_col = 'smiles' 
+    N = len(df)
+    if check_smiles:
+        mols = df[smiles_col].apply(to_mol)
+        df = df.iloc[mols[~mols.isna()].index]
+        df = df.reset_index(drop=True)
+        M = len(df)
+        if N != M:
+            print("%s invalid smiles are removed" % (N-M))
+    return data(df, smiles_col, target_cols, task_name, task_type, description)
+
+
+def load_ESOL(check_smiles = False):
     
     description = """The ESOL dataset includes 1128 compounds and their experimental water solubility """
     
@@ -54,8 +92,17 @@ def load_ESOL():
     df = pd.read_csv(filename)
     target_cols = ['measured log solubility in mols per litre']
     smiles_col = 'smiles'
-    return data(df, smiles_col,target_cols, task_name, task_type, description)        
-    
+    N = len(df)
+    if check_smiles:
+        mols = df[smiles_col].apply(to_mol)
+        df = df.iloc[mols[~mols.isna()].index]
+        df = df.reset_index(drop=True)
+        M = len(df)
+        if N != M:
+            print("%s invalid smiles are removed" % (N-M))
+    return data(df, smiles_col, target_cols, task_name, task_type, description)
+
+
 def load_FreeSolv():
     
     description = """The FreeSolv dataset contains 642 small molecules' experimental hydration free energy in water """
@@ -82,18 +129,7 @@ def load_CEP():
     smiles_col = 'smiles'
     return data(df, smiles_col,target_cols, task_name, task_type, description)        
     
-    
-def load_Lipop():
-    
-    description = """The Lipop (Lipophilicity) dataset has 4200 compounds and and their corresponding experimental lipophilicity values."""
-    
-    task_name = 'Lipop'
-    task_type = 'regression'
-    filename = os.path.join(os.path.dirname(__file__), 'Lipophilicity.csv')
-    df = pd.read_csv(filename)
-    target_cols = ['exp']
-    smiles_col = 'smiles'
-    return data(df, smiles_col,target_cols, task_name, task_type, description)        
+
 
     
 
@@ -114,7 +150,7 @@ def load_IVPK():
 
 
 ################################ classification task #####################################
-def load_BBBP():
+def load_BBBP(check_smiles = False):
     task_name = 'BBBP'
     task_type = 'classification'
     description = """The BBBP dataset contains 2050 compounds with their binary permeability properties of Blood-brain barrier"""
@@ -123,10 +159,20 @@ def load_BBBP():
     df = pd.read_csv(filename)
     target_cols = ['BBBP']
     smiles_col = 'smiles'
+    N = len(df)
+    if check_smiles:
+        mols = df[smiles_col].apply(to_mol)
+        df = df.iloc[mols[~mols.isna()].index]
+        df = df.reset_index(drop=True)
+        M = len(df)
+
+        if N != M:
+            print("%s invalid smiles are removed" % (N-M))
     return data(df, smiles_col, target_cols, task_name, task_type, description)
 
 
-def load_BACE():
+
+def load_BACE(check_smiles = False):
     task_name = 'BACE'
     task_type = 'classification'
     description = """The BACE dataset contains 1513 inhibitors with their binary inhibition labels for the target of BACE-1"""
@@ -136,20 +182,36 @@ def load_BACE():
     df = df.rename(columns = {'mol': 'smiles'})
     target_cols = ['Class']
     smiles_col = 'smiles'
+    N = len(df)
+    if check_smiles:
+        mols = df[smiles_col].apply(to_mol)
+        df = df.iloc[mols[~mols.isna()].index]
+        df = df.reset_index(drop=True)
+        M = len(df)
+        if N != M:
+            print("%s invalid smiles are removed" % (N-M))
     return data(df, smiles_col, target_cols, task_name, task_type, description)
 
 
-def load_HIV():
+def load_HIV(check_smiles = False):
     task_name = 'HIV'
     task_type = 'classification'
     description = """The HIV dataset conatins 41127 compounds and their binnary ability to inhibit HIV replication."""
 
-    
     filename = os.path.join(os.path.dirname(__file__), 'HIV.csv')
     df = pd.read_csv(filename)    
     target_cols = ['HIV_active']
     smiles_col = 'smiles'
-    return data(df, smiles_col, target_cols, task_name, task_type, description)    
+    N = len(df)
+    if check_smiles:
+        mols = df[smiles_col].apply(to_mol)
+        df = df.iloc[mols[~mols.isna()].index]
+        df = df.reset_index(drop=True)
+        M = len(df)
+
+        if N != M:
+            print("%s invalid smiles are removed" % (N-M))
+    return data(df, smiles_col, target_cols, task_name, task_type, description)
 
 
 def load_MUV():
@@ -252,10 +314,3 @@ def load_ClinTox():
     target_cols = ['FDA_APPROVED','CT_TOX']
     smiles_col = 'smiles'
     return data(df, smiles_col, target_cols, task_name, task_type, description)
-
-
-
-
-
-
-

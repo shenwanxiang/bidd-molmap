@@ -90,8 +90,9 @@ class MolMap(Base):
 
 
         scale_info = load_config(ftype, 'scale')      
-        slist = scale_info[scale_info['var'] > var_thr].index.tolist()
-
+        scale_info = scale_info[scale_info['var'] > var_thr]
+        slist = scale_info.index.tolist()
+        
         if not flist:
             flist = list(dist_matrix.columns)
         
@@ -104,13 +105,7 @@ class MolMap(Base):
         
         self.dist_matrix = dist_matrix
         self.flist = final_list
-        
-        self.x_mean = scale_info['mean'].values
-        self.x_std =  scale_info['std'].values
-        self.x_min = scale_info['min'].values
-        self.x_max = scale_info['max'].values
-        
-        
+        self.scale_info = scale_info.loc[final_list]
         
         #init the feature extract object
         if ftype == 'fingerprint':
@@ -237,8 +232,7 @@ class MolMap(Base):
         ## fit flag
         self.isfit = True
         self.fmap_shape = self._S.fmap_shape
-        
-        return self
+    
 
     
     def transform(self, 
@@ -258,16 +252,21 @@ class MolMap(Base):
         if not self.isfit:
             print_error('please fit first!')
             return
-        arr_1d = self.extract.transform(smiles)
+
+        arr = self.extract.transform(smiles)
+        df = pd.DataFrame(arr).T
+        df.columns = self.extract.bitsinfo.IDs
         
         if (scale) & (self.ftype == 'descriptor'):
+            
             if scale_method == 'standard':
-                arr_1d = self.StandardScaler(arr_1d, self.x_mean, self.x_std)
+                df = self.StandardScaler(df,  
+                                    self.scale_info['mean'],
+                                    self.scale_info['std'])
             else:
-                arr_1d = self.MinMaxScaleClip(arr_1d, self.x_min, self.x_max)
-             
-        df = pd.DataFrame(arr_1d).T
-        df.columns = self.extract.bitsinfo.IDs
+                df = self.MinMaxScaleClip(df, 
+                                     self.scale_info['min'], 
+                                     self.scale_info['max'])
         
         df = df[self.flist]
         vector_1d = df.values[0] #shape = (N, )

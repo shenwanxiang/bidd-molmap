@@ -1,6 +1,7 @@
 import sys
 
-from molmap.utils import distances, feature, calculator
+from molmap.utils import distances, calculator
+from molmap import feature
 
 import pandas as pd
 import numpy as np
@@ -27,7 +28,7 @@ def caldis(data, idx, tag, methods = ['correlation', 'cosine', 'jaccard']):
     
     
     for method in methods:
-        res = calculator.pairwise_distance(data, n_cpus=16, method=method)
+        res = calculator.pairwise_distance(data, n_cpus=48, method=method)
         res = np.nan_to_num(res,copy=False)
         df = pd.DataFrame(res,index=idx,columns=idx)
         df.to_pickle('./data/%s_%s.cfg' % (tag, method))
@@ -41,15 +42,14 @@ if __name__ == '__main__':
     #discriptors distance
     Nd = len(feature.descriptor.Extraction().bitsinfo)
     idx = feature.descriptor.Extraction().bitsinfo.IDs.tolist()
-    data = loadnpy('./data/descriptors_8206960.npy', N = Nd, dtype = np.float)
-    
+    data = loadnpy('/raid/shenwanxiang/descriptor_8506205.npy', N = Nd, dtype = np.float)
     tag = 'descriptor'
     caldis(data, idx, tag, methods = ['correlation', 'cosine'])
     
     
-#     #fingerprint distance
-#     Nf = len(feature.fingerprint.Extraction().bitsinfo)
-#     idx = feature.fingerprint.Extraction().bitsinfo.IDs.tolist()
-#     data = loadnpy('./data/fingerprint_8206960.npy', N = Nf, dtype = np.bool)
-#     tag = 'fingerprint'
-#     caldis(data, idx, tag, methods = ['correlation', 'cosine', 'jaccard'])
+    #fingerprint distance
+    Nf = len(feature.fingerprint.Extraction().bitsinfo)
+    idx = feature.fingerprint.Extraction().bitsinfo.IDs.tolist()
+    data = loadnpy('/raid/shenwanxiang/fingerprint_8506205.npy', N = Nf, dtype = np.bool) 
+    tag = 'fingerprint'
+    caldis(data, idx, tag, methods = ['cosine', 'correlation', 'jaccard'])

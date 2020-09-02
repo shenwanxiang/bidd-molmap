@@ -28,11 +28,10 @@ def loadnpy(filename, N, dtype):
 
 Nd = len(feature.descriptor.Extraction().bitsinfo)
 Nf = len(feature.fingerprint.Extraction().bitsinfo)
-
-
-Ddata = loadnpy('./data/descriptors_8206960.npy', N = Nd, dtype = np.float)
-
 S = summary.Summary(n_jobs = 10)
+
+
+Ddata = loadnpy('/raid/shenwanxiang/descriptors_8506205.npy', N = Nd, dtype = np.float)
 
 res= []
 for i in tqdm(range(Ddata.shape[1])):
@@ -43,7 +42,9 @@ df = pd.DataFrame(res)
 df.index = feature.descriptor.Extraction().bitsinfo.IDs
 df.to_pickle('./data/descriptor_scale.cfg')
 
-Fdata = loadnpy('./data/fingerprint_8206960.npy', N = Nf, dtype = np.bool)
+
+
+Fdata = loadnpy('/raid/shenwanxiang/fingerprint_8506205.npy', N = Nf, dtype = np.bool)
 res= []
 for i in tqdm(range(Fdata.shape[1])):
     r = S._statistics_one(Fdata, i)

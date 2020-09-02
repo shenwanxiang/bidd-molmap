@@ -8,6 +8,8 @@ from .pharmErGfp import GetPharmacoErGFPs
 from .pharmPointfp import GetPharmacoPFPs
 from .pubchemfp import GetPubChemFPs
 from .torsions import GetTorsionFPs
+from .mhfp6 import GetMHFP6
+from .map4 import GetMAP4
 
 from molmap.config import load_config
 
@@ -16,35 +18,31 @@ import pandas as pd
 import numpy as np
 from joblib import Parallel, delayed
 from tqdm import tqdm
+import seaborn as sns
 
-
-mapfunc = {GetAtomPairFPs:'AtomPairFP', 
-           GetAvalonFPs:'AvalonFP', 
+mapfunc = {
+           GetMorganFPs:'MorganFP',    
            GetRDkitFPs: 'RDkitFP', 
-           GetMorganFPs:'MorganFP', 
+           GetAtomPairFPs:'AtomPairFP',     
+           GetTorsionFPs:'TorsionFP',    
+           GetAvalonFPs:'AvalonFP', 
            GetEstateFPs:'EstateFP', 
-           GetMACCSFPs:'MACCSFP', 
+           GetMACCSFPs:'MACCSFP',  
            GetPharmacoErGFPs:'PharmacoErGFP', 
            GetPharmacoPFPs: 'PharmacoPFP', 
-           GetPubChemFPs:'PubChemFP',  
-           GetTorsionFPs:'TorsionFP'}
+           GetPubChemFPs:'PubChemFP', 
+           GetMHFP6:'MHFP6',
+           GetMAP4:'MAP4',
+          }
 
 
 
 mapkey = dict(map(reversed, mapfunc.items()))
-
-
-colormaps = {'AtomPairFP': '#ff8800',
-             'AvalonFP': '#d4dd80',
-             'RDkitFP': '#eeff00',
-             'MorganFP': '#00ff27',
-             'EstateFP': '#00ffaf',
-             'MACCSFP': '#00c7ff',
-             'PharmacoErGFP': '#003fff',
-             'PharmacoPFP': '#4f00ff',
-             'PubChemFP': '#d600ff',
-             'TorsionFP': '#ff00a0',
-             'NaN': '#000000'}
+colors = sns.palettes.color_palette('hsv', n_colors=len(mapkey)).as_hex()
+# sns.palplot(colors)
+fps = ['MorganFP','RDkitFP', 'AtomPairFP','TorsionFP',  'AvalonFP','EstateFP','MACCSFP', 'PharmacoErGFP','PharmacoPFP','PubChemFP' ,'MHFP6', 'MAP4']
+colormaps = dict(zip(fps, colors))          
+colormaps.update({'NaN': '#000000'})
 
 
 
@@ -66,13 +64,13 @@ class Extraction:
             
         self.factory = factory
         self.feature_dict = feature_dict
-        _ = self._transform_mol(Chem.MolFromSmiles('C'))
+        _ = self._transform_mol(Chem.MolFromSmiles('CC'))
         self.colormaps = colormaps        
         self.scaleinfo = load_config('fingerprint', 'scale')
         
     def _transform_mol(self, mol):
         """
-        mol" rdkit mol object
+        mol: rdkit mol object
         """
         _all = []
         _length = []

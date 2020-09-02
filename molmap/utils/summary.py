@@ -74,7 +74,7 @@ class Summary:
         '''
 
         P = Parallel(n_jobs=self.n_jobs, backend = backend, **kwargs)
-        res = P(delayed(self._statistics_one)(data,i) for i in tqdm(range(data.shape[1])))
+        res = P(delayed(self._statistics_one)(data,i) for i in tqdm(range(data.shape[1]), ascii=True))
         return pd.DataFrame(res)
     
 

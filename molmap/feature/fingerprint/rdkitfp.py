@@ -17,7 +17,7 @@ def GetRDkitFPs(mol, nBits = 2048, return_bitInfo = False):
     #################################################################
     Calculate Daylight-like fingerprint or topological fingerprint
     
-    (2048 bits).
+    (1024 bits).
     
     Usage:
         

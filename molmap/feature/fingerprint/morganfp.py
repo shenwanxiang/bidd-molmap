@@ -2,8 +2,11 @@ from rdkit.Chem import AllChem
 from rdkit.Chem import  DataStructs
 import numpy as np
 
-def GetMorganFPs(mol, nBits=2048, radius = 4, return_bitInfo = False):
+def GetMorganFPs(mol, nBits=2048, radius = 2, return_bitInfo = False):
     
+    """
+    ECFP4: radius=2
+    """
     bitInfo={}
     fp = AllChem.GetMorganFingerprintAsBitVect(mol, radius=radius, 
                                                bitInfo=bitInfo, nBits = nBits)

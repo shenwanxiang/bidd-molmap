@@ -1,0 +1,710 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Aug 16 17:10:53 2020
+
+@author: wanxiang.shen@u.nus.edu
+"""
+
+import warnings
+warnings.filterwarnings("ignore")
+
+import os
+import numpy as np
+import tensorflow as tf
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+
+
+from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
+from sklearn.base import BaseEstimator, ClassifierMixin, RegressorMixin
+from sklearn.utils.multiclass import unique_labels
+from sklearn.metrics import get_scorer, SCORERS
+
+from .cbks2 import CLA_EarlyStoppingAndPerformance, Reg_EarlyStoppingAndPerformance
+from .net2 import MolMapNet, MolMapDualPathNet, MolMapAddPathNet, MolMapResNet
+from .loss import cross_entropy, weighted_cross_entropy
+
+
+
+class RegressionEstimator(BaseEstimator, RegressorMixin):
+    
+    """ An MolMap CNN Regression estimator 
+    Parameters
+    ----------
+    n_outputs: int,
+        the number of the outputs, in case it is a multi-task
+    fmap_shape1: tuple
+        width, height, and channels of the first input feature map
+    fmap_shape2: tuple, default = None
+        width and height of the second input feature map
+    epochs : int, default = 100
+        A parameter used for training epochs. 
+    dense_layers: list, default = [128]
+        A parameter used for the dense layers.    
+    monitor: str
+        {'val_loss', 'val_r2'}
+        
+    
+    Examples
+    --------
+
+    """
+    
+    def __init__(self, 
+                 n_outputs,
+                 fmap_shape1,
+                 fmap_shape2 = None,
+                 epochs = 800,  
+                 conv1_kernel_size = 11,
+                 dense_layers = [128, 64],  
+                 dense_avf = 'relu',
+                 batch_size = 128,  
+                 lr = 1e-4, 
+                 loss = 'mse',
+                 monitor = 'val_loss', 
+                 metric = 'r2',
+                 patience = 50,
+                 verbose = 2, 
+                 random_state = 32,
+                 name = "Regression Estimator",
+                 gpuid = "0",
+                 
+                ):
+        
+        self.n_outputs = n_outputs
+        self.fmap_shape1 = fmap_shape1
+        self.fmap_shape2 = fmap_shape2
+        
+        self.epochs = epochs
+        self.dense_layers = dense_layers
+        self.conv1_kernel_size = conv1_kernel_size
+        self.dense_avf = dense_avf
+        self.batch_size = batch_size
+        self.lr = lr
+        self.loss = loss
+        self.monitor = monitor
+        self.metric = metric
+        self.patience = patience
+        
+        
+        self.verbose = verbose
+        self.random_state = random_state
+        
+        self.name = name
+
+        self.gpuid = str(gpuid)
+        os.environ["CUDA_VISIBLE_DEVICES"]= self.gpuid
+        
+        np.random.seed(self.random_state)
+        tf.compat.v1.set_random_seed(self.random_state)
+        
+        if self.fmap_shape2 is None:
+            model = MolMapNet(self.fmap_shape1,
+                              n_outputs = self.n_outputs, 
+                              conv1_kernel_size = self.conv1_kernel_size,
+                              dense_layers = self.dense_layers, 
+                              dense_avf = self.dense_avf, 
+                              last_avf = 'linear')
+
+        else:
+            model = MolMapDualPathNet(self.fmap_shape1,
+                                      self.fmap_shape2,
+                                      n_outputs = self.n_outputs, 
+                                      conv1_kernel_size = self.conv1_kernel_size,
+                                      dense_layers = self.dense_layers, 
+                                      dense_avf = self.dense_avf, 
+                                      last_avf = 'linear')
+        
+        opt = tf.keras.optimizers.Adam(lr=self.lr, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0) #
+        model.compile(optimizer = opt, loss = self.loss)
+        
+        self._model = model
+        
+        print(self)
+        
+        
+    def get_params(self, deep=True):
+        model_paras =  {"epochs": self.epochs, 
+                        "lr":self.lr, 
+                        "loss":self.loss, 
+                        "conv1_kernel_size": self.conv1_kernel_size,
+                        "dense_layers": self.dense_layers, 
+                        "dense_avf":self.dense_avf, 
+                        "batch_size":self.batch_size, 
+                        "monitor": self.monitor,
+                        "patience":self.patience,
+                        "random_state":self.random_state,
+                        "verbose":self.verbose,
+                        "name":self.name,
+                        "gpuid":self.gpuid,
+                       }
+        return model_paras
+    
+
+    
+    def set_params(self, **parameters):
+        for parameter, value in parameters.items():
+            setattr(self, parameter, value)
+        return self
+
+        
+    def count_model_params(self, deep=True):
+        model_paras = self._model.count_params()
+        return model_paras
+    
+    
+    def fit(self, X, y,  X_valid = None, y_valid = None):
+
+        # Check that X and y have correct shape
+
+        if self.fmap_shape2 is None:
+            if  X.ndim != 4:
+                raise ValueError("Found array X with dim %d. %s expected == 4." % (X.ndim, self.name))
+            w, h, c = X.shape[1:]
+            w_, h_, c_ = self.fmap_shape1
+            assert (w == w_) & (h == h_) & (c == c_), "Input shape of X is not matched the defined fmap_shape. expected == %s" % self.fmap_shape1
+        
+        else:
+            if len(X) != 2:
+                raise ValueError("Input X should be a tuple with two elements." )
+            X1, X2 = X
+            w1_, h1_, c1_ = self.fmap_shape1
+            w2_, h2_, c2_ = self.fmap_shape2
+            w1, h1, c1 = X1.shape[1:]
+            w2, h2, c2 = X2.shape[1:]
+            assert (w1 == w1_) & (h1 == h1_) & (c1 == c1_), "Input shape of X is not matched the defined fmap_shape. expected == %s" % self.fmap_shape1
+            assert (w2 == w2_) & (h2 == h2_) & (c2 == c2_), "Input shape of X is not matched the defined fmap_shape. expected == %s" % self.fmap_shape2
+
+            
+        self.X_ = X
+        self.y_ = y
+        if (X_valid is None) | (y_valid is None):
+            X_valid = X
+            y_valid = y
+        
+
+        performance = Reg_EarlyStoppingAndPerformance((X, y), 
+                                                      (X_valid, y_valid), 
+                                                      patience = self.patience, 
+                                                      criteria = self.monitor,
+                                                      verbose = self.verbose,)
+
+        history = self._model.fit(X, y, 
+                                  batch_size=self.batch_size, 
+                                  epochs= self.epochs, verbose= 0, shuffle = True, 
+                                  validation_data = (X_valid, y_valid), 
+                                  callbacks=[performance]) 
+
+        self._performance = performance
+        self.history = history 
+        # Return the classifier
+        return self
+
+
+    
+    def predict(self, X):
+        """
+        Parameters
+        ----------
+        X : array-like of shape (n_samples, n_features_w, n_features_h, n_features_c)
+            Vector to be scored, where `n_samples` is the number of samples and
+
+        Returns
+        -------
+        T : array-like of shape (n_samples, n_classes)
+            Returns the probability of the sample for each class in the model,
+            where classes are ordered as they are in ``self.classes_``.
+        """
+        
+        # Check is fit had been called
+        check_is_fitted(self)
+        
+        y_pred = self._model.predict(X)
+        return y_pred
+    
+
+
+    def score(self, X, y, scoring = 'r2'):
+        """Returns the score using the `scoring` option on the given
+        test data and labels.
+        Parameters
+        ----------
+        X : array-like of shape (n_samples, n_features)
+            Test samples.
+        y : array-like of shape (n_samples,)
+            True labels for X.
+        scoring: str, default: r2, 
+            {'r2', 'rmse'}
+        
+        Returns
+        -------
+        score : float
+            Score of self.predict(X) wrt. y.
+        """
+        
+        rmse_list, r2_list = self._performance.evaluate(X, y)
+        
+        if scoring == 'r2':
+            myscore = np.nanmean(r2_list)
+        else:
+            myscore = np.nanmean(rmse_list)
+            
+        return myscore
+    
+    
+    
+    
+    
+    
+    
+class MultiClassEstimator(BaseEstimator, ClassifierMixin):
+
+    """ An MolMap CNN MultiClass estimator
+    Parameters
+    ----------
+    epochs : int, default = 150
+        A parameter used for training epochs. 
+    dense_layers: list, default = [128]
+        A parameter used for the dense layers.    
+    
+    Examples
+    --------
+
+
+    """
+    
+    def __init__(self, 
+                 n_outputs,
+                 fmap_shape1,
+                 fmap_shape2 = None,
+                 
+                 epochs = 800,  
+                 conv1_kernel_size = 11,
+                 dense_layers = [128, 64],  
+                 dense_avf = 'relu',
+                 batch_size = 128,  
+                 lr = 1e-4, 
+                 loss = 'categorical_crossentropy',
+                 monitor = 'val_loss', 
+                 metric = 'ROC',
+                 patience = 50,
+                 verbose = 2, 
+                 random_state = 32,
+                 name = "MultiClass Estimator",
+                 
+                 gpuid = 0,
+                ):
+        
+        self.n_outputs = n_outputs
+        self.fmap_shape1 = fmap_shape1
+        self.fmap_shape2 = fmap_shape2
+        
+        self.epochs = epochs
+        self.dense_layers = dense_layers
+        self.conv1_kernel_size = conv1_kernel_size
+        self.dense_avf = dense_avf
+        self.batch_size = batch_size
+        self.lr = lr
+        self.loss = loss
+        self.monitor = monitor
+        self.metric = metric
+        self.patience = patience
+        
+        
+        self.verbose = verbose
+        self.random_state = random_state
+        
+        self.name = name
+        self.gpuid = str(gpuid)
+        os.environ["CUDA_VISIBLE_DEVICES"]= self.gpuid
+        
+        np.random.seed(self.random_state)
+        tf.compat.v1.set_random_seed(self.random_state)
+        if self.fmap_shape2 is None:
+            model = MolMapNet(self.fmap_shape1,
+                              n_outputs = self.n_outputs, 
+                              conv1_kernel_size = self.conv1_kernel_size,
+                              dense_layers = self.dense_layers, 
+                              dense_avf = self.dense_avf, 
+                              last_avf = 'softmax')
+
+        else:
+            model = MolMapDualPathNet(self.fmap_shape1,
+                                      self.fmap_shape2,
+                                      n_outputs = self.n_outputs, 
+                                      conv1_kernel_size = self.conv1_kernel_size,
+                                      dense_layers = self.dense_layers, 
+                                      dense_avf = self.dense_avf, 
+                                      last_avf = 'softmax')
+        
+        opt = tf.keras.optimizers.Adam(lr=self.lr, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0) #
+        model.compile(optimizer = opt, loss = self.loss, metrics = ['accuracy'])
+        
+        self._model = model
+        
+        print(self)
+        
+        
+    def get_params(self, deep=True):
+
+        model_paras =  {"epochs": self.epochs, 
+                        "lr":self.lr, 
+                        "loss": self.loss,
+                        "conv1_kernel_size": self.conv1_kernel_size,
+                        "dense_layers": self.dense_layers, 
+                        "dense_avf":self.dense_avf, 
+                        "batch_size":self.batch_size, 
+                        "monitor": self.monitor,
+                        "metric":self.metric,
+                        "patience":self.patience,
+                        "random_state":self.random_state,
+                        "verbose":self.verbose,
+                        "name":self.name,
+                        "gpuid": self.gpuid,
+                       }
+
+        return model_paras
+    
+    
+    def set_params(self, **parameters):
+        for parameter, value in parameters.items():
+            setattr(self, parameter, value)
+        return self
+
+    
+    def count_model_params(self, deep=True):
+        model_paras = self._model.count_params()
+        return model_paras
+    
+
+    def fit(self, X, y,  X_valid = None, y_valid = None):
+
+        # Check that X and y have correct shape
+
+        if self.fmap_shape2 is None:
+            if  X.ndim != 4:
+                raise ValueError("Found array X with dim %d. %s expected == 4." % (X.ndim, self.name))
+            w, h, c = X.shape[1:]
+            w_, h_, c_ = self.fmap_shape1
+            assert (w == w_) & (h == h_) & (c == c_), "Input shape of X is not matched the defined fmap_shape. expected == %s" % self.fmap_shape1
+        
+        else:
+            if len(X) != 2:
+                raise ValueError("Input X should be a tuple with two elements." )
+            X1, X2 = X
+            w1_, h1_, c1_ = self.fmap_shape1
+            w2_, h2_, c2_ = self.fmap_shape2
+            w1, h1, c1 = X1.shape[1:]
+            w2, h2, c2 = X2.shape[1:]
+            assert (w1 == w1_) & (h1 == h1_) & (c1 == c1_), "Input shape of X is not matched the defined fmap_shape. expected == %s" % self.fmap_shape1
+            assert (w2 == w2_) & (h2 == h2_) & (c2 == c2_), "Input shape of X is not matched the defined fmap_shape. expected == %s" % self.fmap_shape2
+            
+        self.X_ = X
+        self.y_ = y
+        if (X_valid is None) | (y_valid is None):
+            X_valid = X
+            y_valid = y
+        
+        performance = CLA_EarlyStoppingAndPerformance((X, y), (X_valid, y_valid), 
+                                                      patience = self.patience, 
+                                                      criteria = self.monitor,
+                                                      metric = self.metric,  
+                                                      last_avf="softmax",
+                                                      verbose = 0,)
+
+        history = self._model.fit(X, y, 
+                                  batch_size=self.batch_size, 
+                                  epochs= self.epochs, verbose= self.verbose, shuffle = True, 
+                                  validation_data = (X_valid, y_valid), 
+                                  callbacks=[performance]) 
+
+        self._performance = performance
+        self.history = history
+        
+        # Return the classifier
+        return self
+
+
+
+    def predict_proba(self, X):
+        """
+        Probability estimates.
+        The returned estimates for all classes are ordered by the
+        label of classes.
+        For a multi_class problem, if multi_class is set to be "multinomial"
+        the softmax function is used to find the predicted probability of
+        each class.
+        
+        Parameters
+        ----------
+        X : array-like of shape (n_samples, n_features)
+            Vector to be scored, where `n_samples` is the number of samples and
+            `n_features` is the number of features.
+        Returns
+        -------
+        T : array-like of shape (n_samples, n_classes)
+            Returns the probability of the sample for each class in the model,
+            where classes are ordered as they are in ``self.classes_``.
+        """
+        # Check is fit had been called
+        check_is_fitted(self)
+        y_prob = self._model.predict(X)
+        return y_prob
+    
+    
+    
+    
+    def predict(self, X):
+        
+        # Check is fit had been called
+        check_is_fitted(self)
+        y_pred = np.round(self.predict_proba(X))
+        return y_pred
+    
+    
+
+    def score(self, X, y):
+        """Returns the accuracy score of metric used in init
+        test data and labels.
+        Parameters
+        ----------
+        X : array-like of shape (n_samples, n_features)
+            Test samples.
+        y : array-like of shape (n_samples,)
+            True labels for X.
+
+        Returns
+        -------
+        score : float
+            Score of self.predict(X) wrt. y.
+        """
+        
+        metrics = self._performance.evaluate(X, y)
+        return np.nanmean(metrics)
+    
+    
+    
+    
+    
+    
+    
+
+class MultiLabelEstimator(BaseEstimator, ClassifierMixin):
+
+    """ An MolMAP CNN MultiLabel estimator
+    Parameters
+    ---------- 
+    
+    Examples
+    --------
+
+    """
+    
+    def __init__(self, 
+                 
+                 n_outputs,
+                 fmap_shape1,
+                 fmap_shape2 = None,
+                 
+                 epochs = 800,  
+                 conv1_kernel_size = 11,
+                 dense_layers = [128, 64],  
+                 dense_avf = 'relu',
+                 batch_size = 128,  
+                 lr = 1e-4, 
+                 loss = cross_entropy,
+                 monitor = 'val_loss', 
+                 metric = 'ROC',
+                 patience = 50,
+                 verbose = 2, 
+                 random_state = 32,
+                 name = "MultiLabels Estimator",
+                 gpuid = 0,
+                ):
+        
+        self.n_outputs = n_outputs
+        self.fmap_shape1 = fmap_shape1
+        self.fmap_shape2 = fmap_shape2
+        
+        self.epochs = epochs
+        self.dense_layers = dense_layers
+        self.conv1_kernel_size = conv1_kernel_size
+        self.dense_avf = dense_avf
+        self.batch_size = batch_size
+        self.lr = lr
+        self.loss = loss
+        self.monitor = monitor
+        self.metric = metric
+        self.patience = patience
+        
+        
+        self.verbose = verbose
+        self.random_state = random_state
+        
+        self.name = name
+        self.gpuid = str(gpuid)
+        os.environ["CUDA_VISIBLE_DEVICES"]= self.gpuid        
+        
+        np.random.seed(self.random_state)
+        tf.compat.v1.set_random_seed(self.random_state)
+        if self.fmap_shape2 is None:
+            model = MolMapNet(self.fmap_shape1,
+                              n_outputs = self.n_outputs, 
+                              conv1_kernel_size = self.conv1_kernel_size,
+                              dense_layers = self.dense_layers, 
+                              dense_avf = self.dense_avf, 
+                              last_avf = None)
+
+        else:
+            model = MolMapDualPathNet(self.fmap_shape1,
+                                      self.fmap_shape2,
+                                      n_outputs = self.n_outputs, 
+                                      conv1_kernel_size = self.conv1_kernel_size,
+                                      dense_layers = self.dense_layers, 
+                                      dense_avf = self.dense_avf, 
+                                      last_avf = None)
+        
+        
+        opt = tf.keras.optimizers.Adam(lr=self.lr, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0) #
+        model.compile(optimizer = opt, loss = self.loss)
+        
+        self._model = model
+        print(self)
+        
+        
+    def get_params(self, deep=True):
+
+        model_paras =  {"epochs": self.epochs, 
+                        "lr":self.lr, 
+                        "loss":self.loss,
+                        "conv1_kernel_size": self.conv1_kernel_size,
+                        "dense_layers": self.dense_layers, 
+                        "dense_avf":self.dense_avf, 
+                        "batch_size":self.batch_size, 
+                        "monitor": self.monitor,
+                        "metric":self.metric,
+                        "patience":self.patience,
+                        "random_state":self.random_state,
+                        "verbose":self.verbose,
+                        "name":self.name,
+                        "gpuid": self.gpuid,
+                       }
+
+        return model_paras
+    
+    
+    def set_params(self, **parameters):
+        for parameter, value in parameters.items():
+            setattr(self, parameter, value)
+        return self
+
+    
+    def count_model_params(self, deep=True):
+        model_paras = self._model.count_params()
+        return model_paras
+    
+
+    def fit(self, X, y,  X_valid = None, y_valid = None):
+
+        # Check that X and y have correct shape
+        if self.fmap_shape2 is None:
+            if  X.ndim != 4:
+                raise ValueError("Found array X with dim %d. %s expected == 4." % (X.ndim, self.name))
+            w, h, c = X.shape[1:]
+            w_, h_, c_ = self.fmap_shape1
+            assert (w == w_) & (h == h_) & (c == c_), "Input shape of X is not matched the defined fmap_shape. expected == %s" % self.fmap_shape1
+        
+        else:
+            if len(X) != 2:
+                raise ValueError("Input X should be a tuple with two elements." )
+            X1, X2 = X
+            w1_, h1_, c1_ = self.fmap_shape1
+            w2_, h2_, c2_ = self.fmap_shape2
+            w1, h1, c1 = X1.shape[1:]
+            w2, h2, c2 = X2.shape[1:]
+            assert (w1 == w1_) & (h1 == h1_) & (c1 == c1_), "Input shape of X is not matched the defined fmap_shape. expected == %s" % self.fmap_shape1
+            assert (w2 == w2_) & (h2 == h2_) & (c2 == c2_), "Input shape of X is not matched the defined fmap_shape. expected == %s" % self.fmap_shape2
+            
+        self.X_ = X
+        self.y_ = y
+        if (X_valid is None) | (y_valid is None):
+            X_valid = X
+            y_valid = y
+
+        performance = CLA_EarlyStoppingAndPerformance((X, y), 
+                                                      (X_valid, y_valid), 
+                                                      patience = self.patience, 
+                                                      criteria = self.monitor,
+                                                      metric = self.metric,  
+                                                      last_avf=None,
+                                                      verbose = self.verbose,)
+
+        history = self._model.fit(X, y, 
+                                  batch_size=self.batch_size, 
+                                  epochs= self.epochs, verbose= 0, shuffle = True, 
+                                  validation_data = (X_valid, y_valid), 
+                                  callbacks=[performance]) 
+
+
+        self._performance = performance
+        self.history = history
+        
+        # Return the classifier
+        return self
+
+
+
+    def predict_proba(self, X):
+        """
+        Probability estimates.
+        The returned estimates for all classes are ordered by the
+        label of classes.
+        For a multi_class problem, if multi_class is set to be "multinomial"
+        the softmax function is used to find the predicted probability of
+        each class.
+        
+        Parameters
+        ----------
+        X : array-like of shape (n_samples, n_features)
+            Vector to be scored, where `n_samples` is the number of samples and
+            `n_features` is the number of features.
+        Returns
+        -------
+        T : array-like of shape (n_samples, n_classes)
+            Returns the probability of the sample for each class in the model,
+            where classes are ordered as they are in ``self.classes_``.
+        """
+        # Check is fit had been called
+        check_is_fitted(self)
+        y_prob = self._model.predict(X)
+        return y_prob
+    
+    
+    
+    
+    def predict(self, X):
+        
+        # Check is fit had been called
+        check_is_fitted(self)
+        y_pred = np.round(self.predict_proba(X))
+        return y_pred
+    
+    
+
+    def score(self, X, y):
+        """Returns the accuracy score of metric used in init
+        test data and labels.
+        Parameters
+        ----------
+        X : array-like of shape (n_samples, n_features)
+            Test samples.
+        y : array-like of shape (n_samples,)
+            True labels for X.
+
+        Returns
+        -------
+        score : float
+            Score of self.predict(X) wrt. y.
+        """
+        
+        metrics = self._performance.evaluate(X, y)
+        return np.nanmean(metrics)

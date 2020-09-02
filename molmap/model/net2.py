@@ -92,7 +92,8 @@ def MolMapNet(input_shape,
 
 def MolMapDualPathNet(molmap1_size, 
                     molmap2_size, 
-                    n_outputs = 1, 
+                    n_outputs = 1,
+                    conv1_kernel_size = 13,
                     dense_layers = [256, 128, 32], 
                     dense_avf = 'relu', 
                     last_avf = None):
@@ -109,7 +110,7 @@ def MolMapDualPathNet(molmap1_size,
     
     ## first inputs
     d_inputs1 = Input(molmap1_size)
-    d_conv1 = Conv2D(48, 13, padding = 'same', activation='relu', strides = 1)(d_inputs1)
+    d_conv1 = Conv2D(48, conv1_kernel_size, padding = 'same', activation='relu', strides = 1)(d_inputs1)
     d_pool1 = MaxPool2D(pool_size = 3, strides = 2, padding = 'same')(d_conv1) #p1
     d_incept1 = Inception(d_pool1, strides = 1, units = 32)
     d_pool2 = MaxPool2D(pool_size = 3, strides = 2, padding = 'same')(d_incept1) #p2
@@ -119,7 +120,7 @@ def MolMapDualPathNet(molmap1_size,
     
     ## second inputs
     f_inputs1 = Input(molmap2_size)
-    f_conv1 = Conv2D(48, 13, padding = 'same', activation='relu', strides = 1)(f_inputs1)
+    f_conv1 = Conv2D(48, conv1_kernel_size, padding = 'same', activation='relu', strides = 1)(f_inputs1)
     f_pool1 = MaxPool2D(pool_size = 3, strides = 2, padding = 'same')(f_conv1) #p1
     f_incept1 = Inception(f_pool1, strides = 1, units = 32)
     f_pool2 = MaxPool2D(pool_size = 3, strides = 2, padding = 'same')(f_incept1) #p2

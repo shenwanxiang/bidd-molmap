@@ -107,7 +107,7 @@ def MultiProcessUnorderedBarRun(func, deal_list, n_cpus=None):
     
     p = Pool(N_CPUS)
     res_list = []
-    with pbar(total = len(deal_list)) as pb:
+    with pbar(total = len(deal_list), ascii=True) as pb:
         for res in p.imap_unordered(func, deal_list):
             pb.update(1)
             res_list.append(res)

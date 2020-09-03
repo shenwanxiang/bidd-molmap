@@ -83,11 +83,63 @@ mp.plot_grid()
 
 ```python
 # Batch transform 
-smiles_list = ['CC(=O)OC1=CC=CC=C1C(O)=O']
+
+from molmap import dataset
+
+data = dataset.load_ESOL()
+smiles_list = data.x # list of smiles strings
 X = mp.batch_transform(smiles_list,  scale = True, 
-                       scale_method = 'minmax', n_jobs=4)
+                       scale_method = 'minmax', n_jobs=8)
+Y = data.y 
 print(X.shape)
 ```
+
+
+```python
+# Train on your data and test on the external test set
+
+from molmap.model import RegressionEstimator
+from sklearn.utils import shuffle 
+import numpy as np
+import pandas as pd
+
+def Rdsplit(df, random_state = 1, split_size = [0.8, 0.1, 0.1]):
+    base_indices = np.arange(len(df)) 
+    base_indices = shuffle(base_indices, random_state = random_state) 
+    nb_test = int(len(base_indices) * split_size[2]) 
+    nb_val = int(len(base_indices) * split_size[1]) 
+    test_idx = base_indices[0:nb_test] 
+    valid_idx = base_indices[(nb_test):(nb_test+nb_val)] 
+    train_idx = base_indices[(nb_test+nb_val):len(base_indices)] 
+    print(len(train_idx), len(valid_idx), len(test_idx)) 
+    return train_idx, valid_idx, test_idx 
+
+# split your data
+train_idx, valid_idx, test_idx = Rdsplit(data.x, random_state = 666)
+trainX = X[train_idx]
+trainY = Y[train_idx]
+
+validX = X[valid_idx]
+validY = X[valid_idx]
+
+testX = X[test_idx]
+testY = X[test_idx]
+
+
+# fit your model
+clf = RegressionEstimator(n_outputs=trainY.shape[1], fmap_shape1 = trainX.shape[1:], dense_layers = [128, 64], gpuid = 0) 
+clf.fit(trainX, trainY, validX, validY)
+
+# make prediction
+testY_pred = clf.predict(testX)
+rmse, r2 = clf._performance.evaluate(testX, testY)
+print(rmse, r2)
+
+```
+
+
+
+
 
 * [Click for More Example](https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/05_solubility_prediction_model_interpretation/05_MolMapNet/03_build_model_by_optimized_hyper_params.ipynb)
 

@@ -83,9 +83,7 @@ mp.plot_grid()
 
 ```python
 # Batch transform 
-
 from molmap import dataset
-
 data = dataset.load_ESOL()
 smiles_list = data.x # list of smiles strings
 X = mp.batch_transform(smiles_list,  scale = True, 
@@ -94,15 +92,12 @@ Y = data.y
 print(X.shape)
 ```
 
-
 ```python
 # Train on your data and test on the external test set
-
 from molmap.model import RegressionEstimator
 from sklearn.utils import shuffle 
 import numpy as np
 import pandas as pd
-
 def Rdsplit(df, random_state = 1, split_size = [0.8, 0.1, 0.1]):
     base_indices = np.arange(len(df)) 
     base_indices = shuffle(base_indices, random_state = random_state) 
@@ -113,28 +108,28 @@ def Rdsplit(df, random_state = 1, split_size = [0.8, 0.1, 0.1]):
     train_idx = base_indices[(nb_test+nb_val):len(base_indices)] 
     print(len(train_idx), len(valid_idx), len(test_idx)) 
     return train_idx, valid_idx, test_idx 
+```
 
+```python
 # split your data
 train_idx, valid_idx, test_idx = Rdsplit(data.x, random_state = 666)
 trainX = X[train_idx]
 trainY = Y[train_idx]
-
 validX = X[valid_idx]
 validY = X[valid_idx]
-
 testX = X[test_idx]
 testY = X[test_idx]
 
-
 # fit your model
-clf = RegressionEstimator(n_outputs=trainY.shape[1], fmap_shape1 = trainX.shape[1:], dense_layers = [128, 64], gpuid = 0) 
+clf = RegressionEstimator(n_outputs=trainY.shape[1], 
+                          fmap_shape1 = trainX.shape[1:], 
+                          dense_layers = [128, 64], gpuid = 0) 
 clf.fit(trainX, trainY, validX, validY)
 
 # make prediction
 testY_pred = clf.predict(testX)
 rmse, r2 = clf._performance.evaluate(testX, testY)
 print(rmse, r2)
-
 ```
 
 

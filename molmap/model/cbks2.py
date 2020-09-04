@@ -25,12 +25,16 @@ for early-stopping techniques in regression and classification task
 
 class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
 
-    def __init__(self, train_data, valid_data, MASK = -1, patience=5, criteria = 'val_loss', verbose = 0):
+    def __init__(self, train_data, valid_data, y_scaler, MASK = -1e10, patience=5, criteria = 'val_loss', verbose = 0):
+        """
+        y_scaler: None, sklearn MinMaxScaler, or StandardScaler
+        """
         super(Reg_EarlyStoppingAndPerformance, self).__init__()
         
         assert criteria in ['val_loss', 'val_r2'], 'not support %s ! only %s' % (criteria, ['val_loss', 'val_r2'])
         self.x, self.y  = train_data
         self.x_val, self.y_val = valid_data
+        self.y_scaler = y_scaler
         
         self.history = {'loss':[],
                         'val_loss':[],
@@ -50,8 +54,15 @@ class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         self.best_epoch = 0
         self.verbose = verbose
         
-    def rmse(self, y_true, y_pred):
-
+    def rmse(self, y_true, y_pred, inner_y_true = True):
+        
+        if self.y_scaler != None:
+            if inner_y_true:
+                y_pred = self.y_scaler.inverse_transform(y_pred)
+                y_true = self.y_scaler.inverse_transform(y_true)
+            else:
+                y_pred = self.y_scaler.inverse_transform(y_pred)
+       
         N_classes = y_pred.shape[1]
         rmses = []
         for i in range(N_classes):
@@ -64,7 +75,14 @@ class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         return rmses   
     
     
-    def r2(self, y_true, y_pred):
+    def r2(self, y_true, y_pred, inner_y_true = True):
+        if self.y_scaler != None:
+            if inner_y_true:
+                y_pred = self.y_scaler.inverse_transform(y_pred)
+                y_true = self.y_scaler.inverse_transform(y_true)
+            else:
+                y_pred = self.y_scaler.inverse_transform(y_pred)
+                
         N_classes = y_pred.shape[1]
         r2s = []
         for i in range(N_classes):
@@ -86,9 +104,7 @@ class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
             self.best = np.Inf  
         else:
             self.best = -np.Inf
-            
-        
-        
+
  
         
     def on_epoch_end(self, epoch, logs={}):
@@ -182,8 +198,8 @@ class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
     def evaluate(self, testX, testY):
         """evalulate, return rmse and r2"""
         y_pred = self.model.predict(testX)
-        rmse_list = self.rmse(testY, y_pred)
-        r2_list = self.r2(testY, y_pred)
+        rmse_list = self.rmse(testY, y_pred, inner_y_true = False)
+        r2_list = self.r2(testY, y_pred, inner_y_true = False)
         return rmse_list, r2_list       
 
 

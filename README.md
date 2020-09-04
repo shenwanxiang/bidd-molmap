@@ -98,7 +98,7 @@ from molmap.model import RegressionEstimator
 from sklearn.utils import shuffle 
 import numpy as np
 import pandas as pd
-def Rdsplit(df, random_state = 1, split_size = [0.8, 0.1, 0.1]):
+def Rdsplit(df, random_state = 888, split_size = [0.8, 0.1, 0.1]):
     base_indices = np.arange(len(df)) 
     base_indices = shuffle(base_indices, random_state = random_state) 
     nb_test = int(len(base_indices) * split_size[2]) 
@@ -112,13 +112,13 @@ def Rdsplit(df, random_state = 1, split_size = [0.8, 0.1, 0.1]):
 
 ```python
 # split your data
-train_idx, valid_idx, test_idx = Rdsplit(data.x, random_state = 666)
+train_idx, valid_idx, test_idx = Rdsplit(data.x, random_state = 888)
 trainX = X[train_idx]
 trainY = Y[train_idx]
 validX = X[valid_idx]
-validY = X[valid_idx]
+validY = Y[valid_idx]
 testX = X[test_idx]
-testY = X[test_idx]
+testY = Y[test_idx]
 
 # fit your model
 clf = RegressionEstimator(n_outputs=trainY.shape[1], 
@@ -132,11 +132,7 @@ rmse, r2 = clf._performance.evaluate(testX, testY)
 print(rmse, r2)
 ```
 
-
-
-
-
-* [Click for More Example](https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/05_solubility_prediction_model_interpretation/05_MolMapNet/03_build_model_by_optimized_hyper_params.ipynb)
+* [Click for More Example](https://github.com/shenwanxiang/bidd-molmap/blob/master/molmap/example/00_model_example_esol.ipynb)
 
 
 

@@ -18,6 +18,7 @@ from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
 from sklearn.base import BaseEstimator, ClassifierMixin, RegressorMixin
 from sklearn.utils.multiclass import unique_labels
 from sklearn.metrics import get_scorer, SCORERS
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 from .cbks2 import CLA_EarlyStoppingAndPerformance, Reg_EarlyStoppingAndPerformance
 from .net2 import MolMapNet, MolMapDualPathNet, MolMapAddPathNet, MolMapResNet
@@ -65,6 +66,7 @@ class RegressionEstimator(BaseEstimator, RegressorMixin):
                  patience = 50,
                  verbose = 2, 
                  random_state = 32,
+                 y_scale = None, #None, minmax, standard
                  name = "Regression Estimator",
                  gpuid = "0",
                  
@@ -88,6 +90,16 @@ class RegressionEstimator(BaseEstimator, RegressorMixin):
         
         self.verbose = verbose
         self.random_state = random_state
+        assert y_scale in [None, 'minmax', 'standard'], "scale_y should be None, or 'minmax', or 'standard'!"
+        if y_scale == None:
+            y_scaler = None
+        elif y_scale == 'minmax':
+            y_scaler = MinMaxScaler()
+        elif y_scale == 'standard':
+            y_scaler = StandardScaler()
+        
+        self.y_scaler = y_scaler
+        self.y_scale = y_scale
         
         self.name = name
 
@@ -123,7 +135,9 @@ class RegressionEstimator(BaseEstimator, RegressorMixin):
         
         
     def get_params(self, deep=True):
-        model_paras =  {"epochs": self.epochs, 
+ 
+        model_paras =  {
+                        "epochs": self.epochs, 
                         "lr":self.lr, 
                         "loss":self.loss, 
                         "conv1_kernel_size": self.conv1_kernel_size,
@@ -134,6 +148,7 @@ class RegressionEstimator(BaseEstimator, RegressorMixin):
                         "patience":self.patience,
                         "random_state":self.random_state,
                         "verbose":self.verbose,
+                        "y_scale": self.y_scale,
                         "name":self.name,
                         "gpuid":self.gpuid,
                        }
@@ -181,9 +196,15 @@ class RegressionEstimator(BaseEstimator, RegressorMixin):
             X_valid = X
             y_valid = y
         
-
+        if self.y_scaler != None:
+            self.y_scaler = self.y_scaler.fit(y)
+            y = self.y_scaler.transform(y)
+            if y_valid is not None:
+                y_valid = self.y_scaler.transform(y_valid)
+            
         performance = Reg_EarlyStoppingAndPerformance((X, y), 
                                                       (X_valid, y_valid), 
+                                                      y_scaler = self.y_scaler,
                                                       patience = self.patience, 
                                                       criteria = self.monitor,
                                                       verbose = self.verbose,)
@@ -219,6 +240,10 @@ class RegressionEstimator(BaseEstimator, RegressorMixin):
         check_is_fitted(self)
         
         y_pred = self._model.predict(X)
+        
+        if self.y_scaler != None:
+            y_pred = self.y_scaler.inverse_transform(y_pred)
+            
         return y_pred
     
 
@@ -240,7 +265,7 @@ class RegressionEstimator(BaseEstimator, RegressorMixin):
         score : float
             Score of self.predict(X) wrt. y.
         """
-        
+ 
         rmse_list, r2_list = self._performance.evaluate(X, y)
         
         if scoring == 'r2':

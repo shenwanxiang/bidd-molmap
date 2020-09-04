@@ -60,4 +60,4 @@ def imshow_wrap(x,  mode = 'dark', color_list = ['#ff0c00','#25ff00', '#1300ff',
                 x_max = 255, vmin = -1, vmax = 1,):
     
     fig, ax = plt.subplots(figsize=(4,4))
-    imshow(x.astype(float),color_list = color_list, ax=ax, x_max = x_max, vmin = vmin, vmax=vmax)
+    imshow(x.astype(float), mode = mode, color_list = color_list, ax=ax, x_max = x_max, vmin = vmin, vmax=vmax)

@@ -24,7 +24,7 @@ def to_smiles(mol):
 
 class MAP4Calculator:
 
-    def __init__(self, dimensions=1024, radius=2, is_counted=False, is_folded=False):
+    def __init__(self, dimensions=2048, radius=2, is_counted=False, is_folded=False, fold_dimensions = 2048):
         """
         MAP4 calculator class
         """
@@ -32,7 +32,8 @@ class MAP4Calculator:
         self.radius = radius
         self.is_counted = is_counted
         self.is_folded = is_folded
-
+        self.fold_dimensions = fold_dimensions
+        
         if self.is_folded:
             self.encoder = MHFPEncoder(dimensions)
         else:
@@ -69,7 +70,7 @@ class MAP4Calculator:
 
     def _fold(self, pairs):
         fp_hash = self.encoder.hash(set(pairs))
-        return self.encoder.fold(fp_hash, self.dimensions)
+        return self.encoder.fold(fp_hash, self.fold_dimensions)
 
     def _get_atom_envs(self, mol):
         atoms_env = {}
@@ -117,12 +118,15 @@ class MAP4Calculator:
 
     
 
-def GetMAP4(mol, nBits=2048, radius = 2): 
+def GetMAP4(mol, nBits=2048, radius = 2, fold_dimensions = None): 
     
     """
     MAP4: radius=2
     """
-    calc = MAP4Calculator(dimensions=nBits, radius=radius, is_counted=False, is_folded=True)
+    if fold_dimensions == None:
+        fold_dimensions = nBits
+
+    calc = MAP4Calculator(dimensions=nBits, radius=radius, is_counted=False, is_folded=True, fold_dimensions = fold_dimensions)
     
     arr = calc.calculate(mol)
     

@@ -49,7 +49,7 @@ def SinglePathNet(molmap_shape,
     dense_avf: activation function for dense layers
     last_avf: activation function for last layer
     """
-    
+    tf.keras.backend.clear_session()
     assert len(molmap_shape) == 3
     inputs = Input(molmap_shape)
     
@@ -94,7 +94,7 @@ def DoublePathNet(molmap1_size,
     dense_avf: activation function for dense layers
     last_avf: activation function for last layer
     """
-    
+    tf.keras.backend.clear_session()
     ## first inputs
     d_inputs1 = Input(molmap1_size)
     d_conv1 = Conv2D(48, 13, padding = 'same', activation='relu', strides = 1)(d_inputs1)

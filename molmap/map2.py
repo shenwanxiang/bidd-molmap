@@ -9,9 +9,10 @@ main aggmap code
 
 """
 from molmap.utils.logtools import print_info, print_warn, print_error
-from molmap.utils.matrixopt import Scatter2Grid, Scatter2Array 
+from molmap.utils.matrixopt import Scatter2Grid, Scatter2Array, smartpadding 
 from molmap.utils import summary, calculator
 from molmap.utils import vismap2 as vismap
+
 
 from sklearn.manifold import TSNE, MDS
 from sklearn.utils import shuffle
@@ -195,7 +196,8 @@ class AggMap(Base):
         self.fmap_shape = fmap_shape
         self.emb_method = emb_method
         self.lnk_method = lnk_method
-        
+        if fmap_shape != None:
+            assert len(fmap_shape) == 2, "fmap_shape must be a tuple with two elements!"
         # flist and distance
         flist = self.info_scale[self.info_scale['var'] > self.var_thr].index.tolist()
         
@@ -306,8 +308,14 @@ class AggMap(Base):
         
         ## fit flag
         self.isfit = True
-        self.fmap_shape = self._S.fmap_shape        
+        if self.fmap_shape == None:
+            self.fmap_shape = self._S.fmap_shape        
         
+        else:
+            m, n = self.fmap_shape
+            p, q = self._S.fmap_shape
+            assert (m >= p) & (n >=q), "fmap_shape's width must >= %s, height >= %s " % (p, q)
+            
         return self
         
 
@@ -340,9 +348,17 @@ class AggMap(Base):
         
         df = df[self.flist]
         vector_1d = df.values[0] #shape = (N, )
-        fmap = self._S.transform(vector_1d)    
+        fmap = self._S.transform(vector_1d)  
+        p, q, c = fmap.shape
         
-        
+        if self.fmap_shape != None:        
+            m, n = self.fmap_shape
+            if (m > p) | (n > q):
+                fps = []
+                for i in range(c):
+                    fp = smartpadding(fmap[:,:,i], self.fmap_shape)
+                    fps.append(fp)
+                fmap = np.stack(fps, axis=-1)
         return np.nan_to_num(fmap)   
     
     
@@ -425,7 +441,7 @@ class AggMap(Base):
                 labels = self.alist
             else:
                 labels = None
-            P =dendrogram(Z, labels = labels, 
+            P = dendrogram(Z, labels = labels, 
                           leaf_rotation = leaf_rotation, 
                           leaf_font_size = leaf_font_size, 
                           link_color_func=lambda x: link_cols[x])

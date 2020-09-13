@@ -55,7 +55,7 @@ class RegressionEstimator(BaseEstimator, RegressorMixin):
                  fmap_shape1,
                  fmap_shape2 = None,
                  epochs = 800,  
-                 conv1_kernel_size = 11,
+                 conv1_kernel_size = 13,
                  dense_layers = [128, 64],  
                  dense_avf = 'relu',
                  batch_size = 128,  
@@ -303,7 +303,7 @@ class MultiClassEstimator(BaseEstimator, ClassifierMixin):
                  fmap_shape2 = None,
                  
                  epochs = 800,  
-                 conv1_kernel_size = 11,
+                 conv1_kernel_size = 13,
                  dense_layers = [128, 64],  
                  dense_avf = 'relu',
                  batch_size = 128,  
@@ -531,7 +531,7 @@ class MultiLabelEstimator(BaseEstimator, ClassifierMixin):
                  fmap_shape2 = None,
                  
                  epochs = 800,  
-                 conv1_kernel_size = 11,
+                 conv1_kernel_size = 13,
                  dense_layers = [128, 64],  
                  dense_avf = 'relu',
                  batch_size = 128,  

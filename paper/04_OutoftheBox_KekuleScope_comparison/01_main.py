@@ -18,18 +18,19 @@ os.environ["CUDA_VISIBLE_DEVICES"]="6"
 
 
 def split(df, random_state = 123, split_size = [0.7, 0.15, 0.15]):
-    from sklearn.utils import shuffle
-    base_indices = np.arange(len(df))
-    base_indices = shuffle(base_indices, random_state  = random_state)
-    nb_test = int(len(base_indices) * split_size[2])
-    nb_val = int(len(base_indices) * split_size[1])
-
-    test_idx = base_indices[1:nb_test]
-    valid_idx = base_indices[(nb_test+1):(nb_test+nb_val)]
-    train_idx = base_indices[(nb_test+nb_val+1):len(base_indices)]
-
-    print(len(train_idx), len(valid_idx), len(test_idx))
-    return train_idx, valid_idx, test_idx
+    from sklearn.utils import shuffle 
+    import numpy as np
+    base_indices = np.arange(len(df)) 
+    base_indices = shuffle(base_indices, random_state = random_state) 
+    nb_test = int(len(base_indices) * split_size[2]) 
+    nb_val = int(len(base_indices) * split_size[1]) 
+    test_idx = base_indices[0:nb_test] 
+    valid_idx = base_indices[(nb_test):(nb_test+nb_val)] 
+    train_idx = base_indices[(nb_test+nb_val):len(base_indices)] 
+    
+    print(len(train_idx), len(valid_idx), len(test_idx)) 
+    
+    return train_idx, valid_idx, test_idx 
 
 
 

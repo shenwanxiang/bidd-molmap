@@ -22,6 +22,8 @@ _type = 'SMARTS-based'
 import numpy as np
 from rdkit import Chem
 from rdkit import DataStructs
+import os
+import pandas as pd
 
 smartsPatts = {
 1:('[H]', 3),# 1-115
@@ -1530,6 +1532,13 @@ def GetPubChemFPs(mol):
     
     return AllBits
 # ------------------------------------
+
+
+file_path = os.path.dirname(__file__)
+
+def GetPubChemFPInfos():
+    return pd.read_excel(os.path.join(file_path, 'pubchemfp.xlsx'))
+
 
 if __name__ == '__main__':
     print('-'*10+'START'+'-'*10)

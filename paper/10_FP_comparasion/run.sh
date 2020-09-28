@@ -1,0 +1,2 @@
+/home/sxh/anaconda3/envs/rdkit2020/bin/python ./02_fp_on_classification.py &> fp_on_classification.log & 
+/home/sxh/anaconda3/envs/rdkit2020/bin/python ./01_fp_on_regression.py &> fp_on_regression.log & 

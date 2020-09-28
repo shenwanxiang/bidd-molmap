@@ -1,0 +1,9 @@
+task_name,model,mean,std
+BACE,MolMapNet-OOTB,0.872,0.049
+BACE,MolMapNet-OPT,0.88,0.038
+ESOL,MolMapNet-OOTB,0.609,0.053
+ESOL,MolMapNet-OPT,0.581,0.05
+FreeSolv,MolMapNet-OOTB,0.979,0.159
+FreeSolv,MolMapNet-OPT,0.957,0.171
+Tox21,MolMapNet-OOTB,0.845,0.01
+Tox21,MolMapNet-OPT,0.849,0.008

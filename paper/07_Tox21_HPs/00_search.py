@@ -155,7 +155,7 @@ if __name__ == '__main__':
     log_file = task_name + '_' + flag + '_' + start_time + '.log'
 
     with open(log_file,'a') as f:
-        f.write(','.join(['n_neighbors', 'min_dist', 'valid_best_loss','valid_best_auc', 
+        f.write(','.join(['min_dist', 'n_neighbors', 'valid_best_loss','valid_best_auc', 
                           'train_best_auc', 'best_epoch'])+'\n')
     
     n_neighbors_list = [10, 20, 30, 40, 50, 60, 70, 80, 90,  100]

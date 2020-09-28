@@ -1,0 +1,10 @@
+CC1=NC2(N=C1N)c1cc(Br)ccc1CC21CCOCC1
+CC1=NC2(N=C1N)c1cc(Br)ccc1CCC21CC1
+CO[C@H]1CC[C@@]2(Cc3ccc(O)cc3[C@@]22N=C(C)C(N)=N2)CC1
+CC1=NC2(CCOc3ccc(-c4cc(Cl)cc(Cl)c4)cc32)N=C1N
+CC1=NC2(CC(C3CCCOC3)Oc3ccc(Br)cc32)N=C1N
+CO[C@H]1CC[C@]2(CC1)Cc1ccc(-c3cc(Cl)c(F)c(C#N)c3)cc1C21N=C(C)C(N)=N1
+[2H]C1([2H])OC(N)=N[C@]12c1cc(-c3cncnc3)ccc1C[C@@]21CC[C@H](OC)[C@@H](CC)C1
+[C-]#[N+]c1cncc(-c2ccc3c(c2)C2(N=C(N)N(CC(F)(F)F)C2=O)C2(CCC(OC)CC2)C3)c1
+COC1CCC2(CC1)Cc1ccc(-c3cncc(C(F)(F)F)c3)cc1[C@]21N=C(N)N(C(C)C)C1=O
+COc1cc(Cl)cc(-c2ccc3c(c2)C2(N=C(N)N(C)C2=O)C2(CCC(OC)CC2)C3)c1

@@ -1,0 +1,11 @@
+,smiles,ID,Class,pIC50
+0,Fc1c2c(ccc1)C(N=C2N)(C=1C=C(C)C(=O)N(C=1)CC)c1cc(NC(=O)c2ncccc2)ccc1,BACE_297,1,8.6038008
+1,Fc1c2c(ccc1)C(N=C2N)(C=1C=C(C)C(=O)N(C=1)C)c1cc(ccc1)C#CC1CC1,BACE_351,1,8.2160969
+2,Fc1c2c(ccc1)C(N=C2N)(c1cc(ccc1)-c1cc(cnc1)C#CC)c1cc(ncc1)C(F)F,BACE_355,1,8.1877556
+3,Fc1c2c(ccc1)C(N=C2N)(C=1C=C(C)C(=O)N(C=1)CC)c1cc(ccc1)-c1cc(cnc1)C#N,BACE_377,1,8.0830202
+4,Fc1c2c(ccc1)C(N=C2N)(C=1C=C(C)C(=O)N(C=1)CC)c1cc(ccc1)-c1cc(F)cnc1,BACE_435,1,7.889410499999999
+5,Fc1c2c(ccc1)C([NH+]=C2N)(c1cc(ccc1)-c1cncnc1)c1cc(ncc1)C(F)F,BACE_253,1,7.583359700000001
+6,Fc1ccc(cc1-c1cncnc1)C1(N=C(N)c2c1cc(F)cc2F)c1cc(ncc1)C(F)F,BACE_633,1,7.4412913
+7,Fc1c2c(ccc1)C(N=C2N)(c1cc(C#N)c(OC)c(c1)C)c1cc(ccc1)-c1cncnc1,BACE_659,1,7.3798637000000005
+8,[NH+]=1[C@](N=C(C)C=1N)(C1CC1)c1cc(ccc1)-c1cc(cnc1)C#CC,BACE_94,1,7.1023731
+9,Fc1c2c(ccc1)C(N=C2N)(c1cc(ccc1)-c1cncnc1)c1cc(ncc1)C1CC1,BACE_789,1,7.063486099999999

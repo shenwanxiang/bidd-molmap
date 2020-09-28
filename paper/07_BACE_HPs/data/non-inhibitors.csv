@@ -1,0 +1,16 @@
+smiles,ID,Class,pIC50,group,scaffold
+ClC1=CN=C(NC1=O)C(NC1=NC(Cc2c1ccc(Cl)c2)(C)C)Cc1ccccc1,BACE_1045,0,6.251812,1,Clc1ccc2C(NCCc3ccccc3)=NCCc2c1
+Clc1cc2CC([NH+]=C(N[C@@H](Cc3ccccc3)C3=NOC(=O)[N-]3)c2cc1)(C)C,BACE_141,0,6.124939,1,Clc1ccc2C(NCCc3ccccc3)=NCCc2c1
+Clc1cc2CC(N=C(NC(Cc3ccccc3)C=3NC(ON=3)=O)c2cc1)(C)C,BACE_1076,0,6.124939,1,Clc1ccc2C(NCCc3ccccc3)=NCCc2c1
+Clc1cc2CC(N=C(NC(Cc3ccccc3)C=3NC(=O)C=CN=3)c2cc1)(C)C,BACE_1238,0,5.5670309,1,Clc1ccc2C(NCCc3ccccc3)=NCCc2c1
+Clc1cc2CC(N=C(NC(Cc3ccccc3)c3ncccn3)c2cc1)(C)C,BACE_1510,0,3.8629625,1,Clc1ccc2C(NCCc3ccccc3)=NCCc2c1
+s1cc(nc1N)C(Cc1cc([N+](=O)[O-])ccc1OC)c1ccc(OC)cc1,BACE_1128,0,5.9586072,2,Nc1nc(Cc2ccccc2)cs1
+s1cc(nc1N)C1(CCCC1)c1ccc(OC)cc1,BACE_1427,0,4.6020598,2,Nc1nc(Cc2ccccc2)cs1
+s1cc(nc1N)C(Cc1ccccc1)c1ccc(OC)cc1,BACE_1452,0,4.4948502,2,Nc1nc(Cc2ccccc2)cs1
+Clc1ccc(cc1)C1(CCCC1)c1nc(sc1)N,BACE_1460,0,4.4202166,2,Nc1nc(Cc2ccccc2)cs1
+s1cc(nc1N)C1(CCCC1)c1ccccc1,BACE_1524,0,3.6635404,2,Nc1nc(Cc2ccccc2)cs1
+S1(=O)(=O)N(C2(CC([NH+](CC2)Cc2ccc(O)cc2)C)CN1C)c1cc(F)ccc1,BACE_955,0,6.5686364,3,O=S1(=O)NCC2(CC[NH+](Cc3ccccc3)CC2)N1c1ccccc1
+S1(=O)(=O)N(C2(CC([NH+](CC2)Cc2cc(OC(C)C)ccc2)C)CN1c1ccncc1)c1cc(F)ccc1,BACE_1280,0,5.3979402,3,O=S1(=O)NCC2(CC[NH+](Cc3ccccc3)CC2)N1c1ccccc1
+S1(=O)(=O)NCC2(N1c1cc(F)ccc1)CC([NH+](CC2)Cc1cc(OCC)ccc1)C,BACE_1351,0,5.0222764,3,O=S1(=O)NCC2(CC[NH+](Cc3ccccc3)CC2)N1c1ccccc1
+S1(=O)(=O)NCC2(N1c1cc(F)ccc1)CC([NH+](CC2)Cc1cc(OC2CCCC2)ccc1)C,BACE_1379,0,4.9586072,3,O=S1(=O)NCC2(CC[NH+](Cc3ccccc3)CC2)N1c1ccccc1
+S1(=O)(=O)NCC2(N1c1cc(F)ccc1)CC([NH+](CC2)Cc1cc(OCCC)ccc1)C,BACE_1419,0,4.6363878,3,O=S1(=O)NCC2(CC[NH+](Cc3ccccc3)CC2)N1c1ccccc1

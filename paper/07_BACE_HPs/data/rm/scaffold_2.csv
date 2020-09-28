@@ -1,0 +1,11 @@
+,smiles,ID,Class,pIC50
+5,s1cc(nc1N)C(Cc1cc([N+](=O)[O-])ccc1OC)c1ccc(OC)cc1,BACE_1128,0,5.9586072
+6,s1cc(nc1N)C1(CCCC1)c1ccc(OC)cc1,BACE_1427,0,4.6020598
+7,s1cc(nc1N)C(Cc1ccccc1)c1ccc(OC)cc1,BACE_1452,0,4.4948502
+8,Clc1ccc(cc1)C1(CCCC1)c1nc(sc1)N,BACE_1460,0,4.4202166
+9,s1cc(nc1N)C1(CCCC1)c1ccccc1,BACE_1524,0,3.6635404
+0,Clc1cc(ccc1OC)C1(N=C(N)N(C)C1=O)c1cc(ccc1)-c1cccnc1,BACE_627,1,7.443697500000001
+1,FC(F)(F)c1cc(ccc1OC)C1(N=C(N)N(C)C1=O)c1cc(ccc1)-c1cccnc1,BACE_644,1,7.3979402
+2,O(CC)c1cc(ccc1OC)C1(N=C(N)N(C)C1=O)c1cc(ccc1)-c1cccnc1,BACE_688,1,7.3010302
+3,O(CCC)c1cc(ccc1OC)C1(N=C(N)N(C)C1=O)c1cc(ccc1)-c1cccnc1,BACE_689,1,7.3010302
+4,O(CCCC)c1cc(ccc1OC)C1(N=C(N)N(C)C1=O)c1cc(ccc1)-c1cccnc1,BACE_690,1,7.3010302

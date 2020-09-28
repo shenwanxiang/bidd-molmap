@@ -1,0 +1,16 @@
+smiles
+Fc1ccc(cc1-c1cncnc1)C1(N=C(N)c2c1cc(F)cc2F)c1cc(ncc1)C(F)F
+Fc1c2c(ccc1)C(N=C2N)(c1cc(ccc1)-c1cc(cnc1)C#CC)c1cc(ncc1)C(F)F
+Fc1c2c(ccc1)C([NH+]=C2N)(c1cc(ccc1)-c1cncnc1)c1cc(ncc1)C(F)F
+Fc1c2c(ccc1)C(N=C2N)(c1cc(ccc1)-c1cncnc1)c1cc(ncc1)C1CC1
+[NH+]=1[C@](N=C(C)C=1N)(C1CC1)c1cc(ccc1)-c1cc(cnc1)C#CC
+Fc1c2c(ccc1)C(N=C2N)(C=1C=C(C)C(=O)N(C=1)CC)c1cc(ccc1)-c1cc(cnc1)C#N
+Fc1c2c(ccc1)C(N=C2N)(C=1C=C(C)C(=O)N(C=1)CC)c1cc(ccc1)-c1cc(F)cnc1
+Fc1c2c(ccc1)C(N=C2N)(C=1C=C(C)C(=O)N(C=1)CC)c1cc(NC(=O)c2ncccc2)ccc1
+Fc1c2c(ccc1)C(N=C2N)(C=1C=C(C)C(=O)N(C=1)C)c1cc(ccc1)C#CC1CC1
+Fc1c2c(ccc1)C(N=C2N)(c1cc(C#N)c(OC)c(c1)C)c1cc(ccc1)-c1cncnc1
+
+
+
+
+

@@ -1,0 +1,11 @@
+,smiles,ID,Class,pIC50
+5,S(=O)(=O)(N(C)c1cc(cc(c1)C(=O)NC(C(O)CC(OC)COCc1ccccc1)COc1cc(F)cc(F)c1)C(=O)NC(C)c1ccccc1)C,BACE_936,0,6.6197886
+6,S(=O)(=O)(N(C)c1cc(cc(c1)C(=O)NC(C(O)CC(OC)COCC1CC1)COc1cc(F)cc(F)c1)C(=O)NC(C)c1ccccc1)C,BACE_1201,0,5.730486900000001
+7,S(=O)(=O)(N(C)c1cc(cc(c1)C(=O)NC(C(O)CC(OC)COCC=C)COc1cc(F)cc(F)c1)C(=O)NC(C)c1ccccc1)C,BACE_1213,0,5.6925039
+8,S(=O)(=O)(N(C)c1cc(cc(c1)C(=O)NC(C(O)CC(OC)COCc1ccc(F)cc1)COc1cc(F)cc(F)c1)C(=O)NC(C)c1ccccc1)C,BACE_1358,0,5.0
+9,S(=O)(=O)(N(C)c1cc(cc(c1)C(=O)NC(C(O)CC(OC)COCc1cc(OC)ccc1)COc1cc(F)cc(F)c1)C(=O)NC(C)c1ccccc1)C,BACE_1359,0,5.0
+0,S1(=O)(=O)N(c2cc(cc3n(cc(CC1)c23)CC)C(=O)N[C@H]([C@H](O)C[NH2+]CCC)Cc1ccccc1)C,BACE_369,1,8.0969105
+1,S1(=O)(=O)N(c2cc(cc3n(cc(CC1)c23)CC)C(=O)NC([C@H](O)C[NH2+]C1CC1)Cc1ccccc1)C,BACE_383,1,8.0457573
+2,S1(=O)(=O)N(c2cc(cc3n(cc(CC1)c23)CC)C(=O)NC([C@H](O)C[NH2+]CC#C)Cc1ccccc1)C,BACE_421,1,7.9586072
+3,S1(=O)(=O)N(c2cc(cc3n(cc(CC1)c23)CC)C(=O)NC([C@H](O)C[NH2+]CCF)Cc1ccccc1)C,BACE_640,1,7.3979402
+4,S1(=O)(=O)N(c2cc(cc3n(cc(CC1)c23)CC)C(=O)NC([C@H](O)C[NH2+]CC(F)(F)F)Cc1ccccc1)C,BACE_771,1,7.1023731

@@ -1,0 +1,27 @@
+status,name,company,smiles,Reference
+Phase III (discontinued),Verubecestat,Merck & Co.,CN1C(N)=N[C@](C)(c2cc(NC(=O)c3ccc(F)cn3)ccc2F)CS1(=O)=O,PMID: 28248932
+Phase III (discontinued),Elenbecestat,Biogen/Eisai,CC1OCC2(c3cc(NC(=O)c4cnc(C(F)F)cn4)ccc3F)N=C(N)SCC12,PMID: 28248932
+Phase III (discontinued),Lanabecestat,AstraZeneca/Eli Lilly,CC#Cc1cncc(-c2ccc3c(c2)[C@@]2(N=C(C)C(N)=N2)[C@]2(CC[C@H](OC)CC2)C3)c1,PMID: 28248932
+Phase III (discontinued),Atabecestat,Johnson & Johnson,CC1(c2cc(NC(=O)c3ccc(C#N)cn3)ccc2F)C=CSC(N)=N1,PMID: 28248932
+Phase III (discontinued),Umibecestat,Novartis,CC1(c2nc(NC(=O)c3ncc(C(F)(F)F)cc3Cl)ccc2F)COC(C)(C(F)(F)F)C(N)=N1,PMID: 28248932
+Clinical,[18F]PF-06684511,Pfizer,COc1cnc(C(=O)Nc2ccc(F)c(C34COC(CF)C3CSC(N)=N4)c2)cn1,PMID: 29617136
+Phase II (discontinued),LY-3202626,Lilly,COc1cnc(C(=O)Nc2ccc(F)c(C34CN(c5ncc(F)cn5)CC3CSC(N)=N4)c2)cn1,NCT02791191
+Phase II (discontinued),AZD-3839,AstraZeneca,NC1=N[C@@](c2cccc(-c3cncnc3)c2)(c2ccnc(C(F)F)c2)c2cccc(F)c21,NCT01348737
+Phase II (discontinued),LY-2886721,Lilly,NC1=NC2(c3cc(NC(=O)c4ccc(F)cn4)ccc3F)COCC2CS1,NCT01561430
+Preclinical,AM-6494,Amgen,C#CCOc1cnc(C(=O)Nc2cc(F)c(F)c([C@]3(C)N=C(N)S[C@@]4(COC)C[C@H]43)c2)cn1,CDDI database
+Preclinical,GSK-188909,GlaxoSmithKline,CCNc1cc(C(=O)N[C@@H](Cc2ccccc2)[C@H](O)CNCc2cccc(C(F)(F)F)c2)c(F)c(N2CCCCS2(=O)=O)c1,CDDI database
+Preclinical,SCH-747123,Merck & Co.,COC[C@H]1CCCC1C(=O)c1cc(C)cc(C(=O)N[C@@H](Cc2cc(F)cc(F)c2)[C@H](O)[C@H]2CN(S(=O)(=O)c3cccc(C)c3)CCN2)c1,CDDI database
+Preclinical,SCH-709583,Merck & Co.,CCCN(CCC)C(=O)c1cc(C)cc(C(=O)N[C@@H](CC2=CC(F)=CC(F)C2)[C@H](O)[C@@H]2NCCN(Cc3ccccc3)C2=O)c1,CDDI database
+Preclinical,SCH-726222,Merck & Co.,CCCN(CCC)C(=O)c1cc(C)cc(C(=O)N[C@@H](CC2=CC(F)=CC(F)C2)[C@H](O)[C@@H]2NCN(Cc3ccccc3)C2=O)c1,CDDI database
+Preclinical,WAY-258131,Pfizer,COc1ccc([C@]2(c3ccc(F)c(-c4cccnc4F)c3)N=C(N)N(C)C2=O)cc1C,CDDI database
+Preclinical,GRL-7234,CoMentis,CC(C)C[C@H](NC(=O)c1cc(C(=O)N[C@H](C)c2ccccc2)cc(N(C)S(C)(=O)=O)c1)[C@@H](O)C[C@@H](C)C(=O)N[C@H](C(=O)NC(C)C)C(C)C,CDDI database
+Preclinical,NB-216,Novartis,COCc1cc2cc(c1)C(=O)N[C@H]([C@H](O)CNC1(c3cccc(C(C)C)c3)CC1)Cc1cccc(c1)OCCCCN2,CDDI database
+Preclinical,NB-533,Novartis,CC(C)c1ccc2c(c1)[C@@H](NC[C@@H](O)[C@@H]1C[C@@H](C)CCCCCCCCC(=O)N(C)[C@@H](C)C(=O)N1)CC(C)(C)O2,CDDI database
+Preclinical,CMP-015,Amgen,CO[C@H](C)C(=O)N[C@@H](Cc1cccc(-c2nccs2)c1)[C@H](O)CN[C@H]1CC2(CCC2)Oc2ncc(CC(C)(C)C)cc21,CDDI database
+Preclinical,SCH-1359113,Merck & Co.,CC#Cc1cncc(-c2csc([C@]3(C)CC(=O)N(C)C(=N)N3)c2)c1,CDDI database
+Preclinical,PF-04976081,Pfizer,CC(C)Oc1cc(CN2CC[C@@]3(C[C@@H]2C)CN(C)S(=O)(=O)N3c2cccc(F)c2)ccc1O,CDDI database
+Preclinical,SCH-1682496,Merck & Co.,CC#Cc1cncc(-c2cc(Cl)c([C@]3(C)CC(=O)N(C)C(=N)N3)s2)c1,CDDI database
+Preclinical,AZ-4217,AstraZeneca,CC#Cc1cncc(-c2cccc([C@@]3(c4cc(C)c(=O)n(CC)c4)N=C(N)c4c(F)cccc43)c2)c1,CDDI database
+Preclinical,PF-06684511,Eisai,COc1cnc(C(=O)Nc2ccc(F)c([C@]34CO[C@H](CF)[C@H]3CSC(N)=N4)c2)cn1,CDDI database
+Preclinical,AMG-8718,Amgen,CC1(C#Cc2cnc3c(c2)[C@]2(COC(N)=N2)c2cc(-c4cccnc4F)ccc2O3)COC1,CDDI database
+Preclinical,MBI-19,Merck & Co.,COc1cnc(C(=O)Nc2ccc(F)c([C@]3(C)CS(=O)(=O)C(C)(C)C(=N)N3)c2)cn1,CDDI database

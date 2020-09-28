@@ -1,0 +1,16 @@
+smiles,ID,Class,pIC50,group,scaffold
+Fc1ncccc1-c1cc(ccc1)C1(N=C(N)N(C)C1=O)c1cn(nc1)CCC(C)C,BACE_464,1,7.7958798,1,CN1C(N)=NC(C)(C1=O)c1cccc(C)c1
+Clc1cc(ccc1OC)C1(N=C(N)N(C)C1=O)c1cc(ccc1)-c1cccnc1,BACE_627,1,7.4436975,1,CN1C(N)=NC(C)(C1=O)c1cccc(C)c1
+Fc1c(cccc1F)-c1cc(ccc1)C1(N=C(N)N(C)C1=O)c1ccncc1,BACE_646,1,7.3979402,1,CN1C(N)=NC(C)(C1=O)c1cccc(C)c1
+O(CCC)c1cc(ccc1OC)C1(N=C(N)N(C)C1=O)c1cc(ccc1)-c1cccnc1,BACE_689,1,7.3010302,1,CN1C(N)=NC(C)(C1=O)c1cccc(C)c1
+Fc1ncccc1-c1cc(ccc1)C1(N=C(N)N(C)C1=O)c1cn(nc1)CCF,BACE_699,1,7.3010302,1,CN1C(N)=NC(C)(C1=O)c1cccc(C)c1
+FC1(F)COC(=NC1(C)c1cc(NC(=O)c2ncc(OCC#CC)nc2)ccc1F)N,BACE_350,1,8.2218485,2,CC(=O)Nc1ccc(F)c(C)c1
+Clc1ccc(nc1)C(=O)Nc1cc(C2(N=C(N)N(CC2)C)C)c(F)cc1,BACE_433,1,7.9208188,2,CC(=O)Nc1ccc(F)c(C)c1
+Fc1ccc(NC(=O)c2ncc(cc2)C#N)cc1[C@]1(N=C(O[C@H](C(F)(F)F)[C@@H]1F)N)C,BACE_40,1,7.8860564,2,CC(=O)Nc1ccc(F)c(C)c1
+Clc1ccc(nc1)C(=O)Nc1cc(C2(N=C(N)C(=O)N(C2)C)C)c(F)cc1,BACE_657,1,7.3979402,2,CC(=O)Nc1ccc(F)c(C)c1
+Clc1cc(Cl)cnc1C(=O)Nc1cc(C2(N=C(N)COC2)C)c(F)cc1,BACE_672,1,7.3467875,2,CC(=O)Nc1ccc(F)c(C)c1
+Fc1c2c(ccc1)C(N=C2N)(C=1C=C(C)C(=O)N(C=1)CC)c1cc(NC(=O)c2ncccc2)ccc1,BACE_297,1,8.6038008,3,CC1(N=C(N)c2c1cccc2F)c1ccccc1
+Fc1c2c(ccc1)C(N=C2N)(C=1C=C(C)C(=O)N(C=1)C)c1cc(ccc1)C#CC1CC1,BACE_351,1,8.2160969,3,CC1(N=C(N)c2c1cccc2F)c1ccccc1
+Fc1c2c(ccc1)C(N=C2N)(C=1C=C(C)C(=O)N(C=1)CC)c1cc(ccc1)-c1cc(cnc1)C#N,BACE_377,1,8.0830202,3,CC1(N=C(N)c2c1cccc2F)c1ccccc1
+Fc1c2c(ccc1)C([NH+]=C2N)(c1cc(ccc1)-c1cncnc1)c1cc(ncc1)C(F)F,BACE_253,1,7.5833597,3,CC1(N=C(N)c2c1cccc2F)c1ccccc1
+Fc1c2c(ccc1)C(N=C2N)(c1cc(ccc1)-c1cncnc1)c1cc(ncc1)C1CC1,BACE_789,1,7.0634861,3,CC1(N=C(N)c2c1cccc2F)c1ccccc1

@@ -13,5 +13,5 @@ colorlog==4.0.2
 mordred==1.2.0
 gdown==3.8.3
 mhfp==1.9.2
-tensorflow-gpu==2.0.0
+tensorflow-gpu==2.0.3
 faerun

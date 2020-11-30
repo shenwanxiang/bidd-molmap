@@ -10,8 +10,31 @@ Welcome to molmap's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-waiting for update...
+Installation
 ===================
+
+
+Descriptors
+===================
+
+
+Fingerprints
+===================
+
+
+Feature extraction
+===================
+
+
+
+
+Scaling and Transformation
+===================
+
+
+
+
+
 
 Indices and tables
 ==================

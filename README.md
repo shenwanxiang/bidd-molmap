@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.com/shenwanxiang/bidd-molmap.svg?branch=master)](https://travis-ci.com/shenwanxiang/bidd-molmap) 
 [![DOI](https://zenodo.org/badge/214117402.svg)](https://zenodo.org/badge/latestdoi/214117402)
 
+<script src="https://codeocean.com/widget.js?slug=5969846 async></script>
+
 # Out-of-the-Box Deep Learning Prediction of Pharmaceutical Properties by Broadly Learned Knowledge-Based Molecular Representations 
 
 ## MolMap

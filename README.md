@@ -5,7 +5,7 @@
 
 The reproduction repo. in codeocean: https://codeocean.com/capsule/2307823/tree
 
-For the molmap application in Omics-data, please follow the link: https://github.com/shenwanxiang/bidd-aggmap
+For the application in the Omics Data, please follow the link in AggMap: https://github.com/shenwanxiang/bidd-aggmap
 
 # Out-of-the-Box Deep Learning Prediction of Pharmaceutical Properties by Broadly Learned Knowledge-Based Molecular Representations 
 

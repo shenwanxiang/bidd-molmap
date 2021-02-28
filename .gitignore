@@ -4,6 +4,7 @@ tmpignore
 fingerprint_cosine.cfg.gzip
 *.gzip
 *.pyc
+paper
 
 */.ipynb_checkpoints/*
 */__pycache__/*

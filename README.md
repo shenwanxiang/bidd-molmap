@@ -2,7 +2,7 @@
 [![Documentation Status](https://readthedocs.org/projects/molmap/badge/?version=latest)](https://molmap.readthedocs.io/en/latest/?badge=latest)
 [![Build Status](https://travis-ci.com/shenwanxiang/bidd-molmap.svg?branch=master)](https://travis-ci.com/shenwanxiang/bidd-molmap) 
 [![DOI](https://zenodo.org/badge/214117402.svg)](https://zenodo.org/badge/latestdoi/214117402)
--
+##
 
 [![Paper](https://img.shields.io/badge/paper-Nature Machine Intelligence-yellowgreen)](https://www.nature.com/articles/s42256-021-00301-6)
 [![Codeocean](https://img.shields.io/badge/reproduction-codeocean-yellowgreen)](https://codeocean.com/capsule/2307823/tree)

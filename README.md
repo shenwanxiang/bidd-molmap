@@ -8,8 +8,6 @@
 
 
 
-For the application in the Omics Data, please follow the link in AggMap: https://github.com/shenwanxiang/bidd-aggmap
-
 # [Out-of-the-Box Deep Learning Prediction of Pharmaceutical Properties by Broadly Learned Knowledge-Based Molecular Representations ](https://www.nature.com/articles/s42256-021-00301-6)
 
 

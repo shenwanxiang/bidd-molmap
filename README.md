@@ -1,3 +1,6 @@
+
+![alt text](./doc/logo.png)
+
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg) 
 [![Documentation Status](https://readthedocs.org/projects/molmap/badge/?version=latest)](https://molmap.readthedocs.io/en/latest/?badge=latest)
 [![Build Status](https://travis-ci.com/shenwanxiang/bidd-molmap.svg?branch=master)](https://travis-ci.com/shenwanxiang/bidd-molmap) 
@@ -6,8 +9,6 @@
 [![Paper](https://img.shields.io/badge/paper-Nature%20Machine%20Intelligence-green)](https://www.nature.com/articles/s42256-021-00301-6)
 
 
-
-# [Out-of-the-Box Deep Learning Prediction of Pharmaceutical Properties by Broadly Learned Knowledge-Based Molecular Representations ](https://www.nature.com/articles/s42256-021-00301-6)
 
 
 ## MolMap

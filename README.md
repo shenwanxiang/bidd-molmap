@@ -1,6 +1,6 @@
 
 
-<a href="url"><img src="./docs/molmap.log.png" align="left" height="450" width="300" ></a>
+<a href="url"><img src="./docs/molmap.log.png" align="left" height="350" width="300" ></a>
 
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg) 

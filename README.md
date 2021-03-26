@@ -1,5 +1,6 @@
 
-![alt text](./docs/molmap.log.png)
+
+<a href="url"><img src="./docs/molmap.log.png" align="left" height="48" width="48" ></a>
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg) 
 [![Documentation Status](https://readthedocs.org/projects/molmap/badge/?version=latest)](https://molmap.readthedocs.io/en/latest/?badge=latest)

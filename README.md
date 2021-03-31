@@ -70,8 +70,8 @@ sudo apt-get install g++
 
 ## Out-of-the-Box Usage
 ---
-* [Click for More Example for Regression Task on ESOL](https://github.com/shenwanxiang/bidd-molmap/blob/master/molmap/example/00_model_example_esol.ipynb)
-* [Click for More Example for Classification Task on BACE](https://github.com/shenwanxiang/bidd-molmap/blob/master/molmap/example/01_model_example_bace.ipynb)
+* [Example for Regression Task on ESOL](https://github.com/shenwanxiang/bidd-molmap/blob/master/molmap/example/00_model_example_esol.ipynb)
+* [Example for Classification Task on BACE](https://github.com/shenwanxiang/bidd-molmap/blob/master/molmap/example/01_model_example_bace.ipynb)
 
 
 ![code](https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/images/code_example.png)

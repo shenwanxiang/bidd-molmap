@@ -72,6 +72,10 @@ sudo apt-get install g++
 ---
 ![code](https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/images/code_example.png)
 
+* [Click for More Example for Regression Task on ESOL](https://github.com/shenwanxiang/bidd-molmap/blob/master/molmap/example/00_model_example_esol.ipynb)
+* [Click for More Example for Classification Task on BACE](https://github.com/shenwanxiang/bidd-molmap/blob/master/molmap/example/01_model_example_bace.ipynb)
+
+
 
 ```python
 import molmap
@@ -143,8 +147,6 @@ testY_pred = clf.predict(testX)
 rmse, r2 = clf._performance.evaluate(testX, testY)
 print(rmse, r2)
 ```
-
-* [Click for More Example](https://github.com/shenwanxiang/bidd-molmap/blob/master/molmap/example/00_model_example_esol.ipynb)
 
 
 

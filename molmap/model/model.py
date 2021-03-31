@@ -434,11 +434,11 @@ class MultiClassEstimator(BaseEstimator, ClassifierMixin):
                                                       criteria = self.monitor,
                                                       metric = self.metric,  
                                                       last_avf="softmax",
-                                                      verbose = 0,)
+                                                      verbose = self.verbose,)
 
         history = self._model.fit(X, y, 
                                   batch_size=self.batch_size, 
-                                  epochs= self.epochs, verbose= self.verbose, shuffle = True, 
+                                  epochs= self.epochs, verbose= 0, shuffle = True, 
                                   validation_data = (X_valid, y_valid), 
                                   callbacks=[performance]) 
 

@@ -48,15 +48,27 @@ conda install -c tmap tmap
 2. in your "molmap" env, install molmap by:
 
 ```bash
+# step 1: clone and install dependencies
 git clone https://github.com/shenwanxiang/bidd-molmap.git
 cd bidd-molmap
 pip install -r requirements.txt --user
+```
 
-# add molmap to PYTHONPATH
+```bash
+# step 2: add molmap to PYTHONPATH
 echo export PYTHONPATH="\$PYTHONPATH:`pwd`" >> ~/.bashrc
-
-# init bashrc
 source ~/.bashrc
+
+# alternatively add molmap to path by:
+conda develop /path/to/bidd-molmap
+
+```
+
+```python
+# or by:
+import sys
+sys.path.insert(0, 'conda develop /path/to/bidd-molmap')
+
 ```
 
 

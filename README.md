@@ -88,8 +88,15 @@ sudo apt-get install g++
 
 ## Out-of-the-Box Usage
 ---
-* [Example for Regression Task on ESOL](https://github.com/shenwanxiang/bidd-molmap/blob/master/molmap/example/00_model_example_esol.ipynb)
-* [Example for Classification Task on BACE](https://github.com/shenwanxiang/bidd-molmap/blob/master/molmap/example/01_model_example_bace.ipynb)
+* [Example for Regression Task on ESOL (descriptors only)](https://github.com/shenwanxiang/bidd-molmap/blob/master/molmap/example/00_model_example_esol_descriptors.ipynb)
+* [Example for Classification Task on BACE (fingerprints only)](https://github.com/shenwanxiang/bidd-molmap/blob/master/molmap/example/01_model_example_bace_fingerprints.ipynb)
+
+* [Example for Regression Task on FreeSolv (descriptors plus fingerprints)](https://github.com/shenwanxiang/bidd-molmap/blob/master/molmap/example/02_model_example_freesolv_dual_path.ipynb)
+* [Example for Classification Task on BACE (descriptors plus fingerprints)](https://github.com/shenwanxiang/bidd-molmap/blob/master/molmap/example/03_model_example_bace_dual_path.ipynb)
+
+* [Example for Multi-label Classification Task on ClinTox (descriptors plus fingerprints)](https://github.com/shenwanxiang/bidd-molmap/blob/master/molmap/example/03_model_example_ClinTox_dual_path.ipynb)
+
+
 
 
 ![code](https://github.com/shenwanxiang/bidd-molmap/blob/master/paper/images/code_example.png)

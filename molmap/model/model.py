@@ -734,3 +734,23 @@ class MultiLabelEstimator(BaseEstimator, ClassifierMixin):
         
         metrics = self._performance.evaluate(X, y)
         return np.nanmean(metrics)
+    
+
+    def evaluate(self, X, y):
+        """Returns the accuracy score of metric used in init
+        test data and labels.
+        Parameters
+        ----------
+        X : array-like of shape (n_samples, n_features)
+            Test samples.
+        y : array-like of shape (n_samples,)
+            True labels for X.
+
+        Returns
+        -------
+        metrics : float
+            Score of self.predict(X) wrt. y.
+        """
+        
+        metrics = self._performance.evaluate(X, y)
+        return metrics

@@ -6,6 +6,8 @@ fingerprint_cosine.cfg.gzip
 *.pyc
 paper
 
+macromol
+
 */.ipynb_checkpoints/*
 */__pycache__/*
 */tempignore/*

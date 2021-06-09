@@ -53,7 +53,8 @@ class AggMolMap(Base):
     
     def __init__(self, 
                  dfx,
-                 metric = 'correlation' 
+                 metric = 'correlation',
+                 info_distance = None,
                 ):
         
         """
@@ -61,6 +62,7 @@ class AggMolMap(Base):
         -----------------
         dfx: pandas DataFrame
         metric: {'cosine', 'correlation', 'euclidean', 'jaccard', 'hamming', 'dice'}, default: 'correlation', measurement of feature distance
+        info_distance: a vector-form distance vector of the feature points, shape should be: (n*(n-1)/2), where n is the number of the features
         
         """
         
@@ -72,13 +74,21 @@ class AggMolMap(Base):
         self.alist = dfx.columns.tolist()
         self.ftype = 'feature points'
         self.cluster_flag = False
+        m,n = dfx.shape
+        info_distance_length = int(n*(n-1)/2)
         
         ## calculating distance
-        print_info('Calculating distance ...')
-        D = calculator.pairwise_distance(dfx.values, n_cpus=16, method=metric)
-        D = np.nan_to_num(D,copy=False)
-        D_ = squareform(D)
-        self.info_distance = D_.clip(0, np.inf)
+        if info_distance == None:
+            print_info('Calculating distance ...')
+            D = calculator.pairwise_distance(dfx.values, n_cpus=16, method=metric)
+            D = np.nan_to_num(D,copy=False)
+            D_ = squareform(D)
+            self.info_distance = D_.clip(0, np.inf)
+        else:
+            assert type(info_distance) == np.ndarray, 'info_distance must be a array with a shape of (n,)'
+            assert len(info_distance) == info_distance_length, 'shape of info_distance must be (%s,)' % info_distance_length
+            print_info('skip to calculate the distance')
+            self.info_distance = info_distance
 
         ## statistic info
         S = summary.Summary(n_jobs = 10)

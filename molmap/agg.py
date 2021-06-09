@@ -78,18 +78,18 @@ class AggMolMap(Base):
         info_distance_length = int(n*(n-1)/2)
         
         ## calculating distance
-        if info_distance == None:
+        if np.array(info_distance).any():
+            assert len(info_distance) == info_distance_length, 'shape of info_distance must be (%s,)' % info_distance_length
+            print_info('skip to calculate the distance')
+            self.info_distance = np.array(info_distance)
+
+        else:
             print_info('Calculating distance ...')
             D = calculator.pairwise_distance(dfx.values, n_cpus=16, method=metric)
             D = np.nan_to_num(D,copy=False)
             D_ = squareform(D)
             self.info_distance = D_.clip(0, np.inf)
-        else:
-            assert type(info_distance) == np.ndarray, 'info_distance must be a array with a shape of (n,)'
-            assert len(info_distance) == info_distance_length, 'shape of info_distance must be (%s,)' % info_distance_length
-            print_info('skip to calculate the distance')
-            self.info_distance = info_distance
-
+            
         ## statistic info
         S = summary.Summary(n_jobs = 10)
         res= []

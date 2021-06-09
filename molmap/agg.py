@@ -49,7 +49,7 @@ class Base:
     
 
 
-class AggMap(Base):
+class AggMolMap(Base):
     
     def __init__(self, 
                  dfx,

@@ -1,6 +1,6 @@
 
 from .map import MolMap
-from .map2 import AggMap
+from .agg import AggMolMap
 
 from joblib import load as loadmap
 

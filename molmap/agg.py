@@ -274,7 +274,8 @@ class AggMolMap(Base):
         colormaps = dfb.set_index('Subtypes')['colors'].to_dict()
         colormaps.update({'NaN': '#000000'})
         self.colormaps = colormaps
-
+        self.channel_order = list(colormaps.keys())
+        self.channel_order.remove('NaN')
         
         if fmap_type == 'grid':
             S = Scatter2Grid()
@@ -307,13 +308,15 @@ class AggMolMap(Base):
         if self.fmap_type == 'scatter':
             ## naive scatter algorithm
             print_info('Applying naive scatter feature map...')
-            self._S.fit(self.df_embedding, self.split_channels, channel_col = 'Channels')
+            self._S.fit(self.df_embedding, self.split_channels, 
+                        channel_col = 'Channels', channel_order=self.channel_order)
             print_info('Finished')
             
         else:
             ## linear assignment algorithm 
             print_info('Applying grid feature map(assignment), this may take several minutes(1~30 min)')
-            self._S.fit(self.df_embedding, self.split_channels, channel_col = 'Channels')
+            self._S.fit(self.df_embedding, self.split_channels, 
+                        channel_col = 'Channels', channel_order=self.channel_order)
             print_info('Finished')
         
         ## fit flag

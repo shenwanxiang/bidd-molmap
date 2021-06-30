@@ -57,15 +57,22 @@ class Extraction:
         if feature_dict == {}:
             factory = mapkey
             self.flag = 'all'
+            cm = colormaps
         else:
-            factory = {key:mapkey[key] for key in set(feature_dict.keys()) & set(mapkey)}
+            keys = [key for key in set(feature_dict.keys()) & set(mapkey)]
+            factory = {}
+            cm = {}
+            for k, v in mapkey.items():
+                if k in keys:
+                    factory[k] = mapkey[k]
+                    cm[k] = colormaps[k]
             self.flag = 'auto'
         assert factory != {}, 'types of feature %s can be used' % list(mapkey.keys())
             
         self.factory = factory
         self.feature_dict = feature_dict
         _ = self._transform_mol(Chem.MolFromSmiles('CC'))
-        self.colormaps = colormaps        
+        self.colormaps = cm        
         self.scaleinfo = load_config('fingerprint', 'scale')
         
     def _transform_mol(self, mol):

@@ -24,7 +24,7 @@ class Scatter2Grid:
         self.indices_list = None
 
         
-    def fit(self, df, split_channels = True, channel_col = 'Channels'):
+    def fit(self, df, split_channels = True, channel_col = 'Channels', channel_order = []):
         """
         parameters
         ------------------
@@ -64,7 +64,10 @@ class Scatter2Grid:
         if self.split_channels:
             def _apply_split(x):
                 return x[['idx', 'indices']].to_dict('list')
-            sidx = df.groupby(channel_col).apply(_apply_split)      
+            sidx = df.groupby(channel_col).apply(_apply_split) 
+            if len(channel_order) != 0:
+                sidx = sidx.loc[channel_order]
+                
             channels = sidx.index.tolist()
             indices_list = sidx.tolist()            
             self.channels = channels
@@ -131,7 +134,7 @@ class Scatter2Array:
         return indices
     
     
-    def fit(self, df, split_channels = True, channel_col = 'Channels'):
+    def fit(self, df, split_channels = True, channel_col = 'Channels', channel_order = []):
         """
         parameters
         ---------------
@@ -147,7 +150,10 @@ class Scatter2Array:
         
         if self.split_channels:
             g = df.groupby(channel_col)
-            sidx = g.apply(self._transform)            
+            sidx = g.apply(self._transform) 
+            if len(channel_order) != 0:
+                sidx = sidx.loc[channel_order]            
+            
             self.channels = sidx.index.tolist()
             self.indices_list = sidx.tolist()
         else:    

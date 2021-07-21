@@ -1,0 +1,403 @@
+key,id,description,group,group_info
+BEGF750101,A005,"Conformational parameter of inner helix (Beghin-Dirkx, 1975)",A,alpha and turn propensities
+BEGF750103,A007,"Conformational parameter of beta-turn (Beghin-Dirkx, 1975)",A,alpha and turn propensities
+BUNA790101,A016,"alpha-NH chemical shifts (Bundi-Wuthrich, 1979)",A,alpha and turn propensities
+BUNA790103,A018,"Spin-spin coupling constants 3JHalpha-NH (Bundi-Wuthrich, 1979)",A,alpha and turn propensities
+BURA740101,A019,"Normalized frequency of alpha-helix (Burgess et al., 1974)",A,alpha and turn propensities
+CHAM830101,A022,"The Chou-Fasman parameter of the coil conformation (Charton-Charton, 1983)",A,alpha and turn propensities
+CHAM830102,A023,"A parameter defined from the residuals obtained from the best correlation of the Chou-Fasman parameter of beta-sheet (Charton-Charton, 1983)",A,alpha and turn propensities
+CHOP780101,A037,"Normalized frequency of beta-turn (Chou-Fasman, 1978a)",A,alpha and turn propensities
+CHOP780201,A038,"Normalized frequency of alpha-helix (Chou-Fasman, 1978b)",A,alpha and turn propensities
+CHOP780203,A040,"Normalized frequency of beta-turn (Chou-Fasman, 1978b)",A,alpha and turn propensities
+CHOP780205,A042,"Normalized frequency of C-terminal helix (Chou-Fasman, 1978b)",A,alpha and turn propensities
+CHOP780207,A044,"Normalized frequency of C-terminal non helical region (Chou-Fasman, 1978b)",A,alpha and turn propensities
+CHOP780210,A047,"Normalized frequency of N-terminal non b region (Chou-Fasman, 1978b)",A,alpha and turn propensities
+CHOP780211,A048,"Normalized frequency of C-terminal non b region (Chou-Fasman, 1978b)",A,alpha and turn propensities
+CHOP780212,A049,"Frequency of the 1st residue in turn (Chou-Fasman, 1978b)",A,alpha and turn propensities
+CHOP780213,A050,"Frequency of the 2nd residue in turn (Chou-Fasman, 1978b)",A,alpha and turn propensities
+CHOP780215,A052,"Frequency of the 4th residue in turn (Chou-Fasman, 1978b)",A,alpha and turn propensities
+CHOP780216,A053,"Normalized frequency of the 2nd and 3rd residues in turn (Chou-Fasman, 1978b)",A,alpha and turn propensities
+CRAJ730101,A060,"Normalized frequency of middle helix (Crawford et al., 1973)",A,alpha and turn propensities
+CRAJ730103,A062,"Normalized frequency of turn (Crawford et al., 1973)",A,alpha and turn propensities
+FASG760103,A074,"Optical rotation (Fasman, 1976)",A,alpha and turn propensities
+FASG760104,A075,"pK-N (Fasman, 1976)",A,alpha and turn propensities
+FAUJ880113,A090,"pK-a(RCOOH) (Fauchere et al., 1988)",A,alpha and turn propensities
+FINA770101,A091,"Helix-coil equilibrium constant (Finkelstein-Ptitsyn, 1977)",A,alpha and turn propensities
+FINA910102,A093,"Helix initiation parameter at posision i,i+1,i+2 (Finkelstein et al., 1991)",A,alpha and turn propensities
+GEIM800101,A097,"a-helix indices (Geisow-Roberts, 1980)",A,alpha and turn propensities
+GEIM800102,A098,"a-helix indices for alpha-proteins (Geisow-Roberts, 1980)",A,alpha and turn propensities
+GEIM800103,A099,"a-helix indices for beta-proteins (Geisow-Roberts, 1980)",A,alpha and turn propensities
+GEIM800104,A100,"a-helix indices for alpha/beta-proteins (Geisow-Roberts, 1980)",A,alpha and turn propensities
+GEIM800108,A104,"Aperiodic indices (Geisow-Roberts, 1980)",A,alpha and turn propensities
+GEIM800109,A105,"Aperiodic indices for alpha-proteins (Geisow-Roberts, 1980)",A,alpha and turn propensities
+GEIM800111,A107,"Aperiodic indices for alpha/beta-proteins (Geisow-Roberts, 1980)",A,alpha and turn propensities
+ISOY800101,A119,"Normalized relative frequency of alpha-helix (Isogai et al., 1980)",A,alpha and turn propensities
+ISOY800103,A121,"Normalized relative frequency of bend (Isogai et al., 1980)",A,alpha and turn propensities
+ISOY800104,A122,"Normalized relative frequency of bend R (Isogai et al., 1980)",A,alpha and turn propensities
+ISOY800106,A124,"Normalized relative frequency of helix end (Isogai et al., 1980)",A,alpha and turn propensities
+KANM800101,A138,"Average relative probability of helix (Kanehisa-Tsong, 1980)",A,alpha and turn propensities
+KANM800103,A140,"Average relative probability of inner helix (Kanehisa-Tsong, 1980)",A,alpha and turn propensities
+LEVM780101,A160,"Normalized frequency of alpha-helix, with weights (Levitt, 1978)",A,alpha and turn propensities
+LEVM780103,A162,"Normalized frequency of reverse turn, with weights (Levitt, 1978)",A,alpha and turn propensities
+LEVM780104,A163,"Normalized frequency of alpha-helix, unweighted (Levitt, 1978)",A,alpha and turn propensities
+LEVM780106,A165,"Normalized frequency of reverse turn, unweighted (Levitt, 1978)",A,alpha and turn propensities
+LEWP710101,A166,"Frequency of occurrence in beta-bends (Lewis et al., 1971)",A,alpha and turn propensities
+MAXF760101,A171,"Normalized frequency of alpha-helix (Maxfield-Scheraga, 1976)",A,alpha and turn propensities
+MAXF760106,A176,"Normalized frequency of a region (Maxfield-Scheraga, 1976)",A,alpha and turn propensities
+NAGK730101,A186,"Normalized frequency of alpha-helix (Nagano, 1973)",A,alpha and turn propensities
+NAGK730103,A188,"Normalized frequency of coil (Nagano, 1973)",A,alpha and turn propensities
+PALJ810101,A223,"Normalized frequency of alpha-helix from LG (Palau et al., 1981)",A,alpha and turn propensities
+PALJ810102,A224,"Normalized frequency of alpha-helix from CF (Palau et al., 1981)",A,alpha and turn propensities
+PALJ810105,A227,"Normalized frequency of turn from LG (Palau et al., 1981)",A,alpha and turn propensities
+PALJ810106,A228,"Normalized frequency of turn from CF (Palau et al., 1981)",A,alpha and turn propensities
+PALJ810107,A229,"Normalized frequency of alpha-helix in all-alphaclass (Palau et al., 1981)",A,alpha and turn propensities
+PALJ810108,A230,"Normalized frequency of alpha-helix in alpha+beta class (Palau et al., 1981)",A,alpha and turn propensities
+PALJ810109,A231,"Normalized frequency of alpha-helix in alpha/beta class (Palau et al., 1981)",A,alpha and turn propensities
+PALJ810113,A235,"Normalized frequency of turn in all-alpha class (Palau et al., 1981)",A,alpha and turn propensities
+PALJ810114,A236,"Normalized frequency of turn in all-beta class (Palau et al., 1981)",A,alpha and turn propensities
+PALJ810115,A237,"Normalized frequency of turn in alpha+beta class (Palau et al., 1981)",A,alpha and turn propensities
+PALJ810116,A238,"Normalized frequency of turn in alpha/beta class (Palau et al., 1981)",A,alpha and turn propensities
+PRAM900102,A250,"Relative frequency in alpha-helix (Prabhakaran, 1990)",A,alpha and turn propensities
+PRAM900104,A252,"Relative frequency in reverse-turn (Prabhakaran, 1990)",A,alpha and turn propensities
+PTIO830101,A256,"Helix-coil equilibrium constant (Ptitsyn-Finkelstein, 1983)",A,alpha and turn propensities
+QIAN880101,A258,"Weights for alpha-helix at the window position of -6 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880102,A259,"Weights for alpha-helix at the window position of -5 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880103,A260,"Weights for alpha-helix at the window position of -4 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880104,A261,"Weights for alpha-helix at the window position of -3 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880105,A262,"Weights for alpha-helix at the window position of -2 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880106,A263,"Weights for alpha-helix at the window position of -1 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880107,A264,"Weights for alpha-helix at the window position of 0 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880108,A265,"Weights for alpha-helix at the window position of 1 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880109,A266,"Weights for alpha-helix at the window position of 2 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880110,A267,"Weights for alpha-helix at the window position of 3 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880111,A268,"Weights for alpha-helix at the window position of 4 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880112,A269,"Weights for alpha-helix at the window position of 5 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880113,A270,"Weights for alpha-helix at the window position of 6 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880117,A274,"Weights for beta-sheet at the window position of -3 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880129,A286,"Weights for coil at the window position of -4 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880130,A287,"Weights for coil at the window position of -3 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880131,A288,"Weights for coil at the window position of -2 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880132,A289,"Weights for coil at the window position of -1 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880133,A290,"Weights for coil at the window position of 0 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880134,A291,"Weights for coil at the window position of 1 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880135,A292,"Weights for coil at the window position of 2 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880136,A293,"Weights for coil at the window position of 3 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880137,A294,"Weights for coil at the window position of 4 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880138,A295,"Weights for coil at the window position of 5 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+QIAN880139,A296,"Weights for coil at the window position of 6 (Qian-Sejnowski, 1988)",A,alpha and turn propensities
+RACS820104,A300,"Average relative fractional occurrence in EL(i) (Rackovsky-Scheraga, 1982)",A,alpha and turn propensities
+RACS820108,A304,"Average relative fractional occurrence in AR(i-1) (Rackovsky-Scheraga, 1982)",A,alpha and turn propensities
+RACS820110,A306,"Average relative fractional occurrence in EL(i-1) (Rackovsky-Scheraga, 1982)",A,alpha and turn propensities
+RACS820112,A308,"Average relative fractional occurrence in ER(i-1) (Rackovsky-Scheraga, 1982)",A,alpha and turn propensities
+RACS820114,A310,"Value of theta(i-1) (Rackovsky-Scheraga, 1982)",A,alpha and turn propensities
+RICJ880107,A328,"Relative preference value at N4 (Richardson-Richardson, 1988)",A,alpha and turn propensities
+RICJ880109,A330,"Relative preference value at Mid (Richardson-Richardson, 1988)",A,alpha and turn propensities
+RICJ880110,A331,"Relative preference value at C5 (Richardson-Richardson, 1988)",A,alpha and turn propensities
+RICJ880112,A333,"Relative preference value at C3 (Richardson-Richardson, 1988)",A,alpha and turn propensities
+RICJ880113,A334,"Relative preference value at C2 (Richardson-Richardson, 1988)",A,alpha and turn propensities
+RICJ880114,A335,"Relative preference value at C1 (Richardson-Richardson, 1988)",A,alpha and turn propensities
+RICJ880116,A337,"Relative preference value at C' (Richardson-Richardson, 1988)",A,alpha and turn propensities
+RICJ880117,A338,"Relative preference value at C'' (Richardson-Richardson, 1988)",A,alpha and turn propensities
+ROBB760101,A340,"Information measure for alpha-helix (Robson-Suzuki, 1976)",A,alpha and turn propensities
+ROBB760103,A342,"Information measure for middle helix (Robson-Suzuki, 1976)",A,alpha and turn propensities
+ROBB760104,A343,"Information measure for C-terminal helix (Robson-Suzuki, 1976)",A,alpha and turn propensities
+ROBB760107,A346,"Information measure for extended without H-bond (Robson-Suzuki, 1976)",A,alpha and turn propensities
+ROBB760108,A347,"Information measure for turn (Robson-Suzuki, 1976)",A,alpha and turn propensities
+ROBB760109,A348,"Information measure for N-terminal turn (Robson-Suzuki, 1976)",A,alpha and turn propensities
+ROBB760110,A349,"Information measure for middle turn (Robson-Suzuki, 1976)",A,alpha and turn propensities
+ROBB760111,A350,"Information measure for C-terminal turn (Robson-Suzuki, 1976)",A,alpha and turn propensities
+ROBB760112,A351,"Information measure for coil (Robson-Suzuki, 1976)",A,alpha and turn propensities
+ROBB760113,A352,"Information measure for loop (Robson-Suzuki, 1976)",A,alpha and turn propensities
+SNEP660101,A359,"Principal component I (Sneath, 1966)",A,alpha and turn propensities
+SNEP660104,A362,"Principal component IV (Sneath, 1966)",A,alpha and turn propensities
+SUEM840101,A363,"Zimm-Bragg parameter s at 20° C (Sueki et al., 1984)",A,alpha and turn propensities
+TANS770101,A366,"Normalized frequency of alpha-helix (Tanaka-Scheraga, 1977)",A,alpha and turn propensities
+TANS770102,A367,"Normalized frequency of isolated helix (Tanaka-Scheraga, 1977)",A,alpha and turn propensities
+TANS770104,A369,"Normalized frequency of chain reversal R (Tanaka-Scheraga, 1977)",A,alpha and turn propensities
+TANS770110,A375,"Normalized frequency of chain reversal (Tanaka-Scheraga, 1977)",A,alpha and turn propensities
+VASM830101,A376,"Relative population of conformational state A (Vasquez et al., 1983)",A,alpha and turn propensities
+WOLS870103,A391,"Principal property value z3 (Wold et al., 1987)",A,alpha and turn propensities
+BURA740102,B020,"Normalized frequency of extended structure (Burgess et al., 1974)",B,beta propensity
+CHAM830107,B028,"A parameter of charge transfer capability (Charton-Charton, 1983)",B,beta propensity
+CHOP780202,B039,"Normalized frequency of beta-sheet (Chou-Fasman, 1978b)",B,beta propensity
+CHOP780208,B045,"Normalized frequency of N-terminal beta-sheet (Chou-Fasman, 1978b)",B,beta propensity
+CHOP780209,B046,"Normalized frequency of C-terminal beta-sheet (Chou-Fasman, 1978b)",B,beta propensity
+CRAJ730102,B061,"Normalized frequency of beta-sheet (Crawford et al., 1973)",B,beta propensity
+GEIM800105,B101,"beta-strand indices (Geisow-Roberts, 1980)",B,beta propensity
+GEIM800106,B102,"beta-strand indices for beta-proteins (Geisow-Roberts, 1980)",B,beta propensity
+GEIM800107,B103,"beta-strand indices for alpha/beta-proteins (Geisow-Roberts, 1980)",B,beta propensity
+GEIM800110,B106,"Aperiodic indices for beta-proteins (Geisow-Roberts, 1980)",B,beta propensity
+ISOY800102,B120,"Normalized relative frequency of extended structure (Isogai et al., 1980)",B,beta propensity
+KANM800102,B139,"Average relative probability of beta-sheet (Kanehisa-Tsong, 1980)",B,beta propensity
+KANM800104,B141,"Average relative probability of inner beta-sheet (Kanehisa-Tsong, 1980)",B,beta propensity
+LEVM780102,B161,"Normalized frequency of beta-sheet, with weights (Levitt, 1978)",B,beta propensity
+LEVM780105,B164,"Normalized frequency of beta-sheet, unweighted (Levitt, 1978)",B,beta propensity
+LIFS790101,B167,"Conformational preference for all beta-strands (Lifson-Sander, 1979)",B,beta propensity
+LIFS790102,B168,"Conformational preference for parallel beta-strands (Lifson-Sander, 1979)",B,beta propensity
+LIFS790103,B169,"Conformational preference for antiparallel beta-strands (Lifson-Sander, 1979)",B,beta propensity
+MAXF760102,B172,"Normalized frequency of extended structure (Maxfield-Scheraga, 1976)",B,beta propensity
+NAGK730102,B187,"Normalized frequency of beta-structure (Nagano, 1973)",B,beta propensity
+OOBM850101,B218,"Optimized beta-structure-coil equilibrium constant (Oobatake et al., 1985)",B,beta propensity
+OOBM850104,B221,"Optimized average non-bonded energy per atom (Oobatake et al., 1985)",B,beta propensity
+PALJ810103,B225,"Normalized frequency of beta-sheet from LG (Palau et al., 1981)",B,beta propensity
+PALJ810104,B226,"Normalized frequency of beta-sheet from CF (Palau et al., 1981)",B,beta propensity
+PALJ810110,B232,"Normalized frequency of beta-sheet in all-beta class (Palau et al., 1981)",B,beta propensity
+PALJ810112,B234,"Normalized frequency of beta-sheet in alpha/beta class (Palau et al., 1981)",B,beta propensity
+PRAM900103,B251,"Relative frequency in beta-sheet (Prabhakaran, 1990)",B,beta propensity
+PTIO830102,B257,"beta-coil equilibrium constant (Ptitsyn-Finkelstein, 1983)",B,beta propensity
+QIAN880118,B275,"Weights for beta-sheet at the window position of -2 (Qian-Sejnowski, 1988)",B,beta propensity
+QIAN880119,B276,"Weights for beta-sheet at the window position of -1 (Qian-Sejnowski, 1988)",B,beta propensity
+QIAN880120,B277,"Weights for beta-sheet at the window position of 0 (Qian-Sejnowski, 1988)",B,beta propensity
+QIAN880121,B278,"Weights for beta-sheet at the window position of 1 (Qian-Sejnowski, 1988)",B,beta propensity
+QIAN880122,B279,"Weights for beta-sheet at the window position of 2 (Qian-Sejnowski, 1988)",B,beta propensity
+RACS820111,B307,"Average relative fractional occurrence in E0(i-1) (Rackovsky-Scheraga, 1982)",B,beta propensity
+ROBB760105,B344,"Information measure for extended (Robson-Suzuki, 1976)",B,beta propensity
+ROBB760106,B345,"Information measure for pleated-sheet (Robson-Suzuki, 1976)",B,beta propensity
+TANS770103,B368,"Normalized frequency of extended structure (Tanaka-Scheraga, 1977)",B,beta propensity
+CHAM830108,C029,"A parameter of charge transfer donor capability (Charton-Charton, 1983)",C,Composition
+DAYM780101,C064,"Amino acid composition (Dayhoff et al., 1978b)",C,Composition
+HUTJ700101,C116,"Heat capacity (Hutchens, 1970)",C,Composition
+JOND920101,C134,"Relative frequency of occurrence (Jones et al., 1992)",C,Composition
+JUKT750101,C136,"Amino acid distribution (Jukes et al., 1975)",C,Composition
+JUNJ780101,C137,"Sequence frequency (Jungck, 1978)",C,Composition
+KARP850103,C144,"Flexibility parameter for two rigid neighbors (Karplus-Schulz, 1985)",C,Composition
+NAKH920101,C189,"AA composition of CYT of single-spanning proteins (Nakashima-Nishikawa, 1992)",C,Composition
+NAKH920102,C190,"AA composition of CYT2 of single-spanning proteins (Nakashima-Nishikawa, 1992)",C,Composition
+NAKH920103,C191,"AA composition of EXT of single-spanning proteins (Nakashima-Nishikawa, 1992)",C,Composition
+NAKH920104,C192,"AA composition of EXT2 of single-spanning proteins (Nakashima-Nishikawa, 1992)",C,Composition
+NAKH920105,C193,"AA composition of MEM of single-spanning proteins (Nakashima-Nishikawa, 1992)",C,Composition
+NAKH920106,C194,"AA composition of CYT of multi-spanning proteins (Nakashima-Nishikawa, 1992)",C,Composition
+NAKH920107,C195,"AA composition of EXT of multi-spanning proteins (Nakashima-Nishikawa, 1992)",C,Composition
+NAKH920108,C196,"AA composition of MEM of multi-spanning proteins (Nakashima-Nishikawa, 1992)",C,Composition
+NAKH900101,C197,"AA composition of total proteins (Nakashima et al., 1990)",C,Composition
+NAKH900102,C198,"SD of AA composition of total proteins (Nakashima et al., 1990)",C,Composition
+NAKH900103,C199,"AA composition of mt-proteins (Nakashima et al., 1990)",C,Composition
+NAKH900105,C201,"AA composition of mt-proteins from animal (Nakashima et al., 1990)",C,Composition
+NAKH900107,C203,"AA composition of mt-proteins from fungi and plant (Nakashima et al., 1990)",C,Composition
+NAKH900109,C205,"AA composition of membrane proteins (Nakashima et al., 1990)",C,Composition
+NAKH900111,C207,"Transmembrane regions of non-mt-proteins (Nakashima et al., 1990)",C,Composition
+NAKH900112,C208,"Transmembrane regions of mt-proteins (Nakashima et al., 1990)",C,Composition
+RACS820105,C301,"Average relative fractional occurrence in E0(i) (Rackovsky-Scheraga, 1982)",C,Composition
+ARGP820101,H002,"Hydrophobicity index (Argos et al., 1982)",H,Hydrophobicity
+ARGP820102,H003,"Signal sequence helical potential (Argos et al., 1982)",H,Hydrophobicity
+ARGP820103,H004,"Membrane-buried preference parameters (Argos et al., 1982)",H,Hydrophobicity
+BEGF750102,H006,"Conformational parameter of beta-structure (Beghin-Dirkx, 1975)",H,Hydrophobicity
+BHAR880101,H008,"Average flexibility indices (Bhaskaran-Ponnuswamy, 1988)",H,Hydrophobicity
+BIOV880101,H010,"Information value for accessibility; average fraction 35% (Biou et al., 1988)",H,Hydrophobicity
+BIOV880102,H011,"Information value for accessibility; average fraction 23% (Biou et al., 1988)",H,Hydrophobicity
+BROC820101,H012,"Retention coefficient in TFA (Browne et al., 1982)",H,Hydrophobicity
+BROC820102,H013,"Retention coefficient in HFBA (Browne et al., 1982)",H,Hydrophobicity
+BULH740101,H014,"Transfer free energy to surface (Bull-Breese, 1974)",H,Hydrophobicity
+CHAM820102,H031,"Free energy of solution in water, kcal/mole (Charton-Charton, 1982)",H,Hydrophobicity
+CHOC760102,H034,"Residue accessible surface area in folded protein (Chothia, 1976)",H,Hydrophobicity
+CHOC760103,H035,"Proportion of residues 95% buried (Chothia, 1976)",H,Hydrophobicity
+CHOC760104,H036,"Proportion of residues 100% buried (Chothia, 1976)",H,Hydrophobicity
+CHOP780204,H041,"Normalized frequency of N-terminal helix (Chou-Fasman, 1978b)",H,Hydrophobicity
+CIDH920101,H054,"Normalized hydrophobicity scales for alpha-proteins (Cid et al., 1992)",H,Hydrophobicity
+CIDH920102,H055,"Normalized hydrophobicity scales for beta-proteins (Cid et al., 1992)",H,Hydrophobicity
+CIDH920103,H056,"Normalized hydrophobicity scales for alpha+beta-proteins (Cid et al., 1992)",H,Hydrophobicity
+CIDH920104,H057,"Normalized hydrophobicity scales for alpha/beta-proteins (Cid et al., 1992)",H,Hydrophobicity
+CIDH920105,H058,"Normalized average hydrophobicity scales (Cid et al., 1992)",H,Hydrophobicity
+DESM900101,H066,"Membrane preference for cytochrome b: MPH89 (Degli Esposti et al., 1990)",H,Hydrophobicity
+DESM900102,H067,"Average membrane preference: AMP07 (Degli Esposti et al., 1990)",H,Hydrophobicity
+EISD840101,H068,"Consensus normalized hydrophobicity scale (Eisenberg, 1984)",H,Hydrophobicity
+EISD860101,H069,"Solvation free energy (Eisenberg-McLachlan, 1986)",H,Hydrophobicity
+EISD860102,H070,"Atom-based hydrophobic moment (Eisenberg-McLachlan, 1986)",H,Hydrophobicity
+EISD860103,H071,"Direction of hydrophobic moment (Eisenberg-McLachlan, 1986)",H,Hydrophobicity
+FASG760102,H073,"Melting point (Fasman, 1976)",H,Hydrophobicity
+FASG760105,H076,"pK-C (Fasman, 1976)",H,Hydrophobicity
+FAUJ830101,H077,"Hydrophobic parameter p (Fauchere-Pliska, 1983)",H,Hydrophobicity
+FAUJ880108,H085,"Localized electrical effect (Fauchere et al., 1988)",H,Hydrophobicity
+FAUJ880109,H086,"Number of hydrogen bond donors (Fauchere et al., 1988)",H,Hydrophobicity
+FAUJ880110,H087,"Number of full nonbonding orbitals (Fauchere et al., 1988)",H,Hydrophobicity
+FAUJ880111,H088,"Positive charge (Fauchere et al., 1988)",H,Hydrophobicity
+FAUJ880112,H089,"Negative charge (Fauchere et al., 1988)",H,Hydrophobicity
+FINA910101,H092,"Helix initiation parameter at posision i-1 (Finkelstein et al., 1991)",H,Hydrophobicity
+FINA910103,H094,"Helix termination parameter at posision j-2,j-1,j (Finkelstein et al., 1991)",H,Hydrophobicity
+FINA910104,H095,"Helix termination parameter at posision j+1 (Finkelstein et al., 1991)",H,Hydrophobicity
+GOLD730101,H108,"Hydrophobicity factor (Goldsack-Chalifoux, 1973)",H,Hydrophobicity
+GRAR740101,H110,"Composition (Grantham, 1974)",H,Hydrophobicity
+GRAR740102,H111,"Polarity (Grantham, 1974)",H,Hydrophobicity
+GUYH850101,H113,"Partition energy (Guy, 1985)",H,Hydrophobicity
+HOPA770101,H114,"Hydration number (Hopfinger, 1971), Cited by Charton-Charton (1982)",H,Hydrophobicity
+HOPT810101,H115,"Hydrophilicity value (Hopp-Woods, 1981)",H,Hydrophobicity
+ISOY800107,H125,"Normalized relative frequency of double bend (Isogai et al., 1980)",H,Hydrophobicity
+JANJ780101,H129,"Average accessible surface area (Janin et al., 1978)",H,Hydrophobicity
+JANJ780102,H130,"Percentage of buried residues (Janin et al., 1978)",H,Hydrophobicity
+JANJ780103,H131,"Percentage of exposed residues (Janin et al., 1978)",H,Hydrophobicity
+JANJ790101,H127,"Ratio of buried and accessible molar fractions (Janin, 1979)",H,Hydrophobicity
+JANJ790102,H128,"Transfer free energy (Janin, 1979)",H,Hydrophobicity
+JOND750101,H132,"Hydrophobicity (Jones, 1975)",H,Hydrophobicity
+JOND750102,H133,"pK (-COOH) (Jones, 1975)",H,Hydrophobicity
+KARP850101,H142,"Flexibility parameter for no rigid neighbors (Karplus-Schulz, 1985)",H,Hydrophobicity
+KARP850102,H143,"Flexibility parameter for one rigid neighbor (Karplus-Schulz, 1985)",H,Hydrophobicity
+KHAG800101,H145,"The Kerr-constant increments (Khanarian-Moore, 1980)",H,Hydrophobicity
+KLEP840101,H146,"Net charge (Klein et al., 1984)",H,Hydrophobicity
+KRIW790101,H147,"Side chain interaction parameter (Krigbaum-Komoriya, 1979)",H,Hydrophobicity
+KRIW790102,H148,"Fraction of site occupied by water (Krigbaum-Komoriya, 1979)",H,Hydrophobicity
+KRIW710101,H150,"Side chain interaction parameter (Krigbaum-Rubin, 1971)",H,Hydrophobicity
+KYTJ820101,H151,"Hydropathy index (Kyte-Doolittle, 1982)",H,Hydrophobicity
+LAWE840101,H152,"Transfer free energy, CHP/water (Lawson et al., 1984)",H,Hydrophobicity
+LEVM760101,H153,"Hydrophobic parameter (Levitt, 1976)",H,Hydrophobicity
+MANP780101,H170,"Average surrounding hydrophobicity (Manavalan-Ponnuswamy, 1978)",H,Hydrophobicity
+MEEJ800101,H178,"Retention coefficient in HPLC, pH7.4 (Meek, 1980)",H,Hydrophobicity
+MEEJ800102,H179,"Retention coefficient in HPLC, pH2.1 (Meek, 1980)",H,Hydrophobicity
+MEEJ810101,H180,"Retention coefficient in NaClO4 (Meek-Rossetti, 1981)",H,Hydrophobicity
+MEEJ810102,H181,"Retention coefficient in NaH2PO4 (Meek-Rossetti, 1981)",H,Hydrophobicity
+MEIH800101,H182,"Average reduced distance for Ca (Meirovitch et al., 1980)",H,Hydrophobicity
+MEIH800102,H183,"Average reduced distance for side chain (Meirovitch et al., 1980)",H,Hydrophobicity
+MEIH800103,H184,"Average side chain orientation angle (Meirovitch et al., 1980)",H,Hydrophobicity
+MIYS850101,H185,"Effective partition energy (Miyazawa-Jernigan, 1985)",H,Hydrophobicity
+NAKH900104,H200,"Normalized composition of mt-proteins (Nakashima et al., 1990)",H,Hydrophobicity
+NAKH900106,H202,"Normalized composition from animal (Nakashima et al., 1990)",H,Hydrophobicity
+NAKH900108,H204,"Normalized composition from fungi and plant (Nakashima et al., 1990)",H,Hydrophobicity
+NAKH900110,H206,"Normalized composition of membrane proteins (Nakashima et al., 1990)",H,Hydrophobicity
+NAKH900113,H209,"Ratio of average and computed composition (Nakashima et al., 1990)",H,Hydrophobicity
+NISK800101,H210,"8 * contact number (Nishikawa-Ooi, 1980)",H,Hydrophobicity
+NISK860101,H211,"14 * contact number (Nishikawa-Ooi, 1986)",H,Hydrophobicity
+NOZY710101,H212,"Transfer energy, organic solvent/water (Nozaki-Tanford, 1971)",H,Hydrophobicity
+OOBM770101,H213,"Average non-bonded energy per atom (Oobatake-Ooi, 1977)",H,Hydrophobicity
+OOBM770103,H215,"Long range non-bonded energy per atom (Oobatake-Ooi, 1977)",H,Hydrophobicity
+OOBM850103,H220,"Optimized transfer energy parameter (Oobatake et al., 1985)",H,Hydrophobicity
+OOBM850105,H222,"Optimized side chain interaction parameter (Oobatake et al., 1985)",H,Hydrophobicity
+PALJ810111,H233,"Normalized frequency of beta-sheet in a+b class (Palau et al., 1981)",H,Hydrophobicity
+PARJ860101,H239,"HPLC parameter (Parker et al., 1986)",H,Hydrophobicity
+PLIV810101,H240,"Partition coefficient (Pliska et al., 1981)",H,Hydrophobicity
+PONP800101,H241,"Surrounding hydrophobicity in folded form (Ponnuswamy et al., 1980)",H,Hydrophobicity
+PONP800102,H242,"Average gain in surrounding hydrophobicity (Ponnuswamy et al., 1980)",H,Hydrophobicity
+PONP800103,H243,"Average gain ratio in surrounding hydrophobicity (Ponnuswamy et al., 1980)",H,Hydrophobicity
+PONP800104,H244,"Surrounding hydrophobicity in alpha-helix (Ponnuswamy et al., 1980)",H,Hydrophobicity
+PONP800105,H245,"Surrounding hydrophobicity in beta-sheet (Ponnuswamy et al., 1980)",H,Hydrophobicity
+PONP800106,H246,"Surrounding hydrophobicity in turn (Ponnuswamy et al., 1980)",H,Hydrophobicity
+PONP800107,H247,"Accessibility reduction ratio (Ponnuswamy et al., 1980)",H,Hydrophobicity
+PONP800108,H248,"Average number of surrounding residues (Ponnuswamy et al., 1980)",H,Hydrophobicity
+PRAM820101,H253,"Intercept in regression analysis (Prabhakaran-Ponnuswamy, 1982)",H,Hydrophobicity
+PRAM900101,H249,"Hydrophobicity (Prabhakaran, 1990)",H,Hydrophobicity
+QIAN880114,H271,"Weights for beta-sheet at the window position of -6 (Qian-Sejnowski, 1988)",H,Hydrophobicity
+QIAN880115,H272,"Weights for beta-sheet at the window position of -5 (Qian-Sejnowski, 1988)",H,Hydrophobicity
+QIAN880116,H273,"Weights for beta-sheet at the window position of -4 (Qian-Sejnowski, 1988)",H,Hydrophobicity
+QIAN880126,H283,"Weights for beta-sheet at the window position of 6 (Qian-Sejnowski, 1988)",H,Hydrophobicity
+QIAN880127,H284,"Weights for coil at the window position of -6 (Qian-Sejnowski, 1988)",H,Hydrophobicity
+QIAN880128,H285,"Weights for coil at the window position of -5 (Qian-Sejnowski, 1988)",H,Hydrophobicity
+RACS820101,H297,"Average relative fractional occurrence in A0(i) (Rackovsky-Scheraga, 1982)",H,Hydrophobicity
+RACS820103,H299,"Average relative fractional occurrence in AL(i) (Rackovsky-Scheraga, 1982)",H,Hydrophobicity
+RACS770101,H311,"Average reduced distance for Ca (Rackovsky-Scheraga, 1977)",H,Hydrophobicity
+RACS770102,H312,"Average reduced distance for side chain (Rackovsky-Scheraga, 1977)",H,Hydrophobicity
+RACS770103,H313,"Side chain orientational preference (Rackovsky-Scheraga, 1977)",H,Hydrophobicity
+RADA880101,H314,"Transfer free energy from chx to wat (Radzicka-Wolfenden, 1988)",H,Hydrophobicity
+RADA880102,H315,"Transfer free energy from oct to wat (Radzicka-Wolfenden, 1988)",H,Hydrophobicity
+RADA880104,H317,"Transfer free energy from chx to oct (Radzicka-Wolfenden, 1988)",H,Hydrophobicity
+RADA880105,H318,"Transfer free energy from vap to oct (Radzicka-Wolfenden, 1988)",H,Hydrophobicity
+RADA880107,H320,"Energy transfer from out to in(95%buried) (Radzicka-Wolfenden, 1988)",H,Hydrophobicity
+RADA880108,H321,"Mean polarity (Radzicka-Wolfenden, 1988)",H,Hydrophobicity
+RICJ880104,H325,"Relative preference value at N1 (Richardson-Richardson, 1988)",H,Hydrophobicity
+RICJ880105,H326,"Relative preference value at N2 (Richardson-Richardson, 1988)",H,Hydrophobicity
+RICJ880106,H327,"Relative preference value at N3 (Richardson-Richardson, 1988)",H,Hydrophobicity
+RICJ880108,H329,"Relative preference value at N5 (Richardson-Richardson, 1988)",H,Hydrophobicity
+RICJ880111,H332,"Relative preference value at C4 (Richardson-Richardson, 1988)",H,Hydrophobicity
+ROBB760102,H341,"Information measure for N-terminal helix (Robson-Suzuki, 1976)",H,Hydrophobicity
+ROBB790101,H339,"Hydration free energy (Robson-Osguthorpe, 1979)",H,Hydrophobicity
+ROSG850102,H354,"Mean fractional area loss (Rose et al., 1985)",H,Hydrophobicity
+ROSM880101,H355,"Side chain hydropathy, uncorrected for solvation (Roseman, 1988)",H,Hydrophobicity
+ROSM880102,H356,"Side chain hydropathy, corrected for solvation (Roseman, 1988)",H,Hydrophobicity
+ROSM880103,H357,"Loss of Side chain hydropathy by helix formation (Roseman, 1988)",H,Hydrophobicity
+SIMZ760101,H358,"Transfer free energy (Simon, 1976), Cited by Charton-Charton (1982)",H,Hydrophobicity
+SNEP660102,H360,"Principal component II (Sneath, 1966)",H,Hydrophobicity
+SUEM840102,H364,"Zimm-Bragg parameter s´1.0E4 (Sueki et al., 1984)",H,Hydrophobicity
+SWER830101,H365,"Optimal matching hydrophobicity (Sweet-Eisenberg, 1983)",H,Hydrophobicity
+TANS770106,H371,"Normalized frequency of chain reversal D (Tanaka-Scheraga, 1977)",H,Hydrophobicity
+TANS770108,H373,"Normalized frequency of zR (Tanaka-Scheraga, 1977)",H,Hydrophobicity
+VASM830102,H377,"Relative population of conformational state C (Vasquez et al., 1983)",H,Hydrophobicity
+VASM830103,H378,"Relative population of conformational state E (Vasquez et al., 1983)",H,Hydrophobicity
+VELV850101,H379,"Electron-ion interaction potential (Veljkovic et al., 1985)",H,Hydrophobicity
+VENT840101,H380,"Bitterness (Venanzi, 1984)",H,Hydrophobicity
+VHEG790101,H381,"Transfer free energy to lipophilic phase (von Heijne-Blomberg, 1979)",H,Hydrophobicity
+WARP780101,H382,"Average interactions per side chain atom (Warme-Morgan, 1978)",H,Hydrophobicity
+WERD780101,H384,"Propensity to be buried inside (Wertz-Scheraga, 1978)",H,Hydrophobicity
+WERD780103,H386,"Free energy change of a(Ri) to a(Rh) (Wertz-Scheraga, 1978)",H,Hydrophobicity
+WERD780104,H387,"Free energy change of e(i) to a(Rh) (Wertz-Scheraga, 1978)",H,Hydrophobicity
+WOEC730101,H388,"Polar requirement (Woese, 1973)",H,Hydrophobicity
+WOLR810101,H392,"Hydration potential (Wolfenden et al., 1981)",H,Hydrophobicity
+WOLS870101,H389,"Principal property value z1 (Wold et al., 1987)",H,Hydrophobicity
+YUTK870101,H393,"Unfolding Gibbs energy in water, pH7.0 (Yutani et al., 1987)",H,Hydrophobicity
+YUTK870102,H394,"Unfolding Gibbs energy in water, pH9.0 (Yutani et al., 1987)",H,Hydrophobicity
+YUTK870103,H395,"Activation Gibbs energy of unfolding, pH7.0 (Yutani et al., 1987)",H,Hydrophobicity
+YUTK870104,H396,"Activation Gibbs energy of unfolding, pH9.0 (Yutani et al., 1987)",H,Hydrophobicity
+ZIMJ680101,H398,"Hydrophobicity (Zimmerman et al., 1968)",H,Hydrophobicity
+ZIMJ680103,H400,"Polarity (Zimmerman et al., 1968)",H,Hydrophobicity
+ZIMJ680104,H401,"Isoelectric point (Zimmerman et al., 1968)",H,Hydrophobicity
+ZIMJ680105,H402,"RF rank (Zimmerman et al., 1968)",H,Hydrophobicity
+ANDN920101,P001,"a-CH chemical shifts (Andersen et al., 1992)",P,Physicochemical properties
+BIGC670101,P009,"Residue volume (Bigelow, 1967)",P,Physicochemical properties
+BULH740102,P015,"Apparent partial specific volume (Bull-Breese, 1974)",P,Physicochemical properties
+BUNA790102,P017,"a-CH chemical shifts (Bundi-Wuthrich, 1979)",P,Physicochemical properties
+CHAM830103,P024,"The number of atoms in the side chain labelled 1+1 (Charton-Charton, 1983)",P,Physicochemical properties
+CHAM830105,P026,"The number of atoms in the side chain labelled 3+1 (Charton-Charton, 1983)",P,Physicochemical properties
+CHAM830106,P027,"The number of bonds in the longest chain (Charton-Charton, 1983)",P,Physicochemical properties
+CHAM820101,P030,"Polarizability parameter (Charton-Charton, 1982)",P,Physicochemical properties
+CHOC750101,P032,"Average volume of buried residue (Chothia, 1975)",P,Physicochemical properties
+CHOC760101,P033,"Residue accessible surface area in tripeptide (Chothia, 1976)",P,Physicochemical properties
+COHE430101,P059,"Partial specific volume (Cohn-Edsall, 1943)",P,Physicochemical properties
+DAWD720101,P063,"Size (Dawson, 1972)",P,Physicochemical properties
+DAYM780201,P065,"Relative mutability (Dayhoff et al., 1978a)",P,Physicochemical properties
+FASG760101,P072,"Molecular weight (Fasman, 1976)",P,Physicochemical properties
+FAUJ880101,P078,"Graph shape index (Fauchere et al., 1988)",P,Physicochemical properties
+FAUJ880103,P080,"Normalized van der Waals volume (Fauchere et al., 1988)",P,Physicochemical properties
+FAUJ880104,P081,"STERIMOL length of the side chain (Fauchere et al., 1988)",P,Physicochemical properties
+FAUJ880105,P082,"STERIMOL minimum width of the side chain (Fauchere et al., 1988)",P,Physicochemical properties
+FAUJ880106,P083,"STERIMOL maximum width of the side chain (Fauchere et al., 1988)",P,Physicochemical properties
+GARJ730101,P096,"Partition coefficient (Garel et al., 1973)",P,Physicochemical properties
+GOLD730102,P109,"Residue volume (Goldsack-Chalifoux, 1973)",P,Physicochemical properties
+GRAR740103,P112,"Volume (Grantham, 1974)",P,Physicochemical properties
+HUTJ700102,P117,"Absolute entropy (Hutchens, 1970)",P,Physicochemical properties
+HUTJ700103,P118,"Entropy of formation (Hutchens, 1970)",P,Physicochemical properties
+JOND920102,P135,"Relative mutability (Jones et al., 1992)",P,Physicochemical properties
+KRIW790103,P149,"Side chain volume (Krigbaum-Komoriya, 1979)",P,Physicochemical properties
+LEVM760102,P154,"Distance between Ca and centroid of side chain (Levitt, 1976)",P,Physicochemical properties
+LEVM760105,P157,"Radius of gyration of side chain (Levitt, 1976)",P,Physicochemical properties
+LEVM760106,P158,"van der Waals parameter R0 (Levitt, 1976)",P,Physicochemical properties
+LEVM760107,P159,"van der Waals parameter e (Levitt, 1976)",P,Physicochemical properties
+MCMT640101,P177,"Refractivity (McMeekin et al., 1964), Cited by Jones (1975)",P,Physicochemical properties
+OOBM770102,P214,"Short and medium range non-bonded energy per atom (Oobatake-Ooi, 1977)",P,Physicochemical properties
+OOBM770104,P216,"Average non-bonded energy per residue (Oobatake-Ooi, 1977)",P,Physicochemical properties
+OOBM770105,P217,"Short and medium range non-bonded energy per residue (Oobatake-Ooi, 1977)",P,Physicochemical properties
+OOBM850102,P219,"Optimized propensity to form reverse turn (Oobatake et al., 1985)",P,Physicochemical properties
+QIAN880123,P280,"Weights for beta-sheet at the window position of 3 (Qian-Sejnowski, 1988)",P,Physicochemical properties
+QIAN880124,P281,"Weights for beta-sheet at the window position of 4 (Qian-Sejnowski, 1988)",P,Physicochemical properties
+QIAN880125,P282,"Weights for beta-sheet at the window position of 5 (Qian-Sejnowski, 1988)",P,Physicochemical properties
+RADA880103,P316,"Transfer free energy from vap to chx (Radzicka-Wolfenden, 1988)",P,Physicochemical properties
+RADA880106,P319,"Accessible surface area (Radzicka-Wolfenden, 1988)",P,Physicochemical properties
+ROSG850101,P353,"Mean area buried on transfer (Rose et al., 1985)",P,Physicochemical properties
+SNEP660103,P361,"Principal component III (Sneath, 1966)",P,Physicochemical properties
+WEBA780101,P383,"RF value in high salt chromatography (Weber-Lacey, 1978)",P,Physicochemical properties
+WOLS870102,P390,"Principal property value z2 (Wold et al., 1987)",P,Physicochemical properties
+ZASB820101,P397,"Dependence of partition coefficient on ionic strength (Zaslavsky et al., 1982)",P,Physicochemical properties
+ZIMJ680102,P399,"Bulkiness (Zimmerman et al., 1968)",P,Physicochemical properties
+CHAM810101,O021,"Steric parameter (Charton, 1981)",O,Other properties
+CHAM830104,O025,"The number of atoms in the side chain labelled 2+1 (Charton-Charton, 1983)",O,Other properties
+CHOP780206,O043,"Normalized frequency of N-terminal non helical region (Chou-Fasman, 1978b)",O,Other properties
+CHOP780214,O051,"Frequency of the 3rd residue in turn (Chou-Fasman, 1978b)",O,Other properties
+FAUJ880102,O079,"Smoothed upsilon steric parameter (Fauchere et al., 1988)",O,Other properties
+FAUJ880107,O084,"N.m.r. chemical shift of alpha-carbon (Fauchere et al., 1988)",O,Other properties
+ISOY800105,O123,"Normalized relative frequency of bend S (Isogai et al., 1980)",O,Other properties
+ISOY800108,O126,"Normalized relative frequency of coil (Isogai et al., 1980)",O,Other properties
+LEVM760103,O155,"Side chain angle theta(AAR) (Levitt, 1976)",O,Other properties
+LEVM760104,O156,"Side chain torsion angle phi(AAAR) (Levitt, 1976)",O,Other properties
+MAXF760103,O173,"Normalized frequency of zR (Maxfield-Scheraga, 1976)",O,Other properties
+MAXF760104,O174,"Normalized frequency of left-handed alpha-helix (Maxfield-Scheraga, 1976)",O,Other properties
+MAXF760105,O175,"Normalized frequency of zL (Maxfield-Scheraga, 1976)",O,Other properties
+PRAM820102,O254,"Slope in regression analysis ´1.0E1 (Prabhakaran-Ponnuswamy, 1982)",O,Other properties
+PRAM820103,O255,"Correlation coefficient in regression analysis (Prabhakaran-Ponnuswamy, 1982)",O,Other properties
+RACS820102,O298,"Average relative fractional occurrence in AR(i) (Rackovsky-Scheraga, 1982)",O,Other properties
+RACS820106,O302,"Average relative fractional occurrence in ER(i) (Rackovsky-Scheraga, 1982)",O,Other properties
+RACS820107,O303,"Average relative fractional occurrence in A0(i-1) (Rackovsky-Scheraga, 1982)",O,Other properties
+RACS820109,O305,"Average relative fractional occurrence in AL(i-1) (Rackovsky-Scheraga, 1982)",O,Other properties
+RACS820113,O309,"Value of theta(i) (Rackovsky-Scheraga, 1982)",O,Other properties
+RICJ880101,O322,"Relative preference value at N'' (Richardson- Richardson, 1988)",O,Other properties
+RICJ880102,O323,"Relative preference value at N' (Richardson-Richardson, 1988)",O,Other properties
+RICJ880103,O324,"Relative preference value at N-cap (Richardson-Richardson, 1988)",O,Other properties
+RICJ880115,O336,"Relative preference value at C-cap (Richardson-Richardson, 1988)",O,Other properties
+TANS770105,O370,"Normalized frequency of chain reversal S (Tanaka-Scheraga, 1977)",O,Other properties
+TANS770107,O372,"Normalized frequency of left-handed helix (Tanaka-Scheraga, 1977)",O,Other properties
+TANS770109,O374,"Normalized frequency of coil (Tanaka-Scheraga, 1977)",O,Other properties
+WERD780102,O385,"Free energy change of e(i) to e(ex) (Wertz-Scheraga, 1978)",O,Other properties

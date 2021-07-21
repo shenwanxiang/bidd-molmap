@@ -1,0 +1,165 @@
+accession_number	subgroup
+AURR980101	A,alpha and turn propensities
+AURR980102	A,alpha and turn propensities
+AURR980103	A,alpha and turn propensities
+AURR980104	A,alpha and turn propensities
+AURR980105	A,alpha and turn propensities
+AURR980106	A,alpha and turn propensities
+AURR980107	A,alpha and turn propensities
+AURR980108	A,alpha and turn propensities
+AURR980109	A,alpha and turn propensities
+AURR980110	A,alpha and turn propensities
+AURR980111	A,alpha and turn propensities
+AURR980112	A,alpha and turn propensities
+AURR980113	A,alpha and turn propensities
+AURR980114	A,alpha and turn propensities
+AURR980115	A,alpha and turn propensities
+AURR980116	A,alpha and turn propensities
+AURR980117	A,alpha and turn propensities
+AURR980118	A,alpha and turn propensities
+AURR980119	A,alpha and turn propensities
+AURR980120	A,alpha and turn propensities
+ONEK900101	A,alpha and turn propensities
+ONEK900102	A,alpha and turn propensities
+VINM940101	O,Other properties
+VINM940102	O,Other properties
+VINM940103	O,Other properties
+VINM940104	O,Other properties
+MUNV940101	A,alpha and turn propensities
+MUNV940102	A,alpha and turn propensities
+MUNV940103	A,alpha and turn propensities
+MUNV940104	A,alpha and turn propensities
+MUNV940105	A,alpha and turn propensities
+WIMW960101	H,Hydrophobicity
+KIMC930101	B,beta propensity
+MONM990101	A,alpha and turn propensities
+BLAM930101	A,alpha and turn propensities
+PARS000101	O,Other properties
+PARS000102	O,Other properties
+KUMS000101	O,Other properties
+KUMS000102	O,Other properties
+KUMS000103	O,Other properties
+KUMS000104	O,Other properties
+DIGM050101	P,Physicochemical properties
+PUNT030101	A,alpha and turn propensities
+PUNT030102	A,alpha and turn propensities
+TAKK010101	P,Physicochemical properties
+AVBF000101	B,beta propensity
+AVBF000102	O,Other properties
+AVBF000103	O,Other properties
+AVBF000104	O,Other properties
+AVBF000105	O,Other properties
+AVBF000106	O,Other properties
+AVBF000107	O,Other properties
+AVBF000108	O,Other properties
+AVBF000109	O,Other properties
+GUYH850105	P,Physicochemical properties
+GUYH850104	P,Physicochemical properties
+GUYH850103	P,Physicochemical properties
+GUYH850102	P,Physicochemical properties
+MITS020101	O,Other properties
+GEOR030101	O,Other properties
+GEOR030102	O,Other properties
+GEOR030103	O,Other properties
+GEOR030104	O,Other properties
+GEOR030105	O,Other properties
+GEOR030106	O,Other properties
+GEOR030107	O,Other properties
+GEOR030108	O,Other properties
+GEOR030109	O,Other properties
+KUHL950101	H,Hydrophobicity
+BLAS910101	H,Hydrophobicity
+PONJ960101	P,Physicochemical properties
+SUYM030101	O,Other properties
+YANJ020101	O,Other properties
+PONP930101	H,Hydrophobicity
+COSI940101	P,Physicochemical properties
+FODM020101	A,alpha and turn propensities
+WILM950101	H,Hydrophobicity
+WILM950102	H,Hydrophobicity
+WILM950103	H,Hydrophobicity
+WILM950104	H,Hydrophobicity
+GUOD860101	O,Other properties
+NADH010101	H,Hydrophobicity
+NADH010102	H,Hydrophobicity
+NADH010103	H,Hydrophobicity
+NADH010104	H,Hydrophobicity
+NADH010105	H,Hydrophobicity
+NADH010106	H,Hydrophobicity
+NADH010107	H,Hydrophobicity
+BASU050101	H,Hydrophobicity
+BASU050102	H,Hydrophobicity
+BASU050103	H,Hydrophobicity
+FUKS010101	C,Composition
+FUKS010102	C,Composition
+FUKS010103	C,Composition
+FUKS010104	C,Composition
+FUKS010105	C,Composition
+FUKS010106	C,Composition
+FUKS010107	C,Composition
+FUKS010108	C,Composition
+FUKS010109	C,Composition
+FUKS010110	C,Composition
+FUKS010111	C,Composition
+FUKS010112	C,Composition
+JURD980101	H,Hydrophobicity
+ZHOH040101	P,Physicochemical properties
+ZHOH040102	P,Physicochemical properties
+ZHOH040103	O,Other properties
+CEDJ970101	C,Composition
+CEDJ970102	C,Composition
+CEDJ970103	C,Composition
+CEDJ970104	C,Composition
+CEDJ970105	C,Composition
+KOEP990101	A,alpha and turn propensities
+KOEP990102	B,beta propensity
+TSAJ990101	P,Physicochemical properties
+TSAJ990102	P,Physicochemical properties
+MONM990201	A,alpha and turn propensities
+ROSM880104	H,Hydrophobicity
+ROSM880105	H,Hydrophobicity
+COWR900101	H,Hydrophobicity
+OLSK800101	O,Other properties
+BAEK050101	O,Other properties
+KIDA850101	H,Hydrophobicity
+CASG920101	H,Hydrophobicity
+JACR890101	H,Hydrophobicity
+HARY940101	P,Physicochemical properties
+WOLR790101	H,Hydrophobicity
+CORJ870101	H,Hydrophobicity
+CORJ870102	H,Hydrophobicity
+CORJ870103	H,Hydrophobicity
+CORJ870104	H,Hydrophobicity
+CORJ870105	H,Hydrophobicity
+CORJ870106	H,Hydrophobicity
+CORJ870107	H,Hydrophobicity
+CORJ870108	H,Hydrophobicity
+MIYS990101	P,Physicochemical properties
+MIYS990102	P,Physicochemical properties
+MIYS990103	P,Physicochemical properties
+MIYS990104	P,Physicochemical properties
+MIYS990105	P,Physicochemical properties
+ENGD860101	P,Physicochemical properties
+FASG890101	P,Physicochemical properties
+KARS160101	O,Other properties
+KARS160102	O,Other properties
+KARS160103	O,Other properties
+KARS160104	O,Other properties
+KARS160105	O,Other properties
+KARS160106	O,Other properties
+KARS160107	O,Other properties
+KARS160108	O,Other properties
+KARS160109	O,Other properties
+KARS160110	O,Other properties
+KARS160111	O,Other properties
+KARS160112	O,Other properties
+KARS160113	O,Other properties
+KARS160114	O,Other properties
+KARS160115	O,Other properties
+KARS160116	O,Other properties
+KARS160117	O,Other properties
+KARS160118	O,Other properties
+KARS160119	O,Other properties
+KARS160120	O,Other properties
+KARS160121	O,Other properties
+KARS160122	O,Other properties

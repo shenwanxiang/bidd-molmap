@@ -7,7 +7,7 @@ fingerprint_cosine.cfg.gzip
 *.gzip
 *.pyc
 paper
-
+nas
 macromol
 
 */.ipynb_checkpoints/*

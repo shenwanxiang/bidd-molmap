@@ -1,6 +1,7 @@
 .ipynb_checkpoints
 __pycache__
 tmpignore
+developing
 experiments
 fingerprint_cosine.cfg.gzip
 *.gzip

@@ -158,10 +158,6 @@ class AggMolMap(Base):
         embedded = embedded.fit(dist_matrix)    
         
         return embedded
-    
-    
-   
-            
 
     def fit(self, 
             feature_group_list = [],

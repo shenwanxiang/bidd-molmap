@@ -60,7 +60,7 @@ class RegressionEstimator(BaseEstimator, RegressorMixin):
                  dense_avf = 'relu',
                  batch_size = 128,  
                  lr = 1e-4, 
-                 loss = 'mse',
+                 loss = 'logcosh',
                  monitor = 'val_loss', 
                  metric = 'r2',
                  patience = 50,
@@ -216,8 +216,8 @@ class RegressionEstimator(BaseEstimator, RegressorMixin):
                                   callbacks=[performance]) 
 
         self._performance = performance
-        self.history = history 
-        # Return the classifier
+        self.history = self._performance.history
+
         return self
 
 
@@ -443,7 +443,7 @@ class MultiClassEstimator(BaseEstimator, ClassifierMixin):
                                   callbacks=[performance]) 
 
         self._performance = performance
-        self.history = history
+        self.history = self._performance.history
         
         # Return the classifier
         return self
@@ -662,17 +662,15 @@ class MultiLabelEstimator(BaseEstimator, ClassifierMixin):
                                                       metric = self.metric,  
                                                       last_avf=None,
                                                       verbose = self.verbose,)
-        self._performance = performance
-        
+
         history = self._model.fit(X, y, 
                                   batch_size=self.batch_size, 
                                   epochs= self.epochs, verbose= 0, shuffle = True, 
                                   validation_data = (X_valid, y_valid), 
                                   callbacks=[performance]) 
 
-
-        self.history = history
-        
+        self._performance = performance  
+        self.history = self._performance.history
         # Return the classifier
         return self
 

@@ -272,8 +272,6 @@ class BaseMap(Base):
         colormaps = dfb.set_index('Subtypes')['colors'].to_dict()
         colormaps.update({'NaN': '#000000'})
         self.colormaps = colormaps
-        self.channel_order = list(colormaps.keys())
-        self.channel_order.remove('NaN')
         
         if fmap_type == 'grid':
             S = Scatter2Grid()
@@ -302,7 +300,11 @@ class BaseMap(Base):
         df = df.join(typemap)
         df['Channels'] = df['Subtypes']
         self.df_embedding = df
-      
+        self.channel_order = list(colormaps.keys())
+        self.channel_order.remove('NaN')
+        for i in list(set(self.channel_order) - set(self.df_embedding.Channels.unique())):
+            self.channel_order.remove(i)
+        
         if self.fmap_type == 'scatter':
             ## naive scatter algorithm
             print_info('Applying naive scatter feature map...')

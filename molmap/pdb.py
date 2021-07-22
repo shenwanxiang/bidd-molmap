@@ -8,11 +8,12 @@ Created on Wed Jul 21 11:58:46 2021
 import pandas as pd
 import numpy as np
 import seaborn as sns
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from biopandas.pdb import PandasPdb
 from Bio import PDB
 
 from .agg import AggMolMap
+
 
 
 #The hydrophobicity values are from JACS, 1962, 84: 4240-4246. (C. Tanford).
@@ -73,9 +74,18 @@ _Mutability={"A":100.0,"R":65.0,"N":134.0,"D":106.0,"C":20.0,"Q":93.0,"E":102.0,
              "G":49.0,"H":66.0,"I":96.0,"L":40.0,"K":-56.0,"M":94.0,"F":41.0,"P":56.0,
              "S":120.0,"T":97.0,"W":18.0,"Y":41.0,"V":74.0}
 
+def standard_scale(aap):
+    scaler = StandardScaler()
+    s = pd.Series(aap)
+    res = scaler.fit_transform(s.values.reshape(-1,1)).reshape(-1,)
+    return pd.Series(res, index=s.index).to_dict()
+
 IntrinsicAAPs = {'Hydrophobicity':_Hydrophobicity,
                 'Hydrophilicity':_hydrophilicity,
-                'Mass':_residuemass,
+                'ASA':_ResidueASA,
+                'Flexibility': _AvFlexibility,
+                'FreeEnergy': _FreeEnergy, 
+                'Steric': _Steric,                  
                 'pKa':_pK1,
                 'pKb':_pK2,
                 'pI':_pI}

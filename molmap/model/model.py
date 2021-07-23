@@ -25,6 +25,28 @@ from .net2 import MolMapNet, MolMapDualPathNet, MolMapAddPathNet, MolMapResNet
 from .loss import cross_entropy, weighted_cross_entropy
 
 
+from joblib import dump, load
+from  copy import copy
+from tensorflow.keras.models import load_model as load_tf_model
+
+
+def save_model(model, model_path):
+    if not os.path.exists(model_path):
+        os.makedirs(model_path)
+    print('saving model to %s' % model_path)
+    model_new = copy(model)
+    model_new._model.save(os.path.join(model_path, 'inner_model.h5'))
+    model_new._model = None
+    model_new._performance = None
+    dump(model_new,  os.path.join(model_path, 'outer_model.est'))
+    
+    
+def load_model(model_path):
+    model = load(os.path.join(model_path, 'outer_model.est'))
+    model._model = load_tf_model(os.path.join(model_path, 'inner_model.h5'))
+    return model
+
+
 
 class RegressionEstimator(BaseEstimator, RegressorMixin):
     
@@ -137,6 +159,9 @@ class RegressionEstimator(BaseEstimator, RegressorMixin):
     def get_params(self, deep=True):
  
         model_paras =  {
+                        "n_outputs": self.n_outputs,
+                        "fmap_shape1": self.fmap_shape1,
+                        "fmap_shape2": self.fmap_shape2,
                         "epochs": self.epochs, 
                         "lr":self.lr, 
                         "loss":self.loss, 
@@ -371,7 +396,11 @@ class MultiClassEstimator(BaseEstimator, ClassifierMixin):
         
     def get_params(self, deep=True):
 
-        model_paras =  {"epochs": self.epochs, 
+        model_paras =  {
+                        "n_outputs": self.n_outputs,
+                        "fmap_shape1": self.fmap_shape1,
+                        "fmap_shape2": self.fmap_shape2,
+                        "epochs": self.epochs, 
                         "lr":self.lr, 
                         "loss": self.loss,
                         "conv1_kernel_size": self.conv1_kernel_size,
@@ -598,7 +627,12 @@ class MultiLabelEstimator(BaseEstimator, ClassifierMixin):
         
     def get_params(self, deep=True):
 
-        model_paras =  {"epochs": self.epochs, 
+        model_paras =  {
+                        "n_outputs": self.n_outputs,
+                        "fmap_shape1": self.fmap_shape1,
+                        "fmap_shape2": self.fmap_shape2,
+            
+                        "epochs": self.epochs, 
                         "lr":self.lr, 
                         "loss":self.loss,
                         "conv1_kernel_size": self.conv1_kernel_size,

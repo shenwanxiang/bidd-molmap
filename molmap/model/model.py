@@ -28,7 +28,7 @@ from .loss import cross_entropy, weighted_cross_entropy
 from joblib import dump, load
 from  copy import copy
 from tensorflow.keras.models import load_model as load_tf_model
-
+import os
 
 def save_model(model, model_path):
     if not os.path.exists(model_path):
@@ -41,8 +41,14 @@ def save_model(model, model_path):
     dump(model_new,  os.path.join(model_path, 'outer_model.est'))
     
     
-def load_model(model_path):
+def load_model(model_path, gpuid=0):
+    '''
+    gpuid: load model to specific gpu
+    '''
+    gpuid = str(gpuid)
+    os.environ["CUDA_VISIBLE_DEVICES"]= gpuid
     model = load(os.path.join(model_path, 'outer_model.est'))
+    model.gpuid = gpuid
     model._model = load_tf_model(os.path.join(model_path, 'inner_model.h5'))
     return model
 

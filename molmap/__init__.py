@@ -10,7 +10,7 @@ from .seq import GlobAASeqMolMap
 
 
 ## pdb features
-from .pdb import PDB2Fmap
+from .pdb import PDB2Fmap, PDB2Img
 
 
 

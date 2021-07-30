@@ -41,13 +41,16 @@ def save_model(model, model_path):
     dump(model_new,  os.path.join(model_path, 'outer_model.est'))
     
     
-def load_model(model_path, gpuid=0):
+def load_model(model_path, gpuid=None):
     '''
-    gpuid: load model to specific gpu
+    gpuid: load model to specific gpu: {None, 0, 1, 2, 3,..}
     '''
-    gpuid = str(gpuid)
-    os.environ["CUDA_VISIBLE_DEVICES"]= gpuid
     model = load(os.path.join(model_path, 'outer_model.est'))
+    if gpuid==None:
+        gpuid = model.gpuid
+    else:
+        gpuid = str(gpuid)
+    os.environ["CUDA_VISIBLE_DEVICES"]= gpuid
     model.gpuid = gpuid
     model._model = load_tf_model(os.path.join(model_path, 'inner_model.h5'))
     return model

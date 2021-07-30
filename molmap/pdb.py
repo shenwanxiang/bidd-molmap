@@ -8,9 +8,12 @@ Created on Wed Jul 21 11:58:46 2021
 import pandas as pd
 import numpy as np
 import seaborn as sns
+import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from biopandas.pdb import PandasPdb
 from Bio import PDB
+import io, PIL
+from sklearn.metrics import pairwise_distances
 
 from .agg import AggMolMap
 
@@ -293,6 +296,68 @@ class PDB2Fmap:
         return X
 
 
+
+class PDB2Img:
+    
+    def __init__(self, pdb_file,  embd_grain = 'CA', embd_chain = None):
+        
+        '''
+        embd_grain: {'CA', 'CB', 'mean', 'all'}
+        pdb_file: pdf file path
+        embd_chain: pdb chain to do embedding
+        '''
+        self.embd_grain = embd_grain 
+        self.pdb_file = pdb_file
+        self.pdb = PandasPdb().read_pdb(self.pdb_file)
+        self.embd_chain = embd_chain
+        
+        if embd_chain != None:
+            self.dfpdb = self.pdb.df['ATOM'][self.pdb.df['ATOM'].chain_id == embd_chain]
+        else:
+            self.dfpdb = self.pdb.df['ATOM']
+        if self.embd_grain == 'mean':
+            df_embd = self.dfpdb.groupby(['residue_number', 'residue_name']).apply(get_pdb_xyzb_mean).apply(pd.Series)
+            df_embd.columns = ['x_coord', 'y_coord', 'z_coord', 'b_factor']
+            df_embd = df_embd.reset_index()
+
+        if self.embd_grain == 'CB':
+            df_embd = self.dfpdb.groupby(['residue_number', 'residue_name']).apply(get_pdb_xyzb_cb).apply(pd.Series) 
+            df_embd.columns = ['x_coord', 'y_coord', 'z_coord', 'b_factor']
+            df_embd = df_embd.reset_index()
+
+        if self.embd_grain == 'CA':
+            df_embd = self.dfpdb.groupby(['residue_number', 'residue_name']).apply(get_pdb_xyzb_ca).apply(pd.Series)  
+            df_embd.columns = ['x_coord', 'y_coord', 'z_coord', 'b_factor']
+            df_embd = df_embd.reset_index()
+  
+        if self.embd_grain == 'all':
+            df_embd = self.dfpdb[['residue_name', 'residue_number', 'x_coord', 'y_coord','z_coord', 'b_factor']]
+        
+        df_embd['residue_name_1aa'] = df_embd['residue_name'].map(PDB.protein_letters_3to1)    
+        df_embd.index = df_embd.index.astype(str) + '-' + df_embd['residue_name_1aa']
+        dfx = df_embd[['x_coord','y_coord','z_coord']]
+        self.dfx = dfx
+        self.df_embd = df_embd
+        self.dfx_dist = pairwise_distances(self.dfx)
+
+    def transform(self, fmap_shape = None, cmap='jet_r', vmin = 0, vmax=80, dpi=100):
+        '''
+        fig size: dpi*3
+        '''
+        fig, ax = plt.subplots()
+        ax.imshow(self.dfx_dist, cmap=cmap, vmin = vmin, vmax=vmax)
+        ax.axis('off')
+        with io.BytesIO() as buff:
+            fig.savefig(buff, bbox_inches='tight', pad_inches=0, dpi=dpi)
+            buff.seek(0)
+            im = PIL.Image.open(buff)
+            im = im.convert('RGB')    
+            if fmap_shape != None:
+                im = im.resize(fmap_shape)
+            x = np.array(im) / 255
+            
+        return fig, x
+    
 if __name__ == '__main__':
     pm = PDB2Fmap(embd_grain='all', fmap_shape=None)
     pm.fit(pdb_file='./1a1e/1a1e_protein.pdb', embd_chain='B')

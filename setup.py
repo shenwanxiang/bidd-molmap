@@ -1,35 +1,80 @@
+import sys
+import os
 from setuptools import setup, find_packages
+from setuptools import Command
+from setuptools.command.test import test as TestCommand
+from datetime import datetime
+import molmap
 
-def readme():
-    with open('README.md') as readme_file:
-        return readme_file.read()
+def parse_requirements(requirements):
+    with open(requirements) as f:
+        return [l.strip('\n') for l in f if l.strip('\n') and not l.startswith('#')]
 
-def requirements():
-    with open('requirements.txt') as rf:
-            req =  rf.readlines()
-    return [i.strip() for i in req]
+
+with open("README.md", "r") as fh:
+    LONG_DESCRIPTION = fh.read()
+
+NAME = "molmap"
+VERSION = molmap.__version__
+AUTHOR = "WanXiang Shen"
+DESCRIPTION = "MolMap: An Efficient Convolutional Neural Network Based Molecular Deep Learning Tool"
+URL = "https://github.com/shenwanxiang/bidd-molmap"
+
+REQUIRED_PYTHON_VERSION = (3, 7)
+PACKAGES = find_packages(exclude = ['test', 'gallery', 'example', '.ipynb_checkpoints',])
+INSTALL_DEPENDENCIES = parse_requirements('./requirements.txt')
+SETUP_DEPENDENCIES = []
+TEST_DEPENDENCIES = ["pytest"]
+EXTRA_DEPENDENCIES = {"dev": ["pytest"]}
+
+#PACKAGE_DATA = {'molmap': ['*.xlsx',  '*.fdef', '*.csv', '*.txt', '*.doc', '*.pkl']}
     
+# 'dataset/*.csv', 
+# 'feature/fingerprint/*.xlsx',
+# 'feature/fingerprint/*.fdef', 
+#print(PACKAGE_DATA)
     
-configuration = {
-    'name' : 'bidd-molmap',
-    'version': '1.2.0',
-    'packages' : find_packages(where='molmap'),
-    'package_data': {'molmap': ['config/*.cfg', 'config/*.ipynb',
-                                'example/*.html', 'example/*.pptx',]},
-    
-    'install_requires': ["seaborn==0.9.0"],
-    'description' : 'MolMapNet: An Efficient Convolutional Neural Network Based on High-level Features for Molecular Deep Learning',
-    'long_description' : readme(),
-    'classifiers' : [
-        'License :: OSI Approved',
-        'Programming Language :: Python 3.x',
-    ],
-    'keywords' : 'molmap feature',
-    'url' : 'https://github.com/shenwanxiang/bidd-molmap',
-    'maintainer' : 'Wanxiang Shen',
-    'maintainer_email' : 'shenwanxiang@tsinghua.org.cn',
-    'license' : 'BSD',
+if sys.version_info < REQUIRED_PYTHON_VERSION:
+    sys.exit("Python >= 3.7 is required. Your version:\n" + sys.version)
 
-    }
 
-setup(**configuration)
+class PyTest(TestCommand):
+    """
+    Use pytest to run tests
+    """
+
+    user_options = [("pytest-args=", "a", "Arguments to pass into py.test")]
+
+    def initialize_options(self):
+        TestCommand.initialize_options(self)
+        self.pytest_args = []
+
+    def finalize_options(self):
+        TestCommand.finalize_options(self)
+        self.test_args = []
+        self.test_suite = True
+
+    def run_tests(self):
+        import pytest
+
+        errno = pytest.main(self.pytest_args)
+        sys.exit(errno)
+
+
+setup(
+    name=NAME,
+    description=DESCRIPTION,
+    long_description=LONG_DESCRIPTION,
+    long_description_content_type="text/markdown",
+    url=URL,
+    version=VERSION,
+    author=AUTHOR,
+    packages=PACKAGES,
+    include_package_data=True,
+    #package_data = PACKAGE_DATA,
+    install_requires=INSTALL_DEPENDENCIES,
+    setup_requires=SETUP_DEPENDENCIES,
+    tests_require=TEST_DEPENDENCIES,
+    extras_require=EXTRA_DEPENDENCIES,
+    cmdclass={"test": PyTest},
+)

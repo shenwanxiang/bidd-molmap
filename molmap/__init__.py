@@ -1,4 +1,4 @@
-__version__ = '1.3.5'
+__version__ = '1.3.6'
 
 ## to custom map object
 from molmap.agg import AggMolMap

@@ -1,0 +1,26 @@
+include AUTHORS
+include LICENSE
+include CITATION.cff
+include DESCRIPTION
+include CHANGELOG.txt
+include README.md
+include requirements.txt
+graft tornado_botocore
+global-exclude *.pyc
+
+
+
+
+#package data
+include molmap/dataset/*.csv
+include molmap/feature/fingerprint/*.xlsx
+include molmap/feature/fingerprint/*.fdef
+include molmap/feature/sequence/aas/local_feature/*
+
+
+include molmap/config/descriptor_scale.cfg.gzip
+include molmap/config/fingerprint_scale.cfg.gzip
+
+# 'dataset/*.csv', 
+# 'feature/fingerprint/*.xlsx',
+# 'feature/fingerprint/*.fdef', 

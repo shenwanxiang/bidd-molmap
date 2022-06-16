@@ -1,19 +1,22 @@
+__version__ = '1.3.5'
+
 ## to custom map object
-from .agg import AggMolMap
+from molmap.agg import AggMolMap
 
-## cpds features
-from .map import MolMap
+## cpds feature map
+from molmap.map import MolMap
+from molmap.cpd import GlobCpdMolMap
 
-## aa sequence features
-from .seq import LocalAASeqMolMap
-from .seq import GlobAASeqMolMap
+## pdb feature map
+from molmap.pdb import PDB2Fmap, PDB2Img
 
+## aa sequence feature map
+from molmap.seq import LocalAASeqMolMap
+from molmap.seq import GlobAASeqMolMap
 
-## pdb features
-from .pdb import PDB2Fmap, PDB2Img
-
+## na sequence feature map
+from molmap.seq import GlobNASeqMolMap
 
 
 from joblib import load as loadmap
 
-__version__ = '1.3.0'

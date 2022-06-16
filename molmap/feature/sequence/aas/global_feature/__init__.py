@@ -1,29 +1,29 @@
 ## two types of PAAC: 100 = 50 + 50
-from ._PseudoAAC import GetPseudoAAC as GetPAACtype1
-from ._PseudoAAC import GetAPseudoAAC as GetPAACtype2
+from molmap.feature.sequence.aas.global_feature._PseudoAAC import GetPseudoAAC as GetPAACtype1
+from molmap.feature.sequence.aas.global_feature._PseudoAAC import GetAPseudoAAC as GetPAACtype2
 
 ### AACs: 820 = 20 + 400 + 400
-from ._AAComposition import CalculateAAComposition as GetAAC1
-from ._AAComposition import CalculateDipeptideComposition as GetAAC2
-from ._AAComposition import Calculate2AACon3AA as GetAAC3AsAAC2
-from ._AAComposition import GetSpectrumDict as GetAAC3
+from molmap.feature.sequence.aas.global_feature._AAComposition import CalculateAAComposition as GetAAC1
+from molmap.feature.sequence.aas.global_feature._AAComposition import CalculateDipeptideComposition as GetAAC2
+from molmap.feature.sequence.aas.global_feature._AAComposition import Calculate2AACon3AA as GetAAC3AsAAC2
+from molmap.feature.sequence.aas.global_feature._AAComposition import GetSpectrumDict as GetAAC3
 
 
 ### AutoCorr: 720 = 240 + 240 + 240
-from ._Autocorrelation import CalculateNormalizedMoreauBrotoAutoTotal as GetAutoCorrMoreauBroto
-from ._Autocorrelation import CalculateMoranAutoTotal as GetAutoCorrMoran
-from ._Autocorrelation import CalculateGearyAutoTotal as GetAutoCorrGeary
+from molmap.feature.sequence.aas.global_feature._Autocorrelation import CalculateNormalizedMoreauBrotoAutoTotal as GetAutoCorrMoreauBroto
+from molmap.feature.sequence.aas.global_feature._Autocorrelation import CalculateMoranAutoTotal as GetAutoCorrMoran
+from molmap.feature.sequence.aas.global_feature._Autocorrelation import CalculateGearyAutoTotal as GetAutoCorrGeary
 
 
 ### CTDs: 147 = 21+21+105
-from ._CTD import CalculateC as GetCTD_C
-from ._CTD import CalculateT as GetCTD_T
-from ._CTD import CalculateD as GetCTD_D
+from molmap.feature.sequence.aas.global_feature._CTD import CalculateC as GetCTD_C
+from molmap.feature.sequence.aas.global_feature._CTD import CalculateT as GetCTD_T
+from molmap.feature.sequence.aas.global_feature._CTD import CalculateD as GetCTD_D
 
 
 ### QuasiSequenceOrders: 160 = 60+100
-from ._QuasiSequenceOrder import GetSequenceOrderCouplingNumberTotal as GetSO_SNC
-from ._QuasiSequenceOrder import GetQuasiSequenceOrder as GetSO_QSO
+from molmap.feature.sequence.aas.global_feature._QuasiSequenceOrder import GetSequenceOrderCouplingNumberTotal as GetSO_SNC
+from molmap.feature.sequence.aas.global_feature._QuasiSequenceOrder import GetQuasiSequenceOrder as GetSO_QSO
 
 import pandas as pd
 import numpy as np

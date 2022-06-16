@@ -1,0 +1,2 @@
+This fold includes 12 physicochemical indices for trinucleotides shown in Table 2 in Online Supporting Information S1.
+The value order in file is according to the alphabet order, such as 'AAA', 'AAC', 'AAG', ... , 'TTG', 'TTT'.

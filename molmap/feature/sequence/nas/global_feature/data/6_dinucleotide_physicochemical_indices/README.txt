@@ -1,0 +1,2 @@
+This fold includes 6 physicochemical indices for dinucleotides shown in Table 3 in Online Supporting Information S1.
+The value order in file is according to the alphabet order, such as 'AA', 'AC', 'AG', ... , 'TG', 'TT'.

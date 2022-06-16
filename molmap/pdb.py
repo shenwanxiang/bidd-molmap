@@ -15,7 +15,7 @@ from Bio import PDB
 import io, PIL
 from sklearn.metrics import pairwise_distances
 
-from .agg import AggMolMap
+from molmap.agg import AggMolMap
 
 
 
@@ -358,6 +358,7 @@ class PDB2Img:
             
         return fig, x
     
+    
 if __name__ == '__main__':
     pm = PDB2Fmap(embd_grain='all', fmap_shape=None)
     pm.fit(pdb_file='./1a1e/1a1e_protein.pdb', embd_chain='B')
@@ -367,3 +368,7 @@ if __name__ == '__main__':
     X = pm.transform_intrinsic()
     sns.heatmap(X[2].reshape(*pm.fmap_shape), cmap = 'jet')
 
+    from molmap.feature.sequence.aas.local_feature.aai import load_index
+    aaidx = load_index()
+    dfindex = aaidx.data
+    X = pm.transform_custom(dfindex.T)

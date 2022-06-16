@@ -5,18 +5,22 @@ from joblib import Parallel, delayed
 from tqdm import tqdm
 
 from molmap.feature.sequence.nas.global_feature.nac import Kmer, RevcKmer, IDkmer
-# kmer = nac.Kmer(k=5, normalize=True, upto=True) #4**5 + 4**4 + 4**3 + 4**2 + 4**1
-# revkmer = nac.RevcKmer(k=5, normalize=True, upto=True)
+# kmer = nac.Kmer(k=5, normalize=True, upto=True) # 1364
+# revkmer = nac.RevcKmer(k=5, normalize=True, upto=True) #692
 # idkmer = nac.IDkmer(k=5, upto=True,)
 
 from molmap.feature.sequence.nas.global_feature.ac import DAC, DCC, DACC, TAC, TCC, TACC
 # lag = 5
-# dac = ac.DAC(lag = lag)
-# dcc = ac.DCC(lag = 1)
+# dac = ac.DAC(lag = lag) # 190 #
+# dcc = ac.DCC(lag = 1) #1406 #
 # #dacc = ac.DACC(lag = lag) #slow
-# tac = ac.TAC(lag = lag)
-# tcc = ac.TCC(lag = lag)
-# tacc = ac.TACC(lag = lag)
+# tac = ac.TAC(lag = lag) #60
+# tcc = ac.TCC(lag = lag) # 660 #
+# tacc = ac.TACC(lag = lag) #720
+
+ac_fdict = {'dac':DAC, 'dcc':DCC, 'dacc':DACC, 
+ 'tac':TAC, 'tcc':TCC, 'tacc':TACC}
+
 
 from molmap.feature.sequence.nas.global_feature.psenac import PseDNC, PseKNC, PCPseDNC, PCPseTNC, SCPseDNC, SCPseTNC
 # lamada = 3
@@ -27,20 +31,28 @@ from molmap.feature.sequence.nas.global_feature.psenac import PseDNC, PseKNC, PC
 # SCPseDNC = psenac.SCPseDNC(lamada=lamada, w=0.05)
 # SCPseTNC = psenac.SCPseTNC(lamada=lamada, w=0.05)
 
+psenac_fdict = {'psednc':PseDNC, 'pseknc':PseKNC, 
+                'pcpdnc':PCPseDNC, 'pcptnc':PCPseTNC,
+                'scpdnc':SCPseDNC, 'scptnc':SCPseTNC}
 
 
+
+def _GetListKey(mylist, name):
+    n = len(mylist)
+    keys = ['%s_%s' % (name, i) for i in range(1, n+1)]
+    return dict(zip(keys, mylist))
 
 
 def _GetNAC(ns, k = 5, normalize=True, upto=True):
     '''
-    Get 1-mer, 2-mer, 3-mer, 2-3mer
+    if k=5, 1364+692 = 2056
     '''
     NACs = {}
     kmer = Kmer(k=k, normalize=normalize, upto=upto) #4**5 + 4**4 + 4**3 + 4**2 + 4**1
     revkmer = RevcKmer(k=k, normalize=normalize, upto=upto)
     
-    kmer_res = dict(zip(kmer.feature_name_list, kmer.make_kmer_vec(ns)))
-    rkmer_res = dict(zip(revkmer.feature_name_list, revkmer.make_kmer_vec(ns)))
+    kmer_res = dict(zip(kmer.feature_name_list, kmer.make_vec([ns])[0]))
+    rkmer_res = dict(zip(revkmer.feature_name_list, revkmer.make_vec([ns])[0]))
     
     NACs.update(kmer_res)
     NACs.update(rkmer_res)
@@ -48,52 +60,54 @@ def _GetNAC(ns, k = 5, normalize=True, upto=True):
     return NACs
 
 
+def _GetAC(ns, all_property=True, 
+           phyche_index=None, extra_phyche_index=None,
+           subset = {'dac': 3, 'dcc':1, 'tac':3,'tcc':3}):
+    '''
+    subset: {function_key, lag}, {'dac': 3, 'dcc':1, 'tac':3,'tcc':3, 'dacc':3, 'tacc':3}
+    '''
+    ACs = {}
+    for fname, lag in subset.items():
+        calc = ac_fdict[fname](lag=lag)
+        vector = calc.make_vec([ns], 
+                         phyche_index=phyche_index, 
+                         all_property = all_property, 
+                         extra_phyche_index=extra_phyche_index)[0]
+        
+        res = _GetListKey(vector, name = fname)
+        ACs.update(res)
+        
+    return ACs
 
-def _GetAAC3(ps):
-    return GetAAC3(ps)
 
-def _GetAutoCorr(ps):
-    AC = {}
-    AC.update(GetAutoCorrMoreauBroto(ps))
-    AC.update(GetAutoCorrMoran(ps))
-    AC.update(GetAutoCorrGeary(ps))
-    return AC
-
-def _GetCTD(ps):
-    CTD={}
-    CTD.update(GetCTD_C(ps))
-    CTD.update(GetCTD_T(ps))
-    CTD.update(GetCTD_D(ps))
-    return CTD    
-
-def _GetQSO(ps,  maxlag=30, weight=0.1):
-    QSO = {}
-    QSO.update(GetSO_QSO(ps, maxlag = maxlag, weight = weight))
-    QSO.update(GetSO_SNC(ps, maxlag = maxlag))
-    return QSO 
-
-def _GetPAAC(ps, lamda=30, weight=0.05, **args):
+def _GetPSENAC(ns, lamada=3, w=0.05):
     '''
     lambda value should be smaller than length of the sequence
     '''
-    n = len(ps)
-    assert lamda < n, 'lamda value should be smaller than length of the sequence: length:%s, lamda:%s' % (n, lamda)
-    PAAC = {}
-    PAAC.update(GetPAACtype1(ps, lamda=lamda, weight=weight, **args))
-    PAAC.update(GetPAACtype2(ps, lamda=lamda, weight=weight, **args))
-    return PAAC
- 
+
+    PSENACs = {}
+    for fname, clas in psenac_fdict.items():
+        calc = clas(lamada=lamada, w=w)
+
+        if fname in ['pcpdnc', 'pcptnc', 'scpdnc', 'scptnc']:
+            vector = calc.make_vec([ns], all_property = True)[0]
+        else:
+            vector = calc.make_vec([ns])[0]
+        res = _GetListKey(vector, name = fname)
+        PSENACs.update(res)
+    return PSENACs
+
 
 mapfunc = {   
-           _GetNAC:'NACompostion',  
-           _GetAC:'Autocorr',
-           _GetPSENAC:'PseudoNACompostion'}
+           _GetNAC:'NAC',  
+           _GetAC:'AC',
+           _GetPSENAC:'PNAC'}
 
 mapkey = dict(map(reversed, mapfunc.items()))
 
-colormaps = {'NACompostion': '#00ff1b',
-             'Autocorr': '#bfff00',
-             'PseudoNACompostion': '#0033ff',
+colormaps = {'NAC': '#00ff1b',
+             'AC': '#bfff00',
+             'PNAC': '#0033ff',
              'NaN': '#000000'}
         
 # import seaborn as sns
@@ -182,11 +196,8 @@ class Extraction:
         
     
 if __name__=="__main__":
-    
-    E = Extraction(feature_dict = {'AAC12':{}, 
-                                   #'AAC3':{},
-                                   'Autocorr':{}, 
-                                   'CTD':{}, 
-                                   'QSO':{"maxlag":30, "weight":0.1},
-                                   'PAAC':{'lamda':30, "weight":0.05}})
+
+    E = Extraction(feature_dict = {'NAC':{'k':5, 'normalize':True, 'upto':True}, 
+                                   'AC':{'all_property':True, 'subset':{'dac': 3, 'tac':3}}, 
+                                   'PNAC':{'lamada':3, "w":0.05}})
     E.transform(E._PS)

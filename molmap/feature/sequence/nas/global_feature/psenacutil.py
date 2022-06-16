@@ -1,17 +1,46 @@
-__author__ = 'Fule Liu'
-
 import sys
-import os
+import os,itertools
 import pickle
 from math import pow
-
-from molmap.feature.sequence.nas.global_feature.util import frequency
-from molmap.feature.sequence.nas.global_feature.nacutil import make_kmer_list
 
 
 ALPHABET = 'ACGT'
 
+def frequency(tol_str, tar_str):
+    """Generate the frequency of tar_str in tol_str.
 
+    :param tol_str: mother string.
+    :param tar_str: substring.
+    """
+    i, j, tar_count = 0, 0, 0
+    len_tol_str = len(tol_str)
+    len_tar_str = len(tar_str)
+    while i < len_tol_str and j < len_tar_str:
+        if tol_str[i] == tar_str[j]:
+            i += 1
+            j += 1
+            if j >= len_tar_str:
+                tar_count += 1
+                i = i - j + 1
+                j = 0
+        else:
+            i = i - j + 1
+            j = 0
+
+    return tar_count
+
+
+def make_kmer_list(k, alphabet):
+    try:
+        return ["".join(e) for e in itertools.product(alphabet, repeat=k)]
+    except TypeError:
+        print("TypeError: k must be an inter and larger than 0, alphabet must be a string.")
+        raise TypeError
+    except ValueError:
+        print("TypeError: k must be an inter and larger than 0")
+        raise ValueError
+
+        
 def extend_phyche_index(original_index, extend_index):
     """Extend {phyche:[value, ... ]}"""
     if extend_index is None or len(extend_index) == 0:

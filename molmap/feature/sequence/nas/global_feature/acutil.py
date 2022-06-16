@@ -1,5 +1,3 @@
-__author__ = 'Fule Liu'
-
 ALPHABET = 'ACGT'
 
 

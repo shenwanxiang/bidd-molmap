@@ -1,12 +1,72 @@
-__author__ = 'Fule Liu'
+from math import sqrt,pow
+import os, pickle, itertools
 
-import sys
 
 ALPHABET = 'ACGT'
 
 
 """Used for process original data."""
 
+
+def make_kmer_list(k, alphabet):
+    try:
+        return ["".join(e) for e in itertools.product(alphabet, repeat=k)]
+    except TypeError:
+        print("TypeError: k must be an inter and larger than 0, alphabet must be a string.")
+        raise TypeError
+    except ValueError:
+        print("TypeError: k must be an inter and larger than 0")
+        raise ValueError
+
+        
+        
+def extend_phyche_index(original_index, extend_index):
+    """Extend {phyche:[value, ... ]}"""
+    if extend_index is None or len(extend_index) == 0:
+        return original_index
+    for key in list(original_index.keys()):
+        original_index[key].extend(extend_index[key])
+    return original_index
+
+
+def get_phyche_factor_dic(k):
+    """Get all {nucleotide: [(phyche, value), ...]} dict."""
+    full_path = os.path.realpath(__file__)
+    if 2 == k:
+        file_path = "%s/data/mmc3.data" % os.path.dirname(full_path)
+    elif 3 == k:
+        file_path = "%s/data/mmc4.data" % os.path.dirname(full_path)
+    else:
+        sys.stderr.write("The k can just be 2 or 3.")
+        sys.exit(0)
+
+    try:
+        with open(file_path, 'rb') as f:
+            phyche_factor_dic = pickle.load(f)
+    except:
+        with open(file_path, 'r') as f:
+            phyche_factor_dic = pickle.load(f)
+
+    return phyche_factor_dic
+
+
+def get_phyche_index(k, phyche_list):
+    """get phyche_value according phyche_list."""
+    phyche_value = {}
+    if 0 == len(phyche_list):
+        for nucleotide in make_kmer_list(k, ALPHABET):
+            phyche_value[nucleotide] = []
+        return phyche_value
+
+    nucleotide_phyche_value = get_phyche_factor_dic(k)
+    for nucleotide in make_kmer_list(k, ALPHABET):
+        if nucleotide not in phyche_value:
+            phyche_value[nucleotide] = []
+        for e in nucleotide_phyche_value[nucleotide]:
+            if e[0] in phyche_list:
+                phyche_value[nucleotide].append(e[1])
+
+    return phyche_value
 
 class Seq:
     def __init__(self, name, seq, no):
@@ -45,18 +105,11 @@ def is_fasta(seq):
     :param seq: Seq object.
     """
     if not seq.name:
-        error_info = 'Error, sequence ' + str(seq.no) + ' has no sequence name.'
-        print(seq)
-        sys.stderr.write(error_info)
-        return False
+        raise ValueError(" ".join(["Error, sequence", str(seq.no), "has no sequence name."]))
     if -1 != seq.name.find('>'):
-        error_info = 'Error, sequence ' + str(seq.no) + ' name has > character.'
-        sys.stderr.write(error_info)
-        return False
+        raise ValueError(" ".join(["Error, sequence", str(seq.no), "name has > character."]))
     if 0 == seq.length:
-        error_info = 'Error, sequence ' + str(seq.no) + ' is null.'
-        sys.stderr.write(error_info)
-        return False
+        raise ValueError(" ".join(["Error, sequence", str(seq.no), "is null."]))
 
     return True
 
@@ -80,8 +133,6 @@ def read_fasta(f):
             if 0 != count or (0 == count and seq != ''):
                 if is_fasta(Seq(name, seq, count)):
                     seq_list.append(Seq(name, seq, count))
-                else:
-                    sys.exit(0)
 
             seq = ''
             name = line[1:].strip()
@@ -92,8 +143,6 @@ def read_fasta(f):
     count += 1
     if is_fasta(Seq(name, seq, count)):
         seq_list.append(Seq(name, seq, count))
-    else:
-        sys.exit(0)
 
     return seq_list
 
@@ -114,8 +163,6 @@ def read_fasta_yield(f):
             if 0 != count or (0 == count and seq != ''):
                 if is_fasta(Seq(name, seq, count)):
                     yield Seq(name, seq, count)
-                else:
-                    sys.exit(0)
 
             seq = ''
             name = line[1:].strip()
@@ -125,8 +172,6 @@ def read_fasta_yield(f):
 
     if is_fasta(Seq(name, seq, count)):
         yield Seq(name, seq, count)
-    else:
-        sys.exit(0)
 
 
 def read_fasta_check_dna(f):
@@ -138,15 +183,12 @@ def read_fasta_check_dna(f):
     """
     seq_list = []
     for e in read_fasta_yield(f):
-        # print e
         res = is_under_alphabet(e.seq, ALPHABET)
         if res:
             seq_list.append(e)
         else:
-            error_info = 'Sorry, sequence ' + str(e.no) \
-                         + ' has character ' + str(res) + '.(The character must be A or C or G or T)'
-            sys.stderr(error_info)
-            sys.exit(0)
+            raise ValueError(" ".join(["Sorry, sequence", str(e.no), "has character", str(res),
+                                       "(The character must be A or C or G or T)"]))
 
     return seq_list
 
@@ -163,10 +205,8 @@ def get_sequence_check_dna(f):
         # print e
         res = is_under_alphabet(e.seq, ALPHABET)
         if res is not True:
-            error_info = 'Sorry, sequence ' + str(e.no) \
-                         + ' has character ' + str(res) + '.(The character must be A, C, G or T)'
-            sys.stderr.write(error_info)
-            sys.exit(0)
+            raise ValueError(" ".join(["Sorry, sequence", str(e.no), "has character", str(res),
+                                       "(The character must be A, C, G or T)"]))
         else:
             sequence_list.append(e.seq)
 
@@ -183,10 +223,8 @@ def is_sequence_list(sequence_list):
         count += 1
         res = is_under_alphabet(e, ALPHABET)
         if res is not True:
-            error_info = 'Sorry, sequence ' + str(count) \
-                         + ' has illegal character ' + str(res) + '.(The character must be A, C, G or T)'
-            sys.stderr.write(error_info)
-            return False
+            raise ValueError(" ".join(["Sorry, sequence", str(count), "has illegal character", str(res),
+                                       "(The character must be A, C, G or T)"]))
         else:
             new_sequence_list.append(e)
 
@@ -209,12 +247,8 @@ def get_data(input_data, desc=False):
         input_data = is_sequence_list(input_data)
         if input_data is not False:
             return input_data
-        else:
-            sys.exit(0)
     else:
-        error_info = 'Sorry, the parameter in get_data method must be list or file type.'
-        sys.stderr.write(error_info)
-        sys.exit(0)
+        raise ValueError("Sorry, the parameter in get_data method must be list or file type.")
 
 
 """Some basic function for generate feature vector."""
@@ -249,14 +283,11 @@ def write_libsvm(vector_list, label_list, write_file):
     len_vector_list = len(vector_list)
     len_label_list = len(label_list)
     if len_vector_list == 0:
-        sys.stderr.write("The vector is none.")
-        sys.exit(1)
+        raise ValueError("The vector is none.")
     if len_label_list == 0:
-        sys.stderr.write("The label is none.")
-        sys.exit(1)
+        raise ValueError("The label is none.")
     if len_vector_list != len_label_list:
-        sys.stderr.write("The length of vector and label is different.")
-        sys.exit(1)
+        raise ValueError("The length of vector and label is different.")
 
     with open(write_file, 'w') as f:
         len_vector = len(vector_list[0])
@@ -295,25 +326,17 @@ def generate_phyche_value(k, phyche_index=None, all_property=False, extra_phyche
         else:
             for e in phyche_index:
                 if e not in diphyche_list:
-                    error_info = 'Sorry, the physicochemical properties ' + e + ' is not exit.'
-                    import sys
-
-                    sys.stderr.write(error_info)
-                    sys.exit(0)
+                    raise ValueError(" ".join(["Sorry, the physicochemical properties", e, "is not exit."]))
     elif 3 == k:
         if all_property is True:
             phyche_index = triphyche_list
         else:
             for e in phyche_index:
                 if e not in triphyche_list:
-                    error_info = 'Sorry, the physicochemical properties ' + e + ' is not exit.'
-                    import sys
-
-                    sys.stderr.write(error_info)
-                    sys.exit(0)
+                    raise ValueError(" ".join(["Sorry, the physicochemical properties", e, "is not exit."]))
 
     # Generate phyche_value.
-    from .psenacutil import get_phyche_index, extend_phyche_index
+
 
     return extend_phyche_index(get_phyche_index(k, phyche_index), extra_phyche_index)
 
@@ -326,13 +349,11 @@ def convert_phyche_index_to_dict(phyche_index):
     k = 0
     for i in range(1, 10):
         if len_index_value < 4**i:
-            error_infor = 'Sorry, the number of each index value is must be 4^k.'
-            sys.stdout.write(error_infor)
-            sys.exit(0)
+            raise ValueError("Sorry, the number of each index value is must be 4^k.")
         if len_index_value == 4**i:
             k = i
             break
-    from .nacutil import make_kmer_list
+
     kmer_list = make_kmer_list(k, ALPHABET)
     # print kmer_list
     len_kmer = len(kmer_list)
@@ -349,8 +370,6 @@ def convert_phyche_index_to_dict(phyche_index):
 
 def standard_deviation(value_list):
     """Return standard deviation."""
-    from math import sqrt
-    from math import pow
     n = len(value_list)
     average_value = sum(value_list) * 1.0 / n
     return sqrt(sum([pow(e - average_value, 2) for e in value_list]) * 1.0 / (n - 1))
@@ -368,40 +387,3 @@ def normalize_index(phyche_index, is_convert_dict=False):
         return convert_phyche_index_to_dict(normalize_phyche_value)
 
     return normalize_phyche_value
-
-
-if __name__ == '__main__':
-    temp_seq = get_data(open('hs.txt'))
-    for e in temp_seq:
-        print(e)
-
-    temp_seq = get_data(open('hs.txt'), desc=True)
-    for e in temp_seq:
-        print(e)
-
-    test_file = ['AAAAAAAAAAaaaaAAAAA', 'CCCCCCCCCCCCCCCCCCCCCCCCC']
-    temp_seq = get_data(test_file)
-    for e in temp_seq:
-        print(e)
-
-    print(standard_deviation([5, 6, 8, 9]))
-
-    # phyche_index = \
-    #     [[0.026, 0.036, 0.031, 0.033, 0.016, 0.026, 0.014, 0.031, 0.025, 0.025, 0.026, 0.036, 0.017, 0.025, 0.016, 0.026],
-    #      [0.038, 0.038, 0.037, 0.036, 0.025, 0.042, 0.026, 0.037, 0.038, 0.036, 0.042, 0.038, 0.018, 0.038, 0.025, 0.038],
-    #      [0.020, 0.023, 0.019, 0.022, 0.017, 0.019, 0.016, 0.019, 0.020, 0.026, 0.019, 0.023, 0.016, 0.020, 0.017, 0.020],
-    #      [1.69, 1.32, 1.46, 1.03, 1.07, 1.43, 1.08, 1.46, 1.32, 1.20, 1.43, 1.32, 0.72, 1.32, 1.07, 1.69],
-    #      [2.26, 3.03, 2.03, 3.83, 1.78, 1.65, 2.00, 2.03, 1.93, 2.61, 1.65, 3.03, 1.20, 1.93, 1.78, 2.26],
-    #      [7.65, 8.93, 7.08, 9.07, 6.38, 8.04, 6.23, 7.08, 8.56, 9.53, 8.04, 8.93, 6.23, 8.56, 6.38, 7.65]]
-
-    phyche_index = \
-        [[0.026, 0.036, 0.031, 0.033, 0.016, 0.026, 0.014, 0.031, 0.025, 0.025, 0.026, 0.036, 0.017, 0.025, 0.016, 0.026],
-         [0.038, 0.038, 0.037, 0.036, 0.025, 0.042, 0.026, 0.037, 0.038, 0.036, 0.042, 0.038, 0.018, 0.038, 0.025, 0.038]]
-
-    for e in (normalize_index(phyche_index)):
-        print(e)
-
-    phyche_index_dict = convert_phyche_index_to_dict(normalize_index(phyche_index))
-    print(phyche_index_dict)
-
-    print(normalize_index(phyche_index, True))

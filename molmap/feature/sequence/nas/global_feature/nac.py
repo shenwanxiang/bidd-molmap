@@ -1,9 +1,6 @@
-__author__ = 'Fule Liu'
-
-
-from molmap.feature.sequence.nas.global_feature.nacutil import make_upto_kmer_list, make_revcomp_kmer_list, make_kmer_vector
-from molmap.feature.sequence.nas.global_feature.util import get_data
-
+from .nacutil import make_upto_kmer_list, make_revcomp_kmer_list, make_kmer_vector
+from .util import get_data
+from .nacutil import make_kmer_list, diversity, id_x_s
 
 def check_nac_para(k, normalize=False, upto=False, alphabet='ACGT'):
     """Check the nac parameter's validation.
@@ -53,7 +50,7 @@ class Kmer():
         self._kmer_list = get_kmer_list(self.k, self.upto, self.alphabet)
         self.feature_name_list = self._kmer_list
         
-    def make_kmer_vec(self, data):
+    def make_vec(self, data):
         """Make a kmer vector with options k, upto, revcomp, normalize.
 
         :param data: file object or sequence list.
@@ -87,7 +84,7 @@ class RevcKmer():
         self._rev_kmer_list = make_revcomp_kmer_list(self._kmer_list)
         self.feature_name_list = ['r_%s' % i for i in self._rev_kmer_list]
         
-    def make_revckmer_vec(self, data):
+    def make_vec(self, data):
         """Make a reverse compliment kmer vector with options k, upto, normalize.
 
         :param data: file object or sequence list.
@@ -116,16 +113,13 @@ class IDkmer():
         feature_name_list = [('ID_pos_%s' % i, 'ID_neg_%s' % i) for i in range(1, k+1)]
         self.feature_name_list = [item for sublist in feature_name_list for item in sublist]
         
-    def make_idkmer_vec(self, data, hs, non_hs):
+    def make_vec(self, data, hs, non_hs):
         """Make IDKmer vector.
 
         :param data: Need to processed FASTA file.
         :param hs: Positive FASTA file.
         :param non_hs: Negative FASTA file.
         """
-        from .nacutil import make_kmer_list
-        from .nacutil import diversity
-        from .nacutil import id_x_s
 
         rev_kmer_list, upto, revcomp, normalize = [], False, False, False
 
@@ -193,52 +187,51 @@ if __name__ == '__main__':
     # kmer =RevcKmer(k=1, normalize=True, alphabet='ACGT')
     # kmer =IDkmer(k=1)
 
-    from nac import Kmer
 
     kmer = Kmer(k=2)
-    vec = kmer.make_kmer_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'])
+    vec = kmer.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'])
     print("The vector is ", vec)
 
     kmer = Kmer(k=2, normalize=True)
-    vec = kmer.make_kmer_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'])
+    vec = kmer.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'])
     print("The vector is ", vec)
 
     kmer = Kmer(k=2, normalize=False, upto=True)
-    vec = kmer.make_kmer_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'])
+    vec = kmer.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'])
     print("The vector is ", vec)
     print('\n')
 
-    from nac import RevcKmer
+
 
     revckmer = RevcKmer(k=2, normalize=False, upto=False)
-    vec = revckmer.make_revckmer_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'])
+    vec = revckmer.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'])
     print("The vector is ", vec)
 
     revckmer = RevcKmer(k=2, normalize=True, upto=False)
-    vec = revckmer.make_revckmer_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'])
+    vec = revckmer.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'])
     print("The vector is ", vec)
 
     revckmer = RevcKmer(k=2, normalize=True, upto=True)
-    vec = revckmer.make_revckmer_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'])
+    vec = revckmer.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'])
     print("The vector is ", vec)
     print('\n')
 
     print('Begin IDkmer.')
-    from nac import IDkmer
+
 
     print('Test: default mod.')
     idkmer = IDkmer()
-    vec = idkmer.make_idkmer_vec(open('test/example.fasta'), open('test/pos.fasta'), open('test/neg.fasta'))
+    vec = idkmer.make_vec(open('test/example.fasta'), open('test/pos.fasta'), open('test/neg.fasta'))
     print(vec)
 
     print('Test: k=2.')
     idkmer = IDkmer(k=2)
-    vec = idkmer.make_idkmer_vec(open('test/example.fasta'), open('test/pos.fasta'), open('test/neg.fasta'))
+    vec = idkmer.make_vec(open('test/example.fasta'), open('test/pos.fasta'), open('test/neg.fasta'))
     print(vec)
 
     print('Test: k=2, upto=False')
     idkmer = IDkmer(k=2, upto=False)
-    vec = idkmer.make_idkmer_vec(open('test/example.fasta'), open('test/pos.fasta'), open('test/neg.fasta'))
+    vec = idkmer.make_vec(open('test/example.fasta'), open('test/pos.fasta'), open('test/neg.fasta'))
     print(vec)
     print('\n')
 

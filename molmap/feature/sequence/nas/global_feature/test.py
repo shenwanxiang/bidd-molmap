@@ -1,5 +1,3 @@
-__author__ = 'Fule Liu'
-
 from molmap.feature.sequence.nas.global_feature.nacutil import make_kmer_list
 
 

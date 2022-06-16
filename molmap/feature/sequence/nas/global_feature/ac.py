@@ -1,9 +1,8 @@
-__author__ = 'Fule Liu'
-
-from molmap.feature.sequence.nas.global_feature.util import get_data, generate_phyche_value
 from functools import reduce
-from feature.sequence.nas.global_feature.acutil import make_ac_vector, make_cc_vector
-from feature.sequence.nas.global_feature.util import normalize_index        
+
+from .util import get_data, generate_phyche_value
+from .acutil import make_ac_vector, make_cc_vector
+from .util import normalize_index        
 
 
 def check_acc(lag, k):
@@ -37,7 +36,7 @@ class DAC():
         self.k = 2
         check_acc(self.lag, self.k)
 
-    def make_dac_vec(self, input_data, phyche_index=None, all_property=False, extra_phyche_index=None):
+    def make_vec(self, input_data, phyche_index=None, all_property=False, extra_phyche_index=None):
         """Make DAC vector.
 
         :param input_data: file object or sequence list.
@@ -57,7 +56,7 @@ class DCC():
         self.k = 2
         check_acc(self.lag, self.k)
 
-    def make_dcc_vec(self, input_data, phyche_index=None, all_property=False, extra_phyche_index=None):
+    def make_vec(self, input_data, phyche_index=None, all_property=False, extra_phyche_index=None):
         """Make DCC vector.
 
         :param input_data: file object or sequence list.
@@ -77,7 +76,7 @@ class DACC():
         self.k = 2
         check_acc(self.lag, self.k)
 
-    def make_dacc_vec(self, input_data, phyche_index=None, all_property=False, extra_phyche_index=None):
+    def make_vec(self, input_data, phyche_index=None, all_property=False, extra_phyche_index=None):
         """Make DACC vector.
 
         :param input_data: file object or sequence list.
@@ -101,7 +100,7 @@ class TAC():
         self.k = 3
         check_acc(self.lag, self.k)
 
-    def make_tac_vec(self, input_data, phyche_index=None, all_property=False, extra_phyche_index=None):
+    def make_vec(self, input_data, phyche_index=None, all_property=False, extra_phyche_index=None):
         """Make TAC vector.
 
         :param input_data: file object or sequence list.
@@ -121,7 +120,7 @@ class TCC():
         self.k = 3
         check_acc(self.lag, self.k)
 
-    def make_tcc_vec(self, input_data, phyche_index=None, all_property=False, extra_phyche_index=None):
+    def make_vec(self, input_data, phyche_index=None, all_property=False, extra_phyche_index=None):
         """Make DAC vector.
 
         :param input_data: file object or sequence list.
@@ -141,7 +140,7 @@ class TACC():
         self.k = 3
         check_acc(self.lag, self.k)
 
-    def make_tacc_vec(self, input_data, phyche_index=None, all_property=False, extra_phyche_index=None):
+    def make_vec(self, input_data, phyche_index=None, all_property=False, extra_phyche_index=None):
         """Make DAC vector.
 
         :param input_data: file object or sequence list.
@@ -185,30 +184,30 @@ if __name__ == '__main__':
 
 
     dac = DAC(2)
-    vec = dac.make_dac_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Twist', 'Tilt'])
+    vec = dac.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Twist', 'Tilt'])
     print(vec)
     print(len(vec[0]))
 
-    vec = dac.make_dac_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], all_property=True)
+    vec = dac.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], all_property=True)
     print(vec)
     print(len(vec[0]))
 
-    vec = dac.make_dac_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Twist', 'Tilt'],
+    vec = dac.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Twist', 'Tilt'],
                            extra_phyche_index=normalize_index(phyche_index, is_convert_dict=True))
     print(vec)
     print(len(vec[0]))
     print('\n')
 
     dcc = DCC(2)
-    vec = dcc.make_dcc_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Twist', 'Tilt'])
+    vec = dcc.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Twist', 'Tilt'])
     print(vec)
     print(len(vec[0]))
 
-    vec = dcc.make_dcc_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], all_property=True)
+    vec = dcc.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], all_property=True)
     print(vec)
     print(len(vec[0]))
 
-    vec = dcc.make_dcc_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Twist', 'Tilt'],
+    vec = dcc.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Twist', 'Tilt'],
                            extra_phyche_index=normalize_index(phyche_index, is_convert_dict=True))
     print(vec)
     print(len(vec[0]))
@@ -216,15 +215,15 @@ if __name__ == '__main__':
 
     print('DACC')
     dacc = DACC(2)
-    vec = dacc.make_dacc_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Twist', 'Tilt'])
+    vec = dacc.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Twist', 'Tilt'])
     print(vec)
     print(len(vec[0]))
 
-    vec = dacc.make_dacc_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], all_property=True)
+    vec = dacc.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], all_property=True)
     print(vec)
     print(len(vec[0]))
 
-    vec = dacc.make_dacc_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Twist', 'Tilt'],
+    vec = dacc.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Twist', 'Tilt'],
                              extra_phyche_index=normalize_index(phyche_index, is_convert_dict=True))
     print(vec)
     print(len(vec[0]))
@@ -239,15 +238,15 @@ if __name__ == '__main__':
 
     print('Begin TAC')
     tac = TAC(2)
-    vec = tac.make_tac_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Dnase I', 'Nucleosome'])
+    vec = tac.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Dnase I', 'Nucleosome'])
     print(vec)
     print(len(vec[0]))
 
-    vec = tac.make_tac_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], all_property=True)
+    vec = tac.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], all_property=True)
     print(vec)
     print(len(vec[0]))
 
-    vec = tac.make_tac_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Dnase I', 'Nucleosome'],
+    vec = tac.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Dnase I', 'Nucleosome'],
                            extra_phyche_index=normalize_index(phyche_index, is_convert_dict=True))
     print(vec)
     print(len(vec[0]))
@@ -255,15 +254,15 @@ if __name__ == '__main__':
 
     print('Begin TCC')
     tcc = TCC(2)
-    vec = tcc.make_tcc_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Dnase I', 'Nucleosome'])
+    vec = tcc.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Dnase I', 'Nucleosome'])
     print(vec)
     print(len(vec[0]))
 
-    vec = tcc.make_tcc_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], all_property=True)
+    vec = tcc.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], all_property=True)
     print(vec)
     print(len(vec[0]))
 
-    vec = tcc.make_tcc_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Dnase I', 'Nucleosome'],
+    vec = tcc.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Dnase I', 'Nucleosome'],
                            extra_phyche_index=normalize_index(phyche_index, is_convert_dict=True))
     print(vec)
     print(len(vec[0]))
@@ -271,15 +270,15 @@ if __name__ == '__main__':
 
     print('Begin TACC')
     tacc = TACC(2)
-    vec = tacc.make_tacc_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Dnase I', 'Nucleosome'])
+    vec = tacc.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Dnase I', 'Nucleosome'])
     print(vec)
     print(len(vec[0]))
 
-    vec = tacc.make_tacc_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], all_property=True)
+    vec = tacc.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], all_property=True)
     print(vec)
     print(len(vec[0]))
 
-    vec = tacc.make_tacc_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Dnase I', 'Nucleosome'],
+    vec = tacc.make_vec(['GACTGAACTGCACTTTGGTTTCATATTATTTGCTC'], phyche_index=['Dnase I', 'Nucleosome'],
                              extra_phyche_index=normalize_index(phyche_index, is_convert_dict=True))
     print(vec)
     print(len(vec[0]))

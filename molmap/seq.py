@@ -9,7 +9,9 @@ main sequence featurizer code
 
 """
 from molmap.utils.logtools import print_info, print_warn, print_error
-from molmap.feature.sequence.aas.global_feature import Extraction as AASext
+from molmap.feature.sequence.aas.global_feature import Extraction as AASExtract
+from molmap.feature.sequence.nas.global_feature import Extraction as NASExtract
+
 from molmap.feature.sequence.aas.local_feature.aai import load_index, load_all
 #from molmap.feature.sequence.nas import Extraction as NASext #change
 
@@ -52,7 +54,7 @@ class GlobAASeqMolMap(BaseMap):
         self.feature_para_dict = feature_para_dict
         
         # init the feature extract object
-        self.extract = AASext(feature_dict = feature_para_dict)   
+        self.extract = AASExtract(feature_dict = feature_para_dict)   
 
         bitsinfodict = self.extract.bitsinfo.groupby('Subtypes').size().to_dict()
         feat_num = len(self.extract.bitsinfo)

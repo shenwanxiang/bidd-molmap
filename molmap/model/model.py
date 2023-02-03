@@ -10,6 +10,7 @@ warnings.filterwarnings("ignore")
 
 import os
 import numpy as np
+import pandas as pd
 import tensorflow as tf
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
@@ -20,8 +21,8 @@ from sklearn.utils.multiclass import unique_labels
 from sklearn.metrics import get_scorer, SCORERS
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
-from .cbks2 import CLA_EarlyStoppingAndPerformance, Reg_EarlyStoppingAndPerformance
-from .net2 import MolMapNet, MolMapDualPathNet, MolMapAddPathNet, MolMapResNet
+from .cbks import CLA_EarlyStoppingAndPerformance, Reg_EarlyStoppingAndPerformance
+from .net import MolMapNet, MolMapDualPathNet, MolMapAddPathNet, MolMapResNet
 from .loss import cross_entropy, weighted_cross_entropy
 
 
@@ -253,7 +254,8 @@ class RegressionEstimator(BaseEstimator, RegressorMixin):
                                                       y_scaler = self.y_scaler,
                                                       patience = self.patience, 
                                                       criteria = self.monitor,
-                                                      verbose = self.verbose,)
+                                                      verbose = self.verbose,
+                                                      batch_size = self.batch_size)
 
         history = self._model.fit(X, y, 
                                   batch_size=self.batch_size, 
@@ -285,7 +287,7 @@ class RegressionEstimator(BaseEstimator, RegressorMixin):
         # Check is fit had been called
         check_is_fitted(self)
         
-        y_pred = self._model.predict(X)
+        y_pred = self._model.predict(X, batch_size=self.batch_size)
         
         if self.y_scaler != None:
             y_pred = self.y_scaler.inverse_transform(y_pred)
@@ -493,7 +495,8 @@ class MultiClassEstimator(BaseEstimator, ClassifierMixin):
                                                       criteria = self.monitor,
                                                       metric = self.metric,  
                                                       last_avf="softmax",
-                                                      verbose = self.verbose,)
+                                                      verbose = self.verbose, 
+                                                      batch_size = self.batch_size)
 
         history = self._model.fit(X, y, 
                                   batch_size=self.batch_size, 
@@ -531,7 +534,7 @@ class MultiClassEstimator(BaseEstimator, ClassifierMixin):
         """
         # Check is fit had been called
         check_is_fitted(self)
-        y_prob = self._model.predict(X)
+        y_prob = self._model.predict(X, batch_size=self.batch_size)
         return y_prob
     
     
@@ -541,9 +544,11 @@ class MultiClassEstimator(BaseEstimator, ClassifierMixin):
         
         # Check is fit had been called
         check_is_fitted(self)
-        y_pred = np.round(self.predict_proba(X))
+        probs = self.predict_proba(X)
+        y_pred = pd.get_dummies(np.argmax(probs, axis=1)).values
         return y_pred
-    
+
+
     
 
     def score(self, X, y):
@@ -734,7 +739,7 @@ class MultiLabelEstimator(BaseEstimator, ClassifierMixin):
                                                       criteria = self.monitor,
                                                       metric = self.metric,  
                                                       last_avf=None,
-                                                      verbose = self.verbose,)
+                                                      verbose = self.verbose,batch_size = self.batch_size)
 
         history = self._model.fit(X, y, 
                                   batch_size=self.batch_size, 
@@ -771,7 +776,7 @@ class MultiLabelEstimator(BaseEstimator, ClassifierMixin):
         """
         # Check is fit had been called
         check_is_fitted(self)
-        y_prob = self._model.predict(X)
+        y_prob = self._model.predict(X, batch_size=self.batch_size)
         y_prob = self._performance.sigmoid(y_prob)
         return y_prob
     

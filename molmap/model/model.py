@@ -28,7 +28,10 @@ from .loss import cross_entropy, weighted_cross_entropy
 from joblib import dump, load
 from  copy import copy
 from tensorflow.keras.models import load_model as load_tf_model
-import os
+
+import gc
+import tensorflow.keras.backend as K
+
 
 def save_model(model, model_path):
     if not os.path.exists(model_path):
@@ -38,8 +41,10 @@ def save_model(model, model_path):
     model_new._model.save(os.path.join(model_path, 'inner_model.h5'))
     model_new._model = None
     model_new._performance = None
-    dump(model_new,  os.path.join(model_path, 'outer_model.est'))
-    
+    res = dump(model_new,  os.path.join(model_path, 'outer_model.est'))
+    return res
+
+
     
 def load_model(model_path, gpuid=None):
     '''
@@ -56,7 +61,15 @@ def load_model(model_path, gpuid=None):
     return model
 
 
-
+def clean(clf): 
+    del clf._model
+    del clf._performance
+    del clf
+    gc.collect()
+    K.clear_session()
+    tf.compat.v1.reset_default_graph() # TF graph isn't same as Keras graph
+    
+    
 class RegressionEstimator(BaseEstimator, RegressorMixin):
     
     """ An MolMap CNN Regression estimator 
@@ -91,7 +104,7 @@ class RegressionEstimator(BaseEstimator, RegressorMixin):
                  dense_avf = 'relu',
                  batch_size = 128,  
                  lr = 1e-4, 
-                 loss = 'logcosh',
+                 loss = 'mse',
                  monitor = 'val_loss', 
                  metric = 'r2',
                  patience = 50,
@@ -100,7 +113,6 @@ class RegressionEstimator(BaseEstimator, RegressorMixin):
                  y_scale = None, #None, minmax, standard
                  name = "Regression Estimator",
                  gpuid = "0",
-                 
                 ):
         
         self.n_outputs = n_outputs
@@ -310,7 +322,16 @@ class RegressionEstimator(BaseEstimator, RegressorMixin):
         return myscore
     
     
+    def clean(self):
+        clean(self)    
     
+    
+    def save_model(self, model_path):
+        return save_model(self, model_path)
+
+    
+    def load_model(self, model_path, gpuid=None):
+        return load_model(model_path, gpuid=gpuid)
     
     
     
@@ -545,7 +566,16 @@ class MultiClassEstimator(BaseEstimator, ClassifierMixin):
         return np.nanmean(metrics)
     
     
+    def clean(self):
+        clean(self)    
     
+    
+    def save_model(self, model_path):
+        return save_model(self, model_path)
+
+    
+    def load_model(self, model_path, gpuid=None):
+        return load_model(model_path, gpuid=gpuid)    
     
     
     
@@ -795,3 +825,15 @@ class MultiLabelEstimator(BaseEstimator, ClassifierMixin):
         
         metrics = self._performance.evaluate(X, y)
         return metrics
+    
+    
+    def clean(self):
+        clean(self)    
+    
+    
+    def save_model(self, model_path):
+        return save_model(self, model_path)
+
+    
+    def load_model(self, model_path, gpuid=None):
+        return load_model(model_path, gpuid=gpuid)

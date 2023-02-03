@@ -25,12 +25,16 @@ for early-stopping techniques in regression and classification task
 
 class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
 
-    def __init__(self, train_data, valid_data, MASK = -1, patience=5, criteria = 'val_loss'):
+    def __init__(self, train_data, valid_data, y_scaler, MASK = -1e10, patience=5, criteria = 'val_loss', verbose = 0, batch_size = 128):
+        """
+        y_scaler: None, sklearn MinMaxScaler, or StandardScaler
+        """
         super(Reg_EarlyStoppingAndPerformance, self).__init__()
         
         assert criteria in ['val_loss', 'val_r2'], 'not support %s ! only %s' % (criteria, ['val_loss', 'val_r2'])
         self.x, self.y  = train_data
         self.x_val, self.y_val = valid_data
+        self.y_scaler = y_scaler
         
         self.history = {'loss':[],
                         'val_loss':[],
@@ -48,10 +52,18 @@ class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         self.best_weights = None
         self.criteria = criteria
         self.best_epoch = 0
-
+        self.verbose = verbose
+        self.batch_size = batch_size
         
-    def rmse(self, y_true, y_pred):
-
+    def rmse(self, y_true, y_pred, inner_y_true = True):
+        
+        if self.y_scaler != None:
+            if inner_y_true:
+                y_pred = self.y_scaler.inverse_transform(y_pred)
+                y_true = self.y_scaler.inverse_transform(y_true)
+            else:
+                y_pred = self.y_scaler.inverse_transform(y_pred)
+       
         N_classes = y_pred.shape[1]
         rmses = []
         for i in range(N_classes):
@@ -64,7 +76,14 @@ class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         return rmses   
     
     
-    def r2(self, y_true, y_pred):
+    def r2(self, y_true, y_pred, inner_y_true = True):
+        if self.y_scaler != None:
+            if inner_y_true:
+                y_pred = self.y_scaler.inverse_transform(y_pred)
+                y_true = self.y_scaler.inverse_transform(y_true)
+            else:
+                y_pred = self.y_scaler.inverse_transform(y_pred)
+                
         N_classes = y_pred.shape[1]
         r2s = []
         for i in range(N_classes):
@@ -86,14 +105,12 @@ class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
             self.best = np.Inf  
         else:
             self.best = -np.Inf
-            
-        
-        
+
  
         
     def on_epoch_end(self, epoch, logs={}):
         
-        y_pred = self.model.predict(self.x, verbose=0)
+        y_pred = self.model.predict(self.x, verbose=0, batch_size=self.batch_size)
         rmse_list = self.rmse(self.y, y_pred)
         rmse_mean = np.nanmean(rmse_list)
         
@@ -101,7 +118,7 @@ class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         r2_mean = np.nanmean(r2_list)
         
         
-        y_pred_val = self.model.predict(self.x_val, verbose=0)
+        y_pred_val = self.model.predict(self.x_val, verbose=0, batch_size=self.batch_size)
         rmse_list_val = self.rmse(self.y_val, y_pred_val)        
         rmse_mean_val = np.nanmean(rmse_list_val)
         
@@ -129,11 +146,12 @@ class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         r2_mean = '{0:.4f}'.format(r2_mean)
         r2_mean_val = '{0:.4f}'.format(r2_mean_val)
         
-        print('\repoch: %s, loss: %s - val_loss: %s; rmse: %s - rmse_val: %s;  r2: %s - r2_val: %s' % (eph,
-                                                                                                       loss, val_loss, 
-                                                                                                       rmse,rmse_val,
-                                                                                                       r2_mean,r2_mean_val),
-              end=100*' '+'\n')
+        if self.verbose:
+            print('\repoch: %s, loss: %s - val_loss: %s; rmse: %s - rmse_val: %s;  r2: %s - r2_val: %s' % (eph,
+                                                                                                           loss, val_loss, 
+                                                                                                           rmse,rmse_val,
+                                                                                                           r2_mean,r2_mean_val),
+                  end=100*' '+'\n')
 
 
         if self.criteria == 'val_loss':
@@ -180,9 +198,9 @@ class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         
     def evaluate(self, testX, testY):
         """evalulate, return rmse and r2"""
-        y_pred = self.model.predict(testX, verbose=0)
-        rmse_list = self.rmse(testY, y_pred)
-        r2_list = self.r2(testY, y_pred)
+        y_pred = self.model.predict(testX, verbose=0, batch_size=self.batch_size)
+        rmse_list = self.rmse(testY, y_pred, inner_y_true = False)
+        r2_list = self.r2(testY, y_pred, inner_y_true = False)
         return rmse_list, r2_list       
 
 
@@ -193,13 +211,14 @@ class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
 
 class CLA_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
 
-    def __init__(self, train_data, valid_data, MASK = -1, patience=5, criteria = 'val_loss', metric = 'ROC'):
+    def __init__(self, train_data, valid_data, MASK = -1, patience=5, criteria = 'val_loss', metric = 'ROC', last_avf = None, verbose = 0, batch_size = 128):
         super(CLA_EarlyStoppingAndPerformance, self).__init__()
         
         sp = ['val_loss', 'val_auc']
         assert criteria in sp, 'not support %s ! only %s' % (criteria, sp)
         self.x, self.y  = train_data
         self.x_val, self.y_val = valid_data
+        self.last_avf = last_avf
         
         self.history = {'loss':[],
                         'val_loss':[],
@@ -214,6 +233,9 @@ class CLA_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         self.criteria = criteria
         self.metric = metric
         self.best_epoch = 0
+        self.verbose = verbose
+        self.batch_size = batch_size
+        
         
     def sigmoid(self, x):
         s = 1/(1+np.exp(-x))
@@ -221,8 +243,11 @@ class CLA_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
 
     
     def roc_auc(self, y_true, y_pred):
-
-        y_pred_logits = self.sigmoid(y_pred)
+        if self.last_avf == None:
+            y_pred_logits = self.sigmoid(y_pred)
+        else:
+            y_pred_logits = y_pred
+            
         N_classes = y_pred_logits.shape[1]
 
         aucs = []
@@ -261,11 +286,11 @@ class CLA_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         
     def on_epoch_end(self, epoch, logs={}):
         
-        y_pred = self.model.predict(self.x, verbose=0)
+        y_pred = self.model.predict(self.x, verbose=0, batch_size=self.batch_size)
         roc_list = self.roc_auc(self.y, y_pred)
         roc_mean = np.nanmean(roc_list)
         
-        y_pred_val = self.model.predict(self.x_val, verbose=0)
+        y_pred_val = self.model.predict(self.x_val, verbose=0, batch_size=self.batch_size)
         roc_val_list = self.roc_auc(self.y_val, y_pred_val)        
         roc_val_mean = np.nanmean(roc_val_list)
         
@@ -282,19 +307,20 @@ class CLA_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         auc = '{0:.4f}'.format(roc_mean)
         auc_val = '{0:.4f}'.format(roc_val_mean)    
         
-        if self.metric == 'ACC':
-            print('\repoch: %s, loss: %s - val_loss: %s; acc: %s - val_acc: %s' % (eph,
-                                                                               loss, 
-                                                                               val_loss, 
-                                                                               auc,
-                                                                               auc_val), end=100*' '+'\n')
-            
-        else:
-            print('\repoch: %s, loss: %s - val_loss: %s; auc: %s - val_auc: %s' % (eph,
-                                                                               loss, 
-                                                                               val_loss, 
-                                                                               auc,
-                                                                               auc_val), end=100*' '+'\n')
+        if self.verbose:
+            if self.metric == 'ACC':
+                print('\repoch: %s, loss: %s - val_loss: %s; acc: %s - val_acc: %s' % (eph,
+                                                                                   loss, 
+                                                                                   val_loss, 
+                                                                                   auc,
+                                                                                   auc_val), end=100*' '+'\n')
+
+            else:
+                print('\repoch: %s, loss: %s - val_loss: %s; auc: %s - val_auc: %s' % (eph,
+                                                                                   loss, 
+                                                                                   val_loss, 
+                                                                                   auc,
+                                                                                   auc_val), end=100*' '+'\n')
 
 
         if self.criteria == 'val_loss':
@@ -339,7 +365,7 @@ class CLA_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         
     def evaluate(self, testX, testY):
         
-        y_pred = self.model.predict(testX, verbose=0)
+        y_pred = self.model.predict(testX, verbose=0, batch_size=self.batch_size)
         roc_list = self.roc_auc(testY, y_pred)
         return roc_list            
 

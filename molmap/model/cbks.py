@@ -93,7 +93,7 @@ class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         
     def on_epoch_end(self, epoch, logs={}):
         
-        y_pred = self.model.predict(self.x)
+        y_pred = self.model.predict(self.x, verbose=0)
         rmse_list = self.rmse(self.y, y_pred)
         rmse_mean = np.nanmean(rmse_list)
         
@@ -101,7 +101,7 @@ class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         r2_mean = np.nanmean(r2_list)
         
         
-        y_pred_val = self.model.predict(self.x_val)
+        y_pred_val = self.model.predict(self.x_val, verbose=0)
         rmse_list_val = self.rmse(self.y_val, y_pred_val)        
         rmse_mean_val = np.nanmean(rmse_list_val)
         
@@ -180,7 +180,7 @@ class Reg_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         
     def evaluate(self, testX, testY):
         """evalulate, return rmse and r2"""
-        y_pred = self.model.predict(testX)
+        y_pred = self.model.predict(testX, verbose=0)
         rmse_list = self.rmse(testY, y_pred)
         r2_list = self.r2(testY, y_pred)
         return rmse_list, r2_list       
@@ -261,11 +261,11 @@ class CLA_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         
     def on_epoch_end(self, epoch, logs={}):
         
-        y_pred = self.model.predict(self.x)
+        y_pred = self.model.predict(self.x, verbose=0)
         roc_list = self.roc_auc(self.y, y_pred)
         roc_mean = np.nanmean(roc_list)
         
-        y_pred_val = self.model.predict(self.x_val)
+        y_pred_val = self.model.predict(self.x_val, verbose=0)
         roc_val_list = self.roc_auc(self.y_val, y_pred_val)        
         roc_val_mean = np.nanmean(roc_val_list)
         
@@ -339,7 +339,7 @@ class CLA_EarlyStoppingAndPerformance(tf.keras.callbacks.Callback):
         
     def evaluate(self, testX, testY):
         
-        y_pred = self.model.predict(testX)
+        y_pred = self.model.predict(testX, verbose=0)
         roc_list = self.roc_auc(testY, y_pred)
         return roc_list            
 

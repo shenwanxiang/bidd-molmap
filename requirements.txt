@@ -16,6 +16,6 @@ gdown==4.4.0
 lapjv==1.3.22
 mhfp==1.9.2
 tensorflow-gpu==2.9.1
-tensorflow==2.9.1
+tensorflow==2.11.1
 faerun
 tqdm

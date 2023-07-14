@@ -38,6 +38,14 @@ if sys.version_info < REQUIRED_PYTHON_VERSION:
     sys.exit("Python >= 3.7 is required. Your version:\n" + sys.version)
 
 
+classifiers=[
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.9 :: Only',
+    'License :: OSI Approved :: MIT License',
+    'Operating System :: POSIX :: Linux',
+    'Operating System :: Microsoft :: Windows',
+]
+
 class PyTest(TestCommand):
     """
     Use pytest to run tests
@@ -70,6 +78,7 @@ setup(
     version=VERSION,
     author=AUTHOR,
     packages=PACKAGES,
+    classifiers=classifiers,
     include_package_data=True,
     #package_data = PACKAGE_DATA,
     install_requires=INSTALL_DEPENDENCIES,

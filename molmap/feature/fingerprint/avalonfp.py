@@ -12,6 +12,6 @@ def GetAvalonFPs(mol, nBits=2048):
     '''
 
     fp = GAFP(mol, nBits = nBits)
-    arr = np.zeros((0,),  dtype=np.bool)
+    arr = np.zeros((0,),  dtype=np.bool_)
     DataStructs.ConvertToNumpyArray(fp, arr)
     return arr

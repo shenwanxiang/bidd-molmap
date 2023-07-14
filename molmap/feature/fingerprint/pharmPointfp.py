@@ -44,7 +44,7 @@ def GetPharmacoPFPs(mol,
     MysigFactory.Init()
     
     res = Generate.Gen2DFingerprint(mol,MysigFactory)
-    arr = np.array(list(res)).astype(np.bool)
+    arr = np.array(list(res)).astype(np.bool_)
     if return_bitInfo:
         description = []
         for i in range(len(res)):

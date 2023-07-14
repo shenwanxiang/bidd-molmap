@@ -11,7 +11,7 @@ def GetTorsionFPs(mol, nBits = 2048, binary = True):
     '''
     fp = Torsions.GetHashedTopologicalTorsionFingerprint(mol, nBits = nBits)
     if binary:
-        arr = np.zeros((0,),  dtype=np.bool)
+        arr = np.zeros((0,),  dtype=np.bool_)
     else:
         arr = np.zeros((0,),  dtype=np.int8)
     DataStructs.ConvertToNumpyArray(fp, arr)

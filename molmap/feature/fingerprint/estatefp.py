@@ -9,4 +9,4 @@ def GetEstateFPs(mol):
     79 bits Estate fps
     '''
     x = Fingerprinter.FingerprintMol(mol)[0]
-    return x.astype(np.bool)
+    return x.astype(np.bool_)

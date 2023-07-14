@@ -1528,7 +1528,7 @@ def GetPubChemFPs(mol):
     for index3, item3 in enumerate(res2):
         if item3==1:
             AllBits[index3+115]=1
-    AllBits = np.array(AllBits, dtype= np.bool)
+    AllBits = np.array(AllBits, dtype= np.bool_)
     
     return AllBits
 # ------------------------------------

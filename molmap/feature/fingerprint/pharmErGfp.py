@@ -50,7 +50,7 @@ def GetPharmacoErGFPs(mol, fuzzIncrement = 0.3, maxPath = 21, binary = True, ret
     arr = arr.astype(np.float32)
     
     if binary:
-        arr = arr.astype(np.bool)
+        arr = arr.astype(np.bool_)
 
     if return_bitInfo:
         bitInfo = []

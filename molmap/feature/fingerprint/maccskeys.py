@@ -16,7 +16,7 @@ def GetMACCSFPs(mol):
 
     fp =  AllChem.GetMACCSKeysFingerprint(mol)
 
-    arr = np.zeros((0,),  dtype=np.bool)
+    arr = np.zeros((0,),  dtype=np.bool_)
     DataStructs.ConvertToNumpyArray(fp, arr)
     return arr
 

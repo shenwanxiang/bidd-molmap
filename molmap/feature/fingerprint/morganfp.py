@@ -10,7 +10,7 @@ def GetMorganFPs(mol, nBits=2048, radius = 2, return_bitInfo = False):
     bitInfo={}
     fp = AllChem.GetMorganFingerprintAsBitVect(mol, radius=radius, 
                                                bitInfo=bitInfo, nBits = nBits)
-    arr = np.zeros((0,),  dtype=np.bool)
+    arr = np.zeros((0,),  dtype=np.bool_)
     DataStructs.ConvertToNumpyArray(fp, arr)
     
     if return_bitInfo:

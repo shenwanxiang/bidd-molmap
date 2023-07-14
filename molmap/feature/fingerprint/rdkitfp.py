@@ -37,7 +37,7 @@ def GetRDkitFPs(mol, nBits = 2048, return_bitInfo = False):
     
     bitInfo = {}
     fp = RDKFingerprint(mol, fpSize = nBits, bitInfo = bitInfo)
-    arr = np.zeros((0,),  dtype=np.bool)
+    arr = np.zeros((0,),  dtype=np.bool_)
     DataStructs.ConvertToNumpyArray(fp, arr)    
     if return_bitInfo:
         return arr, return_bitInfo

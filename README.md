@@ -10,7 +10,7 @@
 [![Codeocean](https://img.shields.io/badge/reproduction-codeocean-9cf)](https://codeocean.com/capsule/2307823/tree)
 [![Paper](https://img.shields.io/badge/paper-Nature%20Machine%20Intelligence-green)](https://www.nature.com/articles/s42256-021-00301-6)
 [![PyPI version](https://badge.fury.io/py/molmap.svg)](https://badge.fury.io/py/molmap)
-
+[![Downloads](https://static.pepy.tech/badge/molmap)](https://pepy.tech/project/molmap)
 
 
 

@@ -115,6 +115,8 @@ class Extraction:
             arr = np.zeros(shape=(len(self.bitsinfo), ))
             print('error when calculating %s' % smiles)
             
+            raise
+            
         return arr
     
     

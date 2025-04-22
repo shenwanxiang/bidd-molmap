@@ -40,7 +40,6 @@ if sys.version_info < REQUIRED_PYTHON_VERSION:
 
 classifiers=[
     'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.9 :: Only',
     'License :: OSI Approved :: MIT License',
     'Operating System :: POSIX :: Linux',
     'Operating System :: Microsoft :: Windows',

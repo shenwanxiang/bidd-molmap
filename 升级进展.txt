@@ -1,3 +1,0 @@
-由于 tmap 不支持 3.9 以上的 py，所以无法升级
-
-ssh -N -f -L localhost:8761:localhost:8761 shenwanxiang@10.203.98.249

@@ -12,10 +12,16 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from biopandas.pdb import PandasPdb
 from Bio import PDB
+from Bio.Data.PDBData import protein_letters_3to1_extended
+# 给旧版 molmap 补一个它期待的属性
+PDB.protein_letters_3to1 = protein_letters_3to1_extended
+
 import io, PIL
 from sklearn.metrics import pairwise_distances
 
 from molmap.agg import AggMolMap
+from Bio.PDB import Polypeptide
+
 
 
 
@@ -203,6 +209,8 @@ class PDB2Fmap:
             df_embd = self.dfpdb[['residue_name', 'residue_number', 'x_coord', 'y_coord','z_coord', 'b_factor']]
         
         df_embd['residue_name_1aa'] = df_embd['residue_name'].map(PDB.protein_letters_3to1)    
+
+
         df_embd.index = df_embd.index.astype(str) + '-' + df_embd['residue_name_1aa']
         dfx = df_embd[['x_coord','y_coord','z_coord']].T
         self.dfx = dfx
@@ -332,8 +340,9 @@ class PDB2Img:
   
         if self.embd_grain == 'all':
             df_embd = self.dfpdb[['residue_name', 'residue_number', 'x_coord', 'y_coord','z_coord', 'b_factor']]
-        
-        df_embd['residue_name_1aa'] = df_embd['residue_name'].map(PDB.protein_letters_3to1)    
+ 
+        df_embd['residue_name_1aa'] = df_embd['residue_name'].map(Polypeptide.protein_letters_3to1)
+
         df_embd.index = df_embd.index.astype(str) + '-' + df_embd['residue_name_1aa']
         dfx = df_embd[['x_coord','y_coord','z_coord']]
         self.dfx = dfx

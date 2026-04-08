@@ -11,7 +11,7 @@ _type = 'topological-based'
 import itertools
 from collections import defaultdict
 
-import tmap as tm
+#import tmap as tm
 from mhfp.encoder import MHFPEncoder
 from rdkit import Chem
 from rdkit.Chem import rdmolops
@@ -37,7 +37,7 @@ class MAP4Calculator:
         if self.is_folded:
             self.encoder = MHFPEncoder(dimensions)
         else:
-            self.encoder = tm.Minhash(dimensions)
+            self.encoder = MHFPEncoder(dimensions) #tm.Minhash(dimensions)
 
     def calculate(self, mol):
         """Calculates the atom pair minhashed fingerprint

@@ -45,7 +45,7 @@ class Scatter2Grid:
         grid = np.dstack(np.meshgrid(np.linspace(0, 1, size2), 
                                      np.linspace(0, 1, size1))).reshape(-1, 2)
         grid_map = grid[:N]
-        cost_matrix = cdist(grid_map, embedding_2d, "sqeuclidean").astype(np.float)
+        cost_matrix = cdist(grid_map, embedding_2d, "sqeuclidean").astype(float)
         cost_matrix = cost_matrix * (100000 / cost_matrix.max())
         row_asses, col_asses, _ = lapjv(cost_matrix)
 

@@ -11,7 +11,7 @@ main aggmap code
 from molmap.utils.logtools import print_info, print_warn, print_error
 from molmap.utils.matrixopt import Scatter2Grid, Scatter2Array, smartpadding 
 from molmap.utils import summary, calculator
-from molmap.utils import vismap2 as vismap
+from molmap.utils import vismap
 
 
 from sklearn.manifold import TSNE, MDS

@@ -20,7 +20,7 @@ AUTHOR = "WanXiang Shen"
 DESCRIPTION = "MolMap: An Efficient Convolutional Neural Network Based Molecular Deep Learning Tool"
 URL = "https://github.com/shenwanxiang/bidd-molmap"
 
-REQUIRED_PYTHON_VERSION = (3, 9)
+REQUIRED_PYTHON_VERSION = (3, 10)
 PACKAGES = find_packages(exclude = ['test', 'gallery', 'example', '.ipynb_checkpoints',])
 INSTALL_DEPENDENCIES = parse_requirements('./requirements.txt')
 SETUP_DEPENDENCIES = []
@@ -35,7 +35,7 @@ EXTRA_DEPENDENCIES = {"dev": ["pytest"]}
 #print(PACKAGE_DATA)
     
 if sys.version_info < REQUIRED_PYTHON_VERSION:
-    sys.exit("Python >= 3.9 is required. Your version:\n" + sys.version)
+    sys.exit("Python >= 3.10 is required. Your version:\n" + sys.version)
 
 
 classifiers=[
